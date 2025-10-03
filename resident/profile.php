@@ -1,4 +1,3 @@
-
 <?php 
 
 include_once '../connection.php';
@@ -29,9 +28,9 @@ try{
 
 
     if($row_resident['image'] != ''){
-      $iamge_resident = '<img src="'.$row_resident['image_path'].'" alt="resident Image" id="residentImage">';
+      $iamge_resident = $row_resident['image_path'];
     }else{
-      $iamge_resident = '<img src="../assets/dist/img/blank_image.png" alt="resident Image" id="residentImage">';
+      $iamge_resident = '../assets/dist/img/blank_image.png';
     }
 
 
@@ -68,239 +67,482 @@ try{
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>Profile - Barangay Hulo</title>
 
- 
-  <!-- Font Awesome Icons -->
+  <link rel="preload" href="../assets/logo/cover.JPG" as="image"> 
   <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
-  <!-- overlayScrollbars -->
   <link rel="stylesheet" href="../assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../assets/plugins/sweetalert2/css/sweetalert2.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    .rightBar:hover{
-      border-bottom: 3px solid red;
-     
-    }
-    
-
-
-    
-    #barangay_logo{
-      height: 150px;
-      width:auto;
-      max-width:500px;
-    }
-    #residentImage{ 
-      height: 150px;
-      width:auto;
-      max-width:500px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .logo{
-      height: 150px;
-      width:auto;
-      max-width:500px;
-    }
-    .content-wrapper{
-      background-image: url('../assets/logo/cover.jpg');
-      background-repeat:no-repeat;
-background-size:contain;
-background-size: cover;
-background-position:center;
-width: 100%;
-  height: auto;
-        animation-name: example;
-        animation-duration: 5s;
-       
-       
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
     }
 
+    .custom-navbar {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      padding: 12px 0;
+      border-bottom: 3px solid #b30000;
+    }
 
-@keyframes example {
-  from {opacity: 0;}
-  to {opacity: 1.5;}
-}
+    .custom-navbar .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.3s ease;
+    }
 
+    .custom-navbar .navbar-brand:hover {
+      transform: translateY(-2px);
+    }
 
+    .custom-navbar .brand-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #b30000;
+      box-shadow: 0 4px 12px rgba(179, 0, 0, 0.3);
+    }
 
+    .custom-navbar .brand-text {
+      color: #b30000;
+      font-weight: 700;
+      font-size: 24px;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
 
+    .nav-link {
+      color: #333 !important;
+      font-weight: 500;
+      padding: 8px 16px !important;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      margin: 0 4px;
+    }
 
- 
+    .nav-link:hover {
+      background: #b30000 !important;
+      color: white !important;
+      transform: translateY(-2px);
+    }
+
+    .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
+    }
+
+    .content-wrapper {
+      background-color: rgba(0,0,0,0.40);
+      background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('../assets/logo/cover.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay;
+      min-height: calc(100vh - 120px);
+      padding: 40px 0;
+    }
+
+    .profile-container {
+      max-width: 800px;
+      margin: 30px auto; 
+    }
+
+    .profile-card {
+      width: calc(100% - 48px);
+      max-width: 760px; 
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+      border: none;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-header {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      padding: 24px 20px; /* reduced vertical padding */
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .profile-image-container {
+      position: relative;
+      width: 120px; /* smaller image to reduce header height */
+      height: 120px;
+      margin: 0 auto 14px;
+      z-index: 1;
+    }
+
+    .profile-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      object-fit: cover;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .resident-number {
+      color: white;
+      font-size: 16px; /* slightly smaller */
+      font-weight: 600;
+      position: relative;
+      z-index: 1;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-body {
+      padding: 28px 22px; /* reduced padding for compact card */
+    }
+
+    .section-title {
+      font-size: 18px; /* slightly smaller */
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title i {
+      color: #b30000;
+      font-size: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .input-group:focus-within {
+      box-shadow: 0 4px 16px rgba(179, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .input-group-text {
+      background: white;
+      color: #b30000;
+      font-size: 18px;
+      border: none;
+    }
+
+    .form-control {
+      border: none;
+      padding: 12px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      box-shadow: none;
+    }
+
+    .input-group-append .input-group-text {
+      border-left: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .input-group-append .input-group-text:hover {
+      background: #f8f9fa;
+    }
+
+    .input-group-append a {
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .input-group-append a:hover {
+      color: #b30000;
+    }
+
+    .btn-submit {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(179, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: left 0.5s ease;
+    }
+
+    .btn-submit:hover::before {
+      left: 100%;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(179, 0, 0, 0.4);
+    }
+
+    .btn-submit:active {
+      transform: translateY(-1px);
+    }
+
+    footer.main-footer {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      color: #333;
+      text-align: center;
+      padding: 20px 0;
+      font-weight: 500;
+      border-top: 3px solid #b30000;
+    }
+
+    footer .fas {
+      color: #b30000;
+      margin-right: 8px;
+    }
+
+    .invalid-feedback {
+      color: #dc3545;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .is-invalid {
+      border-color: #dc3545 !important;
+    }
+
+    @media (max-width: 768px) {
+      .profile-body {
+        padding: 20px 16px;
+      }
+
+      .profile-header {
+        padding: 20px 16px;
+      }
+
+      .profile-image {
+        width: 100px;
+        height: 100px;
+      }
+
+      .section-title {
+        font-size: 17px;
+      }
+    }
   </style>
 </head>
 <body class="hold-transition layout-top-nav">
 
 <div class="wrapper">
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md " style="background-color: #b30000">
+  <nav class="main-header navbar navbar-expand-md custom-navbar">
     <div class="container">
-      <a href="#" class="navbar-brand">
-        <img src="../assets/dist/img/<?= $image  ?>" alt="logo" class="brand-image img-circle " >
-        <span class="brand-text  text-white"  style="font-weight: 700">  <?= $barangay ?> <?= $zone ?>, <?= $district ?></span>
+      <a href="dashboard.php" class="navbar-brand">
+        <img src="../assets/logo/LogoHulo.PNG" alt="Barangay Logo" class="brand-image">
+        <span class="brand-text">Barangay Hulo</span>
       </a>
 
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-        <!-- Left navbar links -->
-
-
-       
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="dashboard.php" class="nav-link">
+              <i class="fas fa-home"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="profile.php" class="nav-link active">
+              <i class="fas fa-user-alt"></i> <?= $last_name_user ?>-<?= $user_id ?>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="../logout.php" class="nav-link">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+          </li>
+        </ul>
       </div>
-
-      
-
-      <!-- Right navbar links -->
-      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto " >
-          <li class="nav-item">
-            <a href="dashboard.php" class="nav-link text-white rightBar" ><i class="fas fa-home"></i> DASHOBARD</a>
-          </li>
-          <li class="nav-item">
-            <a href="profile.php" class="nav-link text-white rightBar" style="text-transform:uppercase; border-bottom: 3px solid red;"><i class="fas fa-user-alt"></i> <?= $last_name_user ?>-<?= $user_id ?></a>
-          </li>
-          <li class="nav-item">
-            <a href="../logout.php" class="nav-link text-white rightBar" style="text-transform:uppercase;"><i class="fas fa-sign-out-alt"></i> Logout</a>
-          </li>
-      </ul>
     </div>
   </nav>
-  <!-- /.navbar -->
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper" >
-    <!-- Content Header (Page header) -->
- 
-    
-  
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <div class="content  " >
-    <div class="container-fluid pt-5 "  style="background-color: rgba(179,0,0,.75);">
-      <br>
-      <br>
-        <div class="row justify-content-center">
-          <form id="changeProfile" method="post">
-          <div class="card " style="border: 10px solid rgba(179,0,0,.75); border-radius: 0;">
-            <div class="card-body text-white">
-              <div class="col-sm-12 text-center">
-              <?=$iamge_resident ?>
+  <div class="content-wrapper">
+    <div class="content">
+      <div class="container">
+        <div class="profile-container">
+          <div class="profile-card">
+            <div class="profile-header">
+              <div class="profile-image-container">
+                <img src="<?= $iamge_resident ?>" alt="Resident Image" class="profile-image">
               </div>
-              <div class="col-sm-12">
-                <h5 class="card-text" style="font-weight: 1000; color: #0036af">RESIDENT NUMBER - <?= $user_id; ?></h5>
+              <div class="resident-number">
+                <i class="fas fa-id-card"></i> Resident ID: <?= $user_id ?>
               </div>
+            </div>
 
-              <div class="col-sm-12 mt-4">
+            <div class="profile-body">
+              <form id="changeProfile" method="post">
+                <div class="section-title">
+                  <i class="fas fa-user-edit"></i>
+                  <span>Account Settings</span>
+                </div>
+
                 <div class="form-group">
-                  <div class="input-group mb-3">
+                  <div class="input-group">
                     <div class="input-group-prepend">
-                      <span class="input-group-text bg-transparent"><i class="fas fa-user"></i></span>
+                      <span class="input-group-text">
+                        <i class="fas fa-user"></i>
+                      </span>
                     </div>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="USERNAME" value="<?= $username ?>">
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="<?= $username ?>">
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-12 mt-4">
-                <div  class="form-group">
-                  <div class="input-group mb-3" id="show_hide_password_old">
+
+                <div class="form-group">
+                  <div class="input-group" id="show_hide_password_old">
                     <div class="input-group-prepend">
-                      <span class="input-group-text bg-transparent"><i class="fas fa-key"></i></span>
+                      <span class="input-group-text">
+                        <i class="fas fa-lock"></i>
+                      </span>
                     </div>
-                    <input type="password"  id="old_password" name="old_password" class="form-control" placeholder="OLD PASSWORD"  style="border-right: none;">
-                    <div class="input-group-append bg">
-                      <span class="input-group-text bg-transparent"> <a href="" style=" text-decoration:none;"><i class="fas fa-eye-slash" aria-hidden="true"></i></a></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-12 mt-4">
-                <div  class="form-group">
-                  <div class="input-group mb-3" id="show_hide_password">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text bg-transparent"><i class="fas fa-key"></i></span>
-                    </div>
-                    <input type="password"  id="new_password" name="new_password" class="form-control" placeholder="NEW PASSWORD"  style="border-right: none;">
-                    <div class="input-group-append bg">
-                      <span class="input-group-text bg-transparent"> <a href="" style=" text-decoration:none;"><i class="fas fa-eye-slash" aria-hidden="true"></i></a></span>
+                    <input type="password" id="old_password" name="old_password" class="form-control" placeholder="Current Password">
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <a href="#"><i class="fas fa-eye-slash"></i></a>
+                      </span>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-12 mt-4">
-                <div  class="form-group">
-                  <div class="input-group mb-3" id="show_hide_password_confirm">
+
+                <div class="form-group">
+                  <div class="input-group" id="show_hide_password">
                     <div class="input-group-prepend">
-                      <span class="input-group-text bg-transparent"><i class="fas fa-key"></i></span>
+                      <span class="input-group-text">
+                        <i class="fas fa-key"></i>
+                      </span>
                     </div>
-                    <input type="password"  id="edit_confirm_password" name="edit_confirm_password" class="form-control" placeholder="CONFIRM PASSWORD"  style="border-right: none;" >
-                    <div class="input-group-append bg">
-                      <span class="input-group-text bg-transparent"> <a href="" style=" text-decoration:none;"><i class="fas fa-eye-slash" aria-hidden="true"></i></a></span>
+                    <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <a href="#"><i class="fas fa-eye-slash"></i></a>
+                      </span>
                     </div>
                   </div>
                 </div>
-              </div>
-            <div class="col-sm-12 mt-4">
-                <button type="submit" class="btn btn-flat bg-blue btn-lg btn-block elevation-5">CHANGE PROFILE</button>
+
+                <div class="form-group">
+                  <div class="input-group" id="show_hide_password_confirm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="fas fa-check-circle"></i>
+                      </span>
+                    </div>
+                    <input type="password" id="edit_confirm_password" name="edit_confirm_password" class="form-control" placeholder="Confirm New Password">
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <a href="#"><i class="fas fa-eye-slash"></i></a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group mb-0">
+                  <button type="submit" class="btn btn-submit btn-block">
+                    <i class="fas fa-save"></i> Update Profile
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-          </form>
         </div>
-
-  
-      
-
       </div>
-
-
-      <br>
-        <br>
-        <br>
-
-
-
-        </div>
-
-
-     
-          
-               
-      
-     
     </div>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
- 
-  <footer class="main-footer text-white" style="background-color: #b30000">
-    <div class="float-right d-none d-sm-block">
-    
-    </div>
-  <i class="fas fa-map-marker-alt"></i> 91 Coronado, Barangay Hulo, Mandaluyong, Philippines
+  <footer class="main-footer">
+    <i class="fas fa-map-marker-alt"></i> 91 Coronado, Barangay Hulo, Mandaluyong, Philippines
   </footer>
 </div>
-<!-- ./wrapper -->
 
-
-<!-- REQUIRED SCRIPTS -->
-<!-- jQuery -->
 <script src="../assets/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
 <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- overlayScrollbars -->
 <script src="../assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- AdminLTE App -->
 <script src="../assets/dist/js/adminlte.js"></script>
 <script src="../assets/plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="../assets/plugins/jquery-validation/additional-methods.min.js"></script>
 <script src="../assets/plugins/sweetalert2/js/sweetalert2.all.min.js"></script>
-
 
 <script>
 
@@ -320,10 +562,10 @@ width: 100%;
                   
                         Swal.fire({
                             title: '<strong class="text-danger">ERROR</strong>',
-                            type: 'error',
-                            html: '<b>NEW PASSWORD AND CONFIRM PASSWORD NOT MATCH<b>',
+                            icon: 'error',
+                            html: '<b>New password and confirm password do not match<b>',
                             width: '400px',
-                            confirmButtonColor: '#6610f2',
+                            confirmButtonColor: '#b30000',
                           })
 
 
@@ -343,29 +585,29 @@ width: 100%;
                       if(data == 'error1'){
                           Swal.fire({
                             title: '<strong class="text-danger">ERROR</strong>',
-                            type: 'error',
-                            html: '<b>Username is Already Exist<b>',
+                            icon: 'error',
+                            html: '<b>Username already exists<b>',
                             width: '400px',
-                            confirmButtonColor: '#6610f2',
+                            confirmButtonColor: '#b30000',
                           })
                       }else if(data == 'error2'){
 
                         Swal.fire({
                             title: '<strong class="text-danger">ERROR</strong>',
-                            type: 'error',
-                            html: '<b>OLD PASSWORD IS WORNG<b>',
+                            icon: 'error',
+                            html: '<b>Current password is incorrect<b>',
                             width: '400px',
-                            confirmButtonColor: '#6610f2',
+                            confirmButtonColor: '#b30000',
                           })
 
                       }else{
                         
                         Swal.fire({
                           title: '<strong class="text-success">SUCCESS</strong>',
-                          type: 'success',
-                          html: '<b>Updated Account has Successfully<b>',
+                          icon: 'success',
+                          html: '<b>Profile updated successfully<b>',
                           width: '400px',
-                          confirmButtonColor: '#6610f2',
+                          confirmButtonColor: '#b30000',
                           allowOutsideClick: false,
                           showConfirmButton: false,
                           timer: 2000,
@@ -385,11 +627,11 @@ width: 100%;
                     }
                 }).fail(function(){
                     Swal.fire({
-                      title: '<strong class="text-danger">Ooppss..</strong>',
-                      type: 'error',
-                      html: '<b>Something went wrong with ajax !<b>',
+                      title: '<strong class="text-danger">Oops...</strong>',
+                      icon: 'error',
+                      html: '<b>Something went wrong!<b>',
                       width: '400px',
-                      confirmButtonColor: '#6610f2',
+                      confirmButtonColor: '#b30000',
                     })
                 })
 
@@ -421,15 +663,15 @@ width: 100%;
         },
         messages: {
           username: {
-            required: "This Field is required",
-            minlength: "Username must be at least 6 characters long"
+            required: "This field is required",
+            minlength: "Username must be at least 6 characters"
           },
           old_password: {
-            required: "This Field is required",
+            required: "This field is required",
         
           },
           new_password: {
-            minlength: "Minimum Characters 6",
+            minlength: "Password must be at least 6 characters",
         
           },
         

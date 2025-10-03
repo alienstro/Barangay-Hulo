@@ -1,265 +1,545 @@
-<?php 
+<?php
 include_once 'connection.php';
 session_start();
 
-try{
+try {
 
-  if(isset($_SESSION['user_id']) && $_SESSION['user_type']){
+  if (isset($_SESSION['user_id']) && $_SESSION['user_type']) {
 
     $user_id = $_SESSION['user_id'];
     $sql = "SELECT * FROM users WHERE id = '$user_id'";
-    $query = $con->query($sql) or die ($con->error);
+    $query = $con->query($sql) or die($con->error);
     $row = $query->fetch_assoc();
     $account_type = $row['user_type'];
     if ($account_type == 'admin') {
-        echo '<script>window.location.href="admin/dashboard.php";</script>';
+      echo '<script>window.location.href="admin/dashboard.php";</script>';
     } elseif ($account_type == 'secretary') {
-        echo '<script>window.location.href="secretary/dashboard.php";</script>';
+      echo '<script>window.location.href="secretary/dashboard.php";</script>';
     } else {
-        echo '<script>window.location.href="resident/dashboard.php";</script>';
+      echo '<script>window.location.href="resident/dashboard.php";</script>';
     }
   }
 
   $sql = "SELECT * FROM `barangay_information`";
-  $query = $con->prepare($sql) or die ($con->error);
+  $query = $con->prepare($sql) or die($con->error);
   $query->execute();
   $result = $query->get_result();
-  while($row = $result->fetch_assoc()){
-      $barangay = $row['barangay'];
-      $zone = $row['zone'];
-      $district = $row['district'];
-      $image = $row['image'];
-      $image_path = $row['image_path'];
-      $id = $row['id'];
-      $postal_address = $row['postal_address'];
+  while ($row = $result->fetch_assoc()) {
+    $barangay = $row['barangay'];
+    $zone = $row['zone'];
+    $district = $row['district'];
+    $image = $row['image'];
+    $image_path = $row['image_path'];
+    $id = $row['id'];
+    $postal_address = $row['postal_address'];
   }
-
-}catch(Exception $e){
+} catch (Exception $e) {
   echo $e->getMessage();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Barangay Portal</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barangay Hulo - Login</title>
 
-<!-- Font Awesome Icons -->
-<link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
-<link rel="stylesheet" href="assets/plugins/sweetalert2/css/sweetalert2.min.css">
+  <!-- Preload cover image -->
+  <link rel="preload" href="assets/logo/cover.JPG" as="image" fetchpriority="high">
 
-<style>
-  .rightBar:hover {
-    border-bottom: 3px solid red;
-  }
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="assets/plugins/sweetalert2/css/sweetalert2.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  #barangay_logo, .logo {
-    height: 150px;
-    width: auto;
-    max-width: 500px;
-  }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  .content-wrapper {
-    background-image: url('assets/logo/cover.JPG');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100%;
-    animation-name: fadeIn;
-    animation-duration: 5s;
-  }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1.5; }
-  }
-</style>
+    .custom-navbar {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      padding: 12px 0;
+      border-bottom: 3px solid #b30000;
+    }
+
+    .custom-navbar .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.3s ease;
+    }
+
+    .custom-navbar .navbar-brand:hover {
+      transform: translateY(-2px);
+    }
+
+    .custom-navbar .brand-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #b30000;
+      box-shadow: 0 4px 12px rgba(179, 0, 0, 0.3);
+    }
+
+    .custom-navbar .brand-text {
+      color: #b30000;
+      font-weight: 700;
+      font-size: 24px;
+      margin: 0;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-link {
+      color: #333 !important;
+      font-weight: 500;
+      padding: 8px 16px !important;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      margin: 0 4px;
+    }
+
+    .nav-link:hover {
+      background: #b30000 !important;
+      color: white !important;
+      transform: translateY(-2px);
+    }
+
+    .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
+    }
+
+    .content-wrapper {
+      background-color: rgba(0, 0, 0, 0.40);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('assets/logo/cover.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay;
+      min-height: calc(100vh - 120px);
+      padding: 60px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-card {
+      max-width: 480px;
+      margin: 0 auto;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: none;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-header {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      padding: 32px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .logo-container {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 16px;
+    }
+
+    .logo-main {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 5px solid white;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+      object-fit: cover;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .login-title {
+      color: white;
+      font-size: 28px;
+      font-weight: 700;
+      position: relative;
+      z-index: 1;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      margin: 0;
+    }
+
+    .login-body {
+      background: white;
+      padding: 36px 32px;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .input-group {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+    }
+
+    .input-group:focus-within {
+      box-shadow: 0 4px 16px rgba(179, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .input-group-text {
+      background: white;
+      border: none;
+      border-right: none;
+      color: #b30000;
+      font-size: 18px;
+      padding: 12px 16px;
+    }
+
+    .form-control {
+      border: none;
+      padding: 12px 16px;
+      font-size: 14px;
+      height: auto;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .form-control:focus {
+      border-color: #b30000;
+      box-shadow: none;
+    }
+
+    .form-control::placeholder {
+      color: #999;
+      font-weight: 400;
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      border: none;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 14px 32px;
+      width: 100%;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(179, 0, 0, 0.3);
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(179, 0, 0, 0.4);
+      background: linear-gradient(135deg, #8b0000 0%, #b30000 100%);
+    }
+
+    .btn-login:active {
+      transform: translateY(0);
+    }
+
+    .forgot-link {
+      color: #b30000;
+      font-weight: 500;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .forgot-link:hover {
+      color: #8b0000;
+      text-decoration: underline;
+    }
+
+    .footer-custom {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      color: #333;
+      text-align: center;
+      padding: 20px 0;
+      font-weight: 500;
+      border-top: 3px solid #b30000;
+    }
+
+    .footer-custom .fas {
+      color: #b30000;
+      margin-right: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .login-card {
+        max-width: 100%;
+        margin: 20px;
+      }
+
+      .login-body {
+        padding: 28px 24px;
+      }
+
+      .logo-main {
+        width: 110px;
+        height: 110px;
+      }
+
+      .login-title {
+        font-size: 22px;
+      }
+
+      .content-wrapper {
+        background-color: rgba(0, 0, 0, 0.40);
+        background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-blend-mode: overlay;
+        min-height: calc(100vh - 120px);
+        padding: 40px 0;
+      }
+    }
+  </style>
+
 </head>
 
 <body class="hold-transition layout-top-nav">
-<div class="wrapper">
+  <div class="wrapper">
 
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand-md" style="background-color: #b30000;">
-    <div class="container">
-      <a href="" class="navbar-brand">
-        <img src="assets/logo/LogoHulo.PNG" alt="logo" class="img-circle" style="height:50px; width:50px;">
-        <span class="brand-text text-white" style="font-weight: 700">BARANGAY PORTAL</span>
-      </a>
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand-md custom-navbar">
+      <div class="container">
+        <a href="index.php" class="navbar-brand">
+          <img src="assets/logo/LogoHulo.PNG" alt="Barangay Logo" class="brand-image">
+          <span class="brand-text">Barangay Hulo</span>
+        </a>
 
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
-      <div class="collapse navbar-collapse order-3" id="navbarCollapse"></div>
-
-      <!-- Right navbar links -->
-      <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-        <li class="nav-item">
-          <a href="index.php" class="nav-link text-white rightBar">HOME</a>
-        </li>
-        <li class="nav-item">
-          <a href="register.php" class="nav-link text-white rightBar"><i class="fas fa-user-plus"></i> REGISTER</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link text-white rightBar" style="border-bottom: 3px solid red;"><i class="fas fa-user-alt"></i> LOGIN</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-  <!-- /.navbar -->
-
-  <!-- Content Wrapper -->
-  <div class="content-wrapper">
-    <div class="content px-4">
-      <div class="container-fluid pt-5" style="background-color: rgba(179,0,0,.75);">
-        <br><br>
-        <div class="row justify-content-center">
-          <form id="loginForm" method="post">
-            <div class="card" style="border: 10px solid rgba(179,0,0,.75); border-radius: 0;">
-              <div class="card-body text-center text-white">
-                <div class="col-sm-12">
-                  <img src="assets/logo/LogoHulo.JPG" alt="logo" class="img-circle" style="height:300px; width:300px;">
-                </div>
-                <div class="col-sm-12">
-                  <h1 class="card-text" style="font-weight: 1000; color: #b30000;">BARANGAY PORTAL</h1>
-                </div>
-
-                <div class="col-sm-12 mt-4">
-                  <div class="form-group">
-                    <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text bg-transparent"><i class="fas fa-user"></i></span>
-                      </div>
-                      <input type="text" id="username" name="username" class="form-control" placeholder="USERNAME OR RESIDENT NUMBER">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-sm-12 mt-4">
-                  <div class="form-group">
-                    <div class="input-group mb-3" id="show_hide_password">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text bg-transparent"><i class="fas fa-key"></i></span>
-                      </div>
-                      <input type="password" id="password" name="password" class="form-control" placeholder="PASSWORD" style="border-right: none;">
-                      <div class="input-group-append bg">
-                        <span class="input-group-text bg-transparent">
-                          <a href="#" style="text-decoration:none;"><i class="fas fa-eye-slash" aria-hidden="true"></i></a>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-sm-12 text-right">
-                  <a href="forgot.php">Forgot Password</a>
-                </div>
-
-                <div class="col-sm-12 mt-4">
-                  <button type="submit" class="btn btn-flat bg-red btn-lg btn-block">Sign In</button>
-                </div>
-              </div>
-            </div>
-          </form>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="index.php" class="nav-link">
+                <i class="fas fa-home"></i> Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="register.php" class="nav-link">
+                <i class="fas fa-user-plus"></i> Register
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="login.php" class="nav-link active">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </a>
+            </li>
+          </ul>
         </div>
-        <br><br><br>
+      </div>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper" style="background-color:rgba(0,0,0,0.40); background-image: url('assets/logo/cover.JPG'); background-size:cover; background-position:center; background-repeat:no-repeat; background-blend-mode:overlay;">
+      <div class="content">
+        <div class="container">
+          <div class="login-card">
+            <div class="login-header">
+              <div class="logo-container">
+                <img src="assets/logo/LogoHulo.JPG" alt="Barangay Logo" class="logo-main">
+              </div>
+              <h1 class="login-title">Barangay Portal</h1>
+            </div>
+
+            <div class="login-body">
+              <form id="loginForm" method="post">
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username or Resident Number" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group" id="show_hide_password">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                    <div class="input-group-append">
+                      <span class="input-group-text" style="cursor: pointer; border-left: none;">
+                        <a href="#" style="text-decoration:none; color: #b30000;"><i class="fas fa-eye-slash" aria-hidden="true"></i></a>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-right mb-3">
+                  <a href="forgot.php" class="forgot-link">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="btn btn-login">Sign In</button>
+
+                <div class="text-center mt-3">
+                  <span style="color: #666; font-size: 14px;">Don't have an account? </span>
+                  <a href="register.php" class="forgot-link">Register here</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <footer class="main-footer footer-custom">
+      <i class="fas fa-map-marker-alt"></i> 91 Coronado, Barangay Hulo, Mandaluyong, Philippines
+    </footer>
   </div>
 
-  <footer class="main-footer text-white" style="background-color: #b30000;">
-    <div class="float-right d-none d-sm-block"></div>
-    <i class="fas fa-map-marker-alt"></i> 91 Coronado, Barangay Hulo, Mandaluyong, Philippines
-  </footer>
-</div>
+  <!-- jQuery -->
+  <script src="assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="assets/dist/js/adminlte.js"></script>
+  <script src="assets/plugins/sweetalert2/js/sweetalert2.all.min.js"></script>
 
-<!-- jQuery -->
-<script src="assets/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="assets/dist/js/adminlte.js"></script>
-<script src="assets/plugins/sweetalert2/js/sweetalert2.all.min.js"></script>
+  <script>
+    $(document).ready(function() {
 
-<script>
-$(document).ready(function() {
-
-  $("#loginForm").submit(function(e){
-    e.preventDefault();
-    var username = $("#username").val();
-    var password = $("#password").val();
-    if(username == '' || password == ''){
-      Swal.fire({
-        title: '<strong class="text-danger">WARNING</strong>',
-        icon: 'warning',
-        html: '<b>Username and Password is Required<b>',
-        width: '400px',
-      })
-    }else{
-      $.ajax({
-        url: 'loginForm.php',
-        type: 'POST',
-        data: $(this).serialize(),
-        success:function(data){
-          if(data == 'errorUsername' || data == 'errorPassword'){
-            Swal.fire({
-              title: '<strong class="text-danger">ERROR</strong>',
-              icon: 'error',
-              html: '<b>Incorrect Username or Password<b>',
-              width: '400px',
-            })
-          }else if(data == 'admin'){
-            Swal.fire({
-              title: '<strong class="text-success">SUCCESS</strong>',
-              icon: 'success',
-              html: '<b>Login Successfully<b>',
-              width: '400px',
-              showConfirmButton: false,
-              allowOutsideClick: false,
-              timer: 2000
-            }).then(()=>{ window.location.href = 'admin/dashboard.php'; })
-          }else if(data == 'secretary'){
-            Swal.fire({
-              title: '<strong class="text-success">SUCCESS</strong>',
-              icon: 'success',
-              html: '<b>Login Successfully<b>',
-              width: '400px',
-              showConfirmButton: false,
-              allowOutsideClick: false,
-              timer: 2000
-            }).then(()=>{ window.location.href = 'secretary/dashboard.php'; })
-          }else if(data == 'resident'){
-            Swal.fire({
-              title: '<strong class="text-success">SUCCESS</strong>',
-              icon: 'success',
-              html: '<b>Login Successfully<b>',
-              width: '400px',
-              showConfirmButton: false,
-              allowOutsideClick: false,
-              timer: 2000
-            }).then(()=>{ window.location.href = 'resident/dashboard.php'; })
-          }
+      $("#loginForm").submit(function(e) {
+        e.preventDefault();
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if (username == '' || password == '') {
+          Swal.fire({
+            title: '<strong class="text-danger">WARNING</strong>',
+            icon: 'warning',
+            html: '<b>Username and Password is Required<b>',
+            width: '400px',
+          })
+        } else {
+          $.ajax({
+            url: 'loginForm.php',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(data) {
+              if (data == 'errorUsername' || data == 'errorPassword') {
+                Swal.fire({
+                  title: '<strong class="text-danger">ERROR</strong>',
+                  icon: 'error',
+                  html: '<b>Incorrect Username or Password<b>',
+                  width: '400px',
+                })
+              } else if (data == 'admin') {
+                Swal.fire({
+                  title: '<strong class="text-success">SUCCESS</strong>',
+                  icon: 'success',
+                  html: '<b>Login Successfully<b>',
+                  width: '400px',
+                  showConfirmButton: false,
+                  allowOutsideClick: false,
+                  timer: 2000
+                }).then(() => {
+                  window.location.href = 'admin/dashboard.php';
+                })
+              } else if (data == 'secretary') {
+                Swal.fire({
+                  title: '<strong class="text-success">SUCCESS</strong>',
+                  icon: 'success',
+                  html: '<b>Login Successfully<b>',
+                  width: '400px',
+                  showConfirmButton: false,
+                  allowOutsideClick: false,
+                  timer: 2000
+                }).then(() => {
+                  window.location.href = 'secretary/dashboard.php';
+                })
+              } else if (data == 'resident') {
+                Swal.fire({
+                  title: '<strong class="text-success">SUCCESS</strong>',
+                  icon: 'success',
+                  html: '<b>Login Successfully<b>',
+                  width: '400px',
+                  showConfirmButton: false,
+                  allowOutsideClick: false,
+                  timer: 2000
+                }).then(() => {
+                  window.location.href = 'resident/dashboard.php';
+                })
+              }
+            }
+          })
         }
-      })
-    }
-  });
+      });
 
-  $("#show_hide_password a").on('click', function(event) {
-    event.preventDefault();
-    if($('#show_hide_password input').attr("type") == "text"){
-      $('#show_hide_password input').attr('type', 'password');
-      $('#show_hide_password i').addClass("fa-eye-slash").removeClass("fa-eye");
-    }else{
-      $('#show_hide_password input').attr('type', 'text');
-      $('#show_hide_password i').removeClass("fa-eye-slash").addClass("fa-eye");
-    }
-  });
-});
-</script>
+      $("#show_hide_password a").on('click', function(event) {
+        event.preventDefault();
+        if ($('#show_hide_password input').attr("type") == "text") {
+          $('#show_hide_password input').attr('type', 'password');
+          $('#show_hide_password i').addClass("fa-eye-slash").removeClass("fa-eye");
+        } else {
+          $('#show_hide_password input').attr('type', 'text');
+          $('#show_hide_password i').removeClass("fa-eye-slash").addClass("fa-eye");
+        }
+      });
+    });
+  </script>
 </body>
+
 </html>
