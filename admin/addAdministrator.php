@@ -14,6 +14,7 @@ try{
   $username = $con->real_escape_string($_POST['username']);
   $password = $con->real_escape_string($_POST['password']);
   $contact_number = $con->real_escape_string($_POST['contact_number']);
+  $email = isset($_POST['email']) ? $con->real_escape_string($_POST['email']) : '';
   $image = $con->real_escape_string($_FILES['image']['name']);
 
   date_default_timezone_set('Asia/Manila');
@@ -47,10 +48,14 @@ try{
     exit('error');
   }
 
+    // Server-side email validation: allow empty, but if provided must be valid
+    if(!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)){
+      exit('errorEmail');
+    }
 
-  $sql = "INSERT INTO `users` (`id`,`first_name`,`middle_name`,`last_name`,`username`,`password`,`user_type`,`contact_number`,`image`,`image_path`)VALUES(?,?,?,?,?,?,?,?,?,?)";
+  $sql = "INSERT INTO `users` (`id`,`first_name`,`middle_name`,`last_name`,`username`,`password`,`user_type`,`contact_number`,`email`,`image`,`image_path`)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
   $stmt = $con->prepare($sql) or die ($con->error);
-  $stmt->bind_param('ssssssssss',
+  $stmt->bind_param('sssssssssss',
     $id,
     $first_name,
     $middle_name,
@@ -59,6 +64,7 @@ try{
     $password,
     $user_type,
     $contact_number,
+    $email,
     $new_image_name,
     $new_image_path
   );

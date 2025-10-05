@@ -494,6 +494,7 @@ while ($row = $result->fetch_assoc()) {
                   <h3 class="profile-username">
                     <span id="keyup_first_name"></span> <span id="keyup_last_name"></span>
                   </h3>
+                  <p class="profile-email" id="keyup_email" style="margin:6px 0 0; color:#666; font-size:14px;"></p>
                 </div>
 
                 <!-- Tabs -->
@@ -741,6 +742,13 @@ while ($row = $result->fetch_assoc()) {
                       </div>
 
                       <div class="col-12">
+                        <div class="form-group">
+                          <label>Email</label>
+                          <input type="email" id="add_account_email" name="email" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="col-12">
                         <div class="form-group position-relative">
                           <label>Password</label>
                           <input type="password" id="add_password" name="add_password" class="form-control" style="padding-right:44px;">
@@ -974,6 +982,12 @@ while ($row = $result->fetch_assoc()) {
               email: true
             },
 
+
+            email: {
+              required: false,
+              email: true
+            },
+
             // Guardian
             add_fathers_name: {
               required: false
@@ -1174,6 +1188,14 @@ while ($row = $result->fetch_assoc()) {
       $("#add_last_name").keyup(function() {
         var last_name = $(this).val();
         $("#keyup_last_name").text(last_name);
+      });
+
+      // Sync profile email display from either email input
+      $("#add_account_email, #add_email_address").on('input change', function() {
+        var accountEmail = $("#add_account_email").val();
+        var contactEmail = $("#add_email_address").val();
+        var display = accountEmail || contactEmail || '';
+        $("#keyup_email").text(display);
       });
 
 

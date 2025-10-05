@@ -121,9 +121,14 @@ $stmt_residence_status->execute();
 $stmt_residence_status->close();
 
 
-$sql_add_user = "INSERT INTO `users`(`id`, `first_name`, `middle_name`, `last_name`, `username`, `password`, `user_type`, `contact_number`,`image`,`image_path`) VALUES (?,?,?,?,?,?,?,?,?,?)";
+// Server-side email validation: allow empty, but if provided must be valid
+if(!empty($add_email_address) && !filter_var($add_email_address, FILTER_VALIDATE_EMAIL)){
+  exit('errorEmail');
+}
+
+$sql_add_user = "INSERT INTO `users`(`id`, `first_name`, `middle_name`, `last_name`, `username`, `password`, `user_type`, `contact_number`, `email`, `image`,`image_path`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 $stmt_user = $con->prepare($sql_add_user) or die ($con->error);
-$stmt_user->bind_param('ssssssssss',$number,$add_first_name,$add_middle_name,$add_last_name,$number,$password,$user_type,$add_contact_number,$new_image_name,$new_image_path);
+$stmt_user->bind_param('sssssssssss',$number,$add_first_name,$add_middle_name,$add_last_name,$number,$password,$user_type,$add_contact_number,$add_email_address,$new_image_name,$new_image_path);
 $stmt_user->execute();
 $stmt_user->close();
 

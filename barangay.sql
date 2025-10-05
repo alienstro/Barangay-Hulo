@@ -618,6 +618,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL DEFAULT 'none',
   `user_type` varchar(255) NOT NULL DEFAULT 'none',
   `contact_number` varchar(255) NOT NULL DEFAULT 'none',
+  `email` varchar(255) NOT NULL DEFAULT 'none',
   `image` varchar(255) NOT NULL DEFAULT 'none',
   `image_path` varchar(255) NOT NULL DEFAULT 'none'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -626,11 +627,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`a_i`, `id`, `first_name`, `middle_name`, `last_name`, `username`, `password`, `user_type`, `contact_number`, `image`, `image_path`) VALUES
-(52, '1506135735699', 'Admin', 'Admin', 'Admin', 'admin123', 'admin123', 'admin', '11111111111', '182708071361a0f053c94fb.png', '../assets/dist/img/182708071361a0f053c94fb.png'),
-(195, '174668789044820710152022021619941', 'Secretary', 'Secretary', 'Secretary', 'secretary123', 'secretary123', 'secretary', '99999999999', '', ''),
-(205, '85162776572960', 'mark joshua', 'orejas', 'pedro', 'markjoshuapedro', 'mark12345', 'resident', '09545454547', '170558109168dd076b5f198.jpg', '../assets/dist/img/170558109168dd076b5f198.jpg'),
-(206, '68313917775145', 'krizia angela', 'baliw', 'vergara', '68313917775145', '09282025225011475', 'resident', '11111111111', '', '');
+INSERT INTO `users` (`a_i`, `id`, `first_name`, `middle_name`, `last_name`, `username`, `password`, `user_type`, `contact_number`, `email`, `image`, `image_path`) VALUES
+(52, '1506135735699', 'Admin', 'Admin', 'Admin', 'admin123', 'admin123', 'admin', '11111111111', '', '182708071361a0f053c94fb.png', '../assets/dist/img/182708071361a0f053c94fb.png'),
+(195, '174668789044820710152022021619941', 'Secretary', 'Secretary', 'Secretary', 'secretary123', 'secretary123', 'secretary', '99999999999', '', '', ''),
+(205, '85162776572960', 'mark joshua', 'orejas', 'pedro', 'markjoshuapedro', 'mark12345', 'resident', '09545454547', '', '170558109168dd076b5f198.jpg', '../assets/dist/img/170558109168dd076b5f198.jpg'),
+(206, '68313917775145', 'krizia angela', 'baliw', 'vergara', '68313917775145', '09282025225011475', 'resident', '11111111111', '', '', '');
 
 -- --------------------------------------------------------
 
