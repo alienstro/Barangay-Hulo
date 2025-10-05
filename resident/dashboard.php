@@ -293,7 +293,7 @@ try {
     }
 
     .service-card:nth-child(1) .service-icon {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #b30000 0%, #9C0000FF 100%);
       color: white;
     }
 
@@ -313,7 +313,7 @@ try {
     }
 
     .service-card:nth-child(1):hover .service-icon {
-      color: #667eea;
+      color: #b30000;
     }
 
     .service-card:nth-child(2):hover .service-icon {
@@ -364,7 +364,7 @@ try {
     footer .fas {
       color: #b30000;
       margin-right: 8px;
-      
+
     }
 
     @media (max-width: 768px) {
