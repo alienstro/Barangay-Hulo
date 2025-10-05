@@ -91,6 +91,7 @@ try{
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
       padding: 12px 0;
       border-bottom: 3px solid #b30000;
+      z-index: 1000;
     }
 
     .custom-navbar .navbar-brand {
@@ -121,6 +122,15 @@ try{
       letter-spacing: -0.5px;
     }
 
+    .navbar-toggler {
+      border: 2px solid #b30000;
+      padding: 6px 10px;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23b30000' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
     .nav-link {
       color: #333 !important;
       font-weight: 500;
@@ -128,6 +138,10 @@ try{
       border-radius: 8px;
       transition: all 0.3s ease;
       margin: 0 4px;
+    }
+
+    .nav-link i {
+      margin-right: 8px;
     }
 
     .nav-link:hover {
@@ -148,8 +162,9 @@ try{
       background-position: center;
       background-repeat: no-repeat;
       background-blend-mode: overlay;
+      background-attachment: fixed;
       min-height: calc(100vh - 120px);
-      padding: 60px 0;
+      padding: 60px 20px;
     }
 
     .cert-container {
@@ -245,7 +260,7 @@ try{
     }
 
     .input-group-text {
-      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      background: #8b0000;
       color: white;
       border: none;
       font-weight: 600;
@@ -301,7 +316,7 @@ try{
     }
 
     .table thead th {
-      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      background: #8b0000;
       color: white;
       font-weight: 600;
       border: none;
@@ -325,9 +340,10 @@ try{
       backdrop-filter: blur(10px);
       color: #333;
       text-align: center;
-      padding: 20px 0;
+      padding: 20px;
       font-weight: 500;
       border-top: 3px solid #b30000;
+      font-size: 14px;
     }
 
     .footer-custom .fas {
@@ -348,7 +364,7 @@ try{
     .dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
       color: #fff;
       border: transparent;
-      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      background: #8b0000;
       font-weight: bold;
     }
 
@@ -388,21 +404,508 @@ try{
       display: none;
     }
 
-    @media (max-width: 768px) {
+    /* Tablet Styles (768px - 991px) */
+    @media (max-width: 991px) {
+      .custom-navbar .brand-text {
+        font-size: 20px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 45px;
+        height: 45px;
+      }
+
+      .navbar-nav {
+        margin-top: 10px;
+      }
+
+      .navbar-collapse {
+        padding: 0 10px;
+      }
+
+      .nav-link {
+        margin: 4px 0;
+        text-align: left;
+      }
+
+      .nav-link i {
+        margin-right: 10px;
+        width: 20px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .content-wrapper {
+        padding: 40px 15px;
+      }
+
       .cert-container {
-        margin: 20px;
+        max-width: 1200px;
       }
 
       .cert-body {
-        padding: 28px 24px;
+        padding: 32px 28px;
+      }
+    }
+
+    /* Mobile Styles (481px - 767px) */
+    @media (max-width: 767px) {
+      .navbar-toggler {
+        border: 2px solid #b30000;
+        margin-right: 10px !important;
+      }
+
+      .navbar-brand {
+        margin-left: 10px;
+      }
+
+      .custom-navbar {
+        padding: 10px 0;
+      }
+
+      .custom-navbar .brand-text {
+        font-size: 18px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #b30000;
+      }
+
+      .content-wrapper {
+        background-attachment: scroll;
+        padding: 30px 15px;
+        min-height: calc(100vh - 100px);
+      }
+
+      .cert-container {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      .cert-card {
+        border-radius: 20px;
+      }
+
+      .cert-header {
+        padding: 28px 20px;
+      }
+
+      .cert-title {
+        font-size: 24px;
+      }
+
+      .cert-subtitle {
+        font-size: 15px;
+      }
+
+      .cert-body {
+        padding: 28px 20px;
+      }
+
+      .d-flex {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
+
+      .d-flex h4 {
+        margin-bottom: 12px !important;
+        text-align: center;
+      }
+
+      .btn-new-request {
+        width: 100%;
+        font-size: 13px;
+        padding: 11px 20px;
+      }
+
+      .badge-total {
+        font-size: 13px;
+        padding: 5px 10px;
+      }
+
+      .search-container {
+        margin-bottom: 20px;
+      }
+
+      .search-container .col-sm-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .input-group-text {
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+
+      .form-control {
+        font-size: 13px;
+        padding: 10px 14px;
+      }
+
+      .btn-reset {
+        font-size: 12px;
+        padding: 10px 16px;
+      }
+
+      .custom-select {
+        font-size: 12px;
+        padding: 6px 10px;
+      }
+
+      .table {
+        font-size: 12px;
+      }
+
+      .table thead th {
+        font-size: 11px;
+        padding: 10px 6px;
+      }
+
+      .table tbody td {
+        padding: 10px 6px;
+      }
+
+      .table-responsive {
+        border-radius: 12px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      footer.footer-custom {
+        padding: 15px;
+        font-size: 12px;
+      }
+    }
+
+    /* Small Mobile Styles (max-width: 480px) */
+    @media (max-width: 480px) {
+      .custom-navbar .brand-text {
+        font-size: 16px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 38px;
+        height: 38px;
+      }
+
+      .content-wrapper {
+        padding: 20px 10px;
+      }
+
+      .cert-card {
+        border-radius: 16px;
+      }
+
+      .cert-header {
+        padding: 24px 16px;
       }
 
       .cert-title {
         font-size: 22px;
+        letter-spacing: 0.5px;
       }
 
+      .cert-subtitle {
+        font-size: 14px;
+      }
+
+      .cert-body {
+        padding: 24px 16px;
+      }
+
+      .d-flex h4 {
+        font-size: 18px;
+      }
+
+      .btn-new-request {
+        font-size: 12px;
+        padding: 10px 18px;
+        border-radius: 10px;
+        letter-spacing: 0.3px;
+      }
+
+      .badge-total {
+        font-size: 12px;
+        padding: 4px 8px;
+        margin-left: 6px;
+      }
+
+      .search-container {
+        margin-bottom: 18px;
+      }
+
+      .input-group {
+        border-radius: 10px;
+      }
+
+      .input-group-text {
+        padding: 9px 10px;
+        font-size: 12px;
+        border-radius: 10px 0 0 10px;
+      }
+
+      .form-control {
+        font-size: 12px;
+        padding: 0 12px;
+        border-radius: 0 10px 10px 0;
+      }
+
+      .btn-reset {
+        font-size: 11px;
+        padding: 9px 14px;
+      }
+
+      .custom-select {
+        font-size: 11px;
+        padding: 5px 8px;
+        border-radius: 10px;
+      }
+
+      .table {
+        font-size: 11px;
+      }
+
+      .table thead th {
+        font-size: 10px;
+        padding: 8px 4px;
+        white-space: nowrap;
+      }
+
+      .table tbody td {
+        padding: 8px 4px;
+        white-space: nowrap;
+      }
+
+      .dataTables_length select {
+        padding: 3px 6px;
+        font-size: 12px;
+      }
+
+      .dataTables_info {
+        font-size: 11px;
+      }
+
+      footer.footer-custom {
+        padding: 12px 10px;
+        font-size: 11px;
+        line-height: 1.6;
+      }
+    }
+
+    /* Extra Small Mobile (max-width: 360px) */
+    @media (max-width: 360px) {
+      .custom-navbar .brand-text {
+        font-size: 14px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 35px;
+        height: 35px;
+      }
+
+      .cert-header {
+        padding: 20px 14px;
+      }
+
+      .cert-title {
+        font-size: 20px;
+      }
+
+      .cert-subtitle {
+        font-size: 13px;
+      }
+
+      .cert-body {
+        padding: 20px 14px;
+      }
+
+      .d-flex h4 {
+        font-size: 16px;
+      }
+
+      .btn-new-request {
+        font-size: 11px;
+        padding: 9px 16px;
+      }
+
+      .badge-total {
+        font-size: 11px;
+        padding: 3px 7px;
+      }
+
+      .table {
+        font-size: 10px;
+      }
+
+      .table thead th,
+      .table tbody td {
+        padding: 6px 3px;
+      }
+    }
+
+    /* Modal Responsive Styles */
+    @media (max-width: 767px) {
+      .modal-dialog {
+        margin: 10px;
+        max-width: calc(100% - 20px);
+      }
+
+      .modal-content {
+        border-radius: 14px !important;
+      }
+
+      .modal-header {
+        padding: 20px 16px;
+        border-radius: 14px 14px 0 0 !important;
+      }
+
+      .modal-title {
+        font-size: 16px;
+      }
+
+      .modal-body {
+        padding: 20px 16px !important;
+      }
+
+      .modal-footer {
+        padding: 14px 16px !important;
+        flex-direction: column;
+      }
+
+      .modal-footer .btn {
+        width: 100%;
+        margin: 4px 0 !important;
+      }
+
+      .modal-footer .btn-secondary {
+        order: 2;
+      }
+
+      .modal-footer .btn-new-request {
+        order: 1;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .modal-header {
+        padding: 16px 14px;
+      }
+
+      .modal-title {
+        font-size: 15px;
+      }
+
+      .modal-body {
+        padding: 16px 14px !important;
+      }
+
+      .modal-body .form-control {
+        font-size: 13px;
+        padding: 0 14px;
+        border-radius: 10px !important;
+      }
+
+      .modal-body label {
+        font-size: 13px;
+      }
+
+      .modal-footer {
+        padding: 12px 14px !important;
+      }
+
+      .modal-footer .btn {
+        font-size: 13px;
+        padding: 10px 20px;
+        border-radius: 10px !important;
+      }
+    }
+
+    /* Landscape Mobile Orientation */
+    @media (max-height: 600px) and (orientation: landscape) {
       .content-wrapper {
-        padding: 40px 0;
+        padding: 20px 15px;
+        min-height: auto;
+      }
+
+      .cert-header {
+        padding: 16px;
+      }
+
+      .cert-title {
+        font-size: 20px;
+      }
+
+      .cert-subtitle {
+        font-size: 13px;
+        margin-top: 4px;
+      }
+
+      .cert-body {
+        padding: 20px 16px;
+      }
+
+      .search-container {
+        margin-bottom: 14px;
+      }
+
+      .table thead th,
+      .table tbody td {
+        padding: 6px 4px;
+      }
+    }
+
+    /* DataTables Responsive Enhancements */
+    @media (max-width: 767px) {
+      .dataTables_wrapper .dataTables_paginate {
+        text-align: center;
+        margin-top: 12px;
+      }
+
+      .dataTables_wrapper .dataTables_paginate .pagination {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .dataTables_wrapper .dataTables_length {
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .dataTables_wrapper .dataTables_info {
+        text-align: center;
+        padding: 8px 0;
+      }
+
+      .dataTables_wrapper .row {
+        margin: 0;
+      }
+
+      .dataTables_wrapper .col-sm-12 {
+        padding: 0;
+      }
+    }
+
+    /* Ensure proper touch targets on mobile */
+    @media (hover: none) and (pointer: coarse) {
+      .nav-link,
+      .btn-new-request,
+      .btn-reset,
+      .custom-select {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .form-control {
+        min-height: 44px;
+      }
+
+      .table thead th select,
+      .custom-select {
+        min-height: 40px;
       }
     }
   </style>
@@ -581,7 +1084,7 @@ try{
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-radius: 16px; border: none;">
       <form id="requestForm" method="post">
-        <div class="modal-header" style="background: linear-gradient(135deg, #b30000 0%, #8b0000 100%); border-radius: 16px 16px 0 0; border: none;">
+        <div class="modal-header" style="background: #8b0000; border-radius: 16px 16px 0 0; border: none;">
           <h5 class="modal-title" style="color: white; font-weight: 600;">
             <i class="fas fa-file-alt"></i> New Certificate Request
           </h5>
@@ -596,7 +1099,43 @@ try{
               <div class="col-sm-12">
                 <div class="form-group">
                   <label style="font-weight: 600; color: #333;">Purpose</label>
-                  <input type="text" name="purpose" id="purpose" class="form-control text-uppercase" required placeholder="Enter certificate purpose..." style="border-radius: 12px; padding: 12px 16px;">
+                  <select name="purpose" id="purpose" class="form-control" required style="border-radius: 12px; padding: 0 16px;">
+                    <option value="">Select certificate purpose...</option>
+                    <option value="Financial Assistance">Financial Assistance</option>
+                    <option value="Medical Assistance">Medical Assistance</option>
+                    <option value="Cremation Assistance">Cremation Assistance</option>
+                    <option value="Livelihood Assistance">Livelihood Assistance</option>
+                    <option value="PAO Assistance">PAO Assistance</option>
+                    <option value="Calamity Assistance">Calamity Assistance</option>
+                    <option value="SPES Assistance">SPES Assistance</option>
+                    <option value="TUPAD / Cash for Work">TUPAD / Cash for Work</option>
+                    <option value="Scholarship Purposes">Scholarship Purposes</option>
+                    <option value="School Requirement">School Requirement</option>
+                    <option value="Project Teach">Project Teach</option>
+                    <option value="Employment Purposes">Employment Purposes</option>
+                    <option value="OSCA ID Purposes">OSCA ID Purposes</option>
+                    <option value="Probation Purposes">Probation Purposes</option>
+                    <option value="Bail Purposes">Bail Purposes</option>
+                    <option value="TESDA Purposes">TESDA Purposes</option>
+                    <option value="Legal Purposes">Legal Purposes</option>
+                    <option value="DSWD Purposes">DSWD Purposes</option>
+                    <option value="TESDA Scholarship Purposes">TESDA Scholarship Purposes</option>
+                    <option value="Anti Rabies Vaccine">Anti Rabies Vaccine</option>
+                    <option value="Proof of Residency">Proof of Residency</option>
+                    <option value="Calamity Certificate">Calamity Certificate</option>
+                    <option value="Loan Purpose">Loan Purpose</option>
+                    <option value="Bank Purposes">Bank Purposes</option>
+                    <option value="Senior ID Purposes">Senior ID Purposes</option>
+                    <option value="PhilHealth Purposes">PhilHealth Purposes</option>
+                    <option value="Senior ID Citizen">Senior ID Citizen</option>
+                    <option value="PWD Purposes">PWD Purposes</option>
+                    <option value="Postal ID Purposes">Postal ID Purposes</option>
+                    <option value="Solo ID Parent">Solo ID Parent</option>
+                    <option value="Good Moral">Good Moral</option>
+                    <option value="Cohabitation">Cohabitation</option>
+                    <option value="Legal (handwritten)">Legal (handwritten)</option>
+                    <option value="Renewal Solo ID (handwritten)">Renewal Solo ID (handwritten)</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -849,9 +1388,7 @@ try{
 
 
 
-  $("#purpose").inputFilter(function(value) {
-  return /^[a-z, ]*$/i.test(value); 
-  });
+  // Purpose is now a select dropdown, no input filter needed
   
 
 

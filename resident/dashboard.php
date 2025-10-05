@@ -84,6 +84,7 @@ try {
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
       padding: 12px 0;
       border-bottom: 3px solid #b30000;
+      z-index: 1000;
     }
 
     .custom-navbar .navbar-brand {
@@ -114,6 +115,15 @@ try {
       letter-spacing: -0.5px;
     }
 
+    .navbar-toggler {
+      border: 2px solid #b30000;
+      padding: 6px 10px;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23b30000' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
     .nav-link {
       color: #333 !important;
       font-weight: 500;
@@ -123,10 +133,19 @@ try {
       margin: 0 4px;
     }
 
+    .nav-link i {
+      margin-right: 8px;
+    }
+
     .nav-link:hover {
       background: #b30000 !important;
       color: white !important;
       transform: translateY(-2px);
+    }
+
+    .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
     }
 
     .content-wrapper {
@@ -136,8 +155,9 @@ try {
       background-position: center;
       background-repeat: no-repeat;
       background-blend-mode: overlay;
+      background-attachment: fixed;
       min-height: calc(100vh - 120px);
-      padding: 40px 0;
+      padding: 40px 20px;
     }
 
     .welcome-card {
@@ -356,34 +376,324 @@ try {
       backdrop-filter: blur(10px);
       color: #333;
       text-align: center;
-      padding: 20px 0;
+      padding: 20px;
       font-weight: 500;
       border-top: 3px solid #b30000;
+      font-size: 14px;
     }
 
     footer .fas {
       color: #b30000;
       margin-right: 8px;
-
     }
 
-    @media (max-width: 768px) {
+    /* Tablet Styles (768px - 991px) */
+    @media (max-width: 991px) {
+      .custom-navbar .brand-text {
+        font-size: 20px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 45px;
+        height: 45px;
+      }
+
+      .navbar-nav {
+        margin-top: 10px;
+      }
+
+      .navbar-collapse {
+        padding: 0 10px;
+      }
+
+      .nav-link {
+        margin: 4px 0;
+        text-align: left;
+      }
+
+      .nav-link i {
+        margin-right: 10px;
+        width: 20px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .content-wrapper {
+        padding: 30px 15px;
+      }
+
       .welcome-text {
-        font-size: 24px;
+        font-size: 28px;
       }
 
       .user-name {
-        font-size: 32px;
+        font-size: 36px;
       }
 
       .services-container {
-        grid-template-columns: 1fr;
+        padding: 40px 30px;
+        gap: 25px;
+      }
+    }
+
+    /* Mobile Styles (481px - 767px) */
+    @media (max-width: 767px) {
+      .navbar-toggler {
+        border: 2px solid #b30000;
+        margin-right: 10px !important;
+      }
+
+      .navbar-brand {
+        margin-left: 10px;
+      }
+
+      .custom-navbar {
+        padding: 10px 0;
+      }
+
+      .custom-navbar .brand-text {
+        font-size: 18px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #b30000;
+      }
+
+      .content-wrapper {
+        background-attachment: scroll;
+        padding: 30px 15px;
+        min-height: calc(100vh - 100px);
+      }
+
+      .welcome-card {
+        border-radius: 20px;
+      }
+
+      .welcome-header {
         padding: 30px 20px;
       }
 
       .logo-main {
         width: 140px;
         height: 140px;
+        border: 5px solid white;
+      }
+
+      .welcome-text {
+        font-size: 24px;
+      }
+
+      .user-name {
+        font-size: 32px;
+        letter-spacing: 1px;
+      }
+
+      .services-container {
+        grid-template-columns: 1fr;
+        padding: 30px 20px;
+        gap: 20px;
+      }
+
+      .service-card {
+        border-radius: 16px;
+      }
+
+      .service-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 35px;
+      }
+
+      .service-title {
+        font-size: 22px;
+      }
+
+      footer.main-footer {
+        padding: 15px;
+        font-size: 12px;
+      }
+    }
+
+    /* Small Mobile Styles (max-width: 480px) */
+    @media (max-width: 480px) {
+      .custom-navbar .brand-text {
+        font-size: 16px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 38px;
+        height: 38px;
+      }
+
+      .content-wrapper {
+        padding: 20px 10px;
+      }
+
+      .welcome-card {
+        border-radius: 16px;
+      }
+
+      .welcome-header {
+        padding: 24px 16px;
+      }
+
+      .logo-main {
+        width: 120px;
+        height: 120px;
+        border: 4px solid white;
+      }
+
+      .welcome-text {
+        font-size: 20px;
+        margin-bottom: 8px;
+      }
+
+      .user-name {
+        font-size: 28px;
+        letter-spacing: 1px;
+      }
+
+      .services-container {
+        padding: 25px 15px;
+        gap: 15px;
+      }
+
+      .service-card {
+        padding: 12px 16px;
+        border-radius: 14px;
+      }
+
+      .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+        margin-bottom: 12px;
+      }
+
+      .service-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .service-description {
+        font-size: 13px;
+      }
+
+      footer.main-footer {
+        padding: 12px 10px;
+        font-size: 11px;
+        line-height: 1.6;
+      }
+    }
+
+    /* Extra Small Mobile (max-width: 360px) */
+    @media (max-width: 360px) {
+      .custom-navbar .brand-text {
+        font-size: 14px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 35px;
+        height: 35px;
+      }
+
+      .logo-main {
+        width: 100px;
+        height: 100px;
+        border: 3px solid white;
+      }
+
+      .welcome-text {
+        font-size: 18px;
+      }
+
+      .user-name {
+        font-size: 24px;
+      }
+
+      .services-container {
+        padding: 20px 12px;
+      }
+
+      .service-icon {
+        width: 55px;
+        height: 55px;
+        font-size: 28px;
+      }
+
+      .service-title {
+        font-size: 18px;
+      }
+
+      .service-description {
+        font-size: 12px;
+      }
+    }
+
+    /* Landscape Mobile Orientation */
+    @media (max-height: 600px) and (orientation: landscape) {
+      .content-wrapper {
+        padding: 20px 15px;
+        min-height: auto;
+      }
+
+      .welcome-header {
+        padding: 20px 16px;
+      }
+
+      .logo-main {
+        width: 100px;
+        height: 100px;
+      }
+
+      .welcome-text {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+
+      .user-name {
+        font-size: 24px;
+      }
+
+      .services-container {
+        padding: 25px 20px;
+        gap: 15px;
+      }
+
+      .service-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 25px;
+      }
+
+      @keyframes float {
+
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+    }
+
+    /* Ensure proper touch targets on mobile */
+    @media (hover: none) and (pointer: coarse) {
+
+      .nav-link,
+      .service-card {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .service-card {
+        flex-direction: column;
       }
     }
   </style>
@@ -406,7 +716,7 @@ try {
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="dashboard.php" class="nav-link active">
                 <i class="fas fa-home"></i> Dashboard
               </a>
             </li>

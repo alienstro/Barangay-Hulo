@@ -90,6 +90,7 @@ try{
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
       padding: 12px 0;
       border-bottom: 3px solid #b30000;
+      z-index: 1000;
     }
 
     .custom-navbar .navbar-brand {
@@ -120,6 +121,15 @@ try{
       letter-spacing: -0.5px;
     }
 
+    .navbar-toggler {
+      border: 2px solid #b30000;
+      padding: 6px 10px;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23b30000' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
     .nav-link {
       color: #333 !important;
       font-weight: 500;
@@ -127,6 +137,10 @@ try{
       border-radius: 8px;
       transition: all 0.3s ease;
       margin: 0 4px;
+    }
+
+    .nav-link i {
+      margin-right: 8px;
     }
 
     .nav-link:hover {
@@ -147,8 +161,9 @@ try{
       background-position: center;
       background-repeat: no-repeat;
       background-blend-mode: overlay;
+      background-attachment: fixed;
       min-height: calc(100vh - 120px);
-      padding: 60px 0;
+      padding: 60px 20px;
     }
 
     .info-container {
@@ -344,9 +359,10 @@ try{
       backdrop-filter: blur(10px);
       color: #333;
       text-align: center;
-      padding: 20px 0;
+      padding: 20px;
       font-weight: 500;
       border-top: 3px solid #b30000;
+      font-size: 14px;
     }
 
     .footer-custom .fas {
@@ -354,31 +370,419 @@ try{
       margin-right: 8px;
     }
 
-    @media (max-width: 768px) {
+    /* Tablet Styles (768px - 991px) */
+    @media (max-width: 991px) {
+      .custom-navbar .brand-text {
+        font-size: 20px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 45px;
+        height: 45px;
+      }
+
+      .navbar-nav {
+        margin-top: 10px;
+      }
+
+      .navbar-collapse {
+        padding: 0 10px;
+      }
+
+      .nav-link {
+        margin: 4px 0;
+        text-align: left;
+      }
+
+      .nav-link i {
+        margin-right: 10px;
+        width: 20px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .content-wrapper {
+        padding: 40px 15px;
+      }
+
       .info-container {
-        margin: 20px;
+        max-width: 1000px;
       }
 
       .info-body {
-        padding: 28px 24px;
+        padding: 32px 28px;
+      }
+    }
+
+    /* Mobile Styles (481px - 767px) */
+    @media (max-width: 767px) {
+      .navbar-toggler {
+        border: 2px solid #b30000;
+        margin-right: 10px !important;
+      }
+
+      .navbar-brand {
+        margin-left: 10px;
+      }
+
+      .custom-navbar {
+        padding: 10px 0;
+      }
+
+      .custom-navbar .brand-text {
+        font-size: 18px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #b30000;
+      }
+
+      .content-wrapper {
+        background-attachment: scroll;
+        padding: 30px 15px;
+        min-height: calc(100vh - 100px);
+      }
+
+      .info-container {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      .info-card {
+        border-radius: 20px;
+      }
+
+      .info-header {
+        padding: 28px 20px;
+      }
+
+      .logo-main {
+        width: 90px;
+        height: 90px;
+        border: 4px solid white;
+      }
+
+      .info-title {
+        font-size: 24px;
+      }
+
+      .info-subtitle {
+        font-size: 15px;
+      }
+
+      .info-body {
+        padding: 28px 20px;
+      }
+
+      .profile-section {
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+      }
+
+      .profile-image-container {
+        width: 130px;
+        height: 130px;
+        border: 4px solid #b30000;
+      }
+
+      .profile-username {
+        font-size: 18px;
+      }
+
+      .profile-id {
+        font-size: 13px;
+      }
+
+      .section-title {
+        font-size: 17px;
+        margin-bottom: 18px;
+      }
+
+      .form-group label {
+        font-size: 11px;
+      }
+
+      .form-control {
+        font-size: 13px;
+        padding: 8px 14px;
+      }
+
+      .row {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .row > [class*='col-'] {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+
+      .btn-update {
+        font-size: 15px;
+        padding: 12px 28px;
+      }
+
+      .card-footer {
+        padding: 20px 20px !important;
+      }
+
+      footer.footer-custom {
+        padding: 15px;
+        font-size: 12px;
+      }
+    }
+
+    /* Small Mobile Styles (max-width: 480px) */
+    @media (max-width: 480px) {
+      .custom-navbar .brand-text {
+        font-size: 16px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 38px;
+        height: 38px;
+      }
+
+      .content-wrapper {
+        padding: 20px 10px;
+      }
+
+      .info-card {
+        border-radius: 16px;
+      }
+
+      .info-header {
+        padding: 24px 16px;
       }
 
       .logo-main {
         width: 80px;
         height: 80px;
+        border: 3px solid white;
       }
 
       .info-title {
         font-size: 22px;
+        letter-spacing: 0.5px;
       }
 
-      .content-wrapper {
-        padding: 40px 0;
+      .info-subtitle {
+        font-size: 14px;
+      }
+
+      .info-body {
+        padding: 24px 16px;
+      }
+
+      .profile-section {
+        padding-bottom: 18px;
+        margin-bottom: 18px;
       }
 
       .profile-image-container {
         width: 120px;
         height: 120px;
+        border: 3px solid #b30000;
+      }
+
+      .profile-username {
+        font-size: 17px;
+        margin-bottom: 6px;
+      }
+
+      .profile-id {
+        font-size: 12px;
+      }
+
+      .section-title {
+        font-size: 16px;
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-group label {
+        font-size: 10px;
+        margin-bottom: 6px;
+      }
+
+      .form-control {
+        font-size: 12px;
+        padding: 8px 12px;
+        border-radius: 10px;
+      }
+
+      .row > [class*='col-'] {
+        padding-left: 6px;
+        padding-right: 6px;
+      }
+
+      .btn-update {
+        font-size: 14px;
+        padding: 11px 24px;
+        border-radius: 10px;
+        letter-spacing: 0.5px;
+      }
+
+      .card-footer {
+        padding: 18px 16px !important;
+      }
+
+      footer.footer-custom {
+        padding: 12px 10px;
+        font-size: 11px;
+        line-height: 1.6;
+      }
+    }
+
+    /* Extra Small Mobile (max-width: 360px) */
+    @media (max-width: 360px) {
+      .custom-navbar .brand-text {
+        font-size: 14px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 35px;
+        height: 35px;
+      }
+
+      .info-header {
+        padding: 20px 14px;
+      }
+
+      .logo-main {
+        width: 70px;
+        height: 70px;
+      }
+
+      .info-title {
+        font-size: 20px;
+      }
+
+      .info-subtitle {
+        font-size: 13px;
+      }
+
+      .info-body {
+        padding: 20px 14px;
+      }
+
+      .profile-image-container {
+        width: 110px;
+        height: 110px;
+      }
+
+      .profile-username {
+        font-size: 16px;
+      }
+
+      .section-title {
+        font-size: 15px;
+      }
+
+      .form-control {
+        font-size: 11px;
+        padding: 7px 10px;
+      }
+
+      .btn-update {
+        font-size: 13px;
+        padding: 10px 20px;
+      }
+    }
+
+    /* Landscape Mobile Orientation */
+    @media (max-height: 600px) and (orientation: landscape) {
+      .content-wrapper {
+        padding: 20px 15px;
+        min-height: auto;
+      }
+
+      .info-header {
+        padding: 16px;
+      }
+
+      .logo-main {
+        width: 60px;
+        height: 60px;
+        border: 3px solid white;
+      }
+
+      .logo-container {
+        margin-bottom: 12px;
+      }
+
+      .info-title {
+        font-size: 20px;
+      }
+
+      .info-subtitle {
+        font-size: 13px;
+        margin-top: 4px;
+      }
+
+      .info-body {
+        padding: 20px 16px;
+      }
+
+      .profile-section {
+        padding-bottom: 14px;
+        margin-bottom: 14px;
+      }
+
+      .profile-image-container {
+        width: 100px;
+        height: 100px;
+      }
+
+      .section-title {
+        margin-bottom: 12px;
+        padding-bottom: 6px;
+      }
+
+      .form-group {
+        margin-bottom: 12px;
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+    }
+
+    /* Single column layout for very small screens */
+    @media (max-width: 575px) {
+      .row > .col-md-6,
+      .row > .col-md-4,
+      .row > .col-md-3 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+
+    /* Ensure proper touch targets on mobile */
+    @media (hover: none) and (pointer: coarse) {
+      .nav-link,
+      .btn-update,
+      .profile-image-container {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .form-control,
+      select.form-control {
+        min-height: 44px;
       }
     }
   </style>

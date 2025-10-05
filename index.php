@@ -69,6 +69,7 @@ $postal_address = "Barangay Hulo, Mandaluyong City";
       border-bottom: 3px solid #b30000;
       position: fixed;
       width: 100%;
+      z-index: 1000;
     }
 
     .custom-navbar .navbar-brand {
@@ -99,6 +100,15 @@ $postal_address = "Barangay Hulo, Mandaluyong City";
       letter-spacing: -0.5px;
     }
 
+    .navbar-toggler {
+      border: 2px solid #b30000;
+      padding: 6px 10px;
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23b30000' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
     .nav-link {
       color: #333 !important;
       font-weight: 500;
@@ -106,6 +116,10 @@ $postal_address = "Barangay Hulo, Mandaluyong City";
       border-radius: 8px;
       transition: all 0.3s ease;
       margin: 0 4px;
+    }
+
+    .nav-link i {
+      margin-right: 8px;
     }
 
     .nav-link:hover {
@@ -363,7 +377,6 @@ $postal_address = "Barangay Hulo, Mandaluyong City";
 
     .official-image {
       width: 100%;
-      height: 100%;
       object-fit: cover;
       object-position: center;
       transition: transform 0.4s ease;
@@ -394,15 +407,16 @@ $postal_address = "Barangay Hulo, Mandaluyong City";
       margin: 0;
     }
 
-    /* Footer - Copied from register.php */
+    /* Footer */
     .footer-custom {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       color: #333;
       text-align: center;
-      padding: 20px 0;
+      padding: 20px;
       font-weight: 500;
       border-top: 3px solid #b30000;
+      font-size: 14px;
     }
 
     .footer-custom .fas {
@@ -410,34 +424,123 @@ $postal_address = "Barangay Hulo, Mandaluyong City";
       margin-right: 8px;
     }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
+    /* Tablet Styles (768px - 991px) */
+    @media (max-width: 991px) {
+      .custom-navbar .brand-text {
+        font-size: 20px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 45px;
+        height: 45px;
+      }
+
+      .navbar-nav {
+        margin-top: 10px;
+      }
+
+      .navbar-collapse {
+        padding: 0 10px;
+      }
+
+      .nav-link {
+        margin: 4px 0;
+        text-align: left;
+      }
+
+      .nav-link i {
+        margin-right: 10px;
+        width: 20px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .hero-title {
+        font-size: 48px;
+      }
+
+      .hero-subtitle {
+        font-size: 20px;
+      }
+
+      .section-title h2 {
+        font-size: 36px;
+      }
+    }
+
+    /* Mobile Styles (481px - 767px) */
+    @media (max-width: 767px) {
+      .navbar-toggler {
+        border: 2px solid #b30000;
+        margin-right: 10px !important;
+      }
+
+
+      .navbar-brand {
+        margin-left: 10px;
+      }
+
+      .custom-navbar {
+        padding: 10px 0;
+      }
+
+      .custom-navbar .brand-text {
+        font-size: 18px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 40px;
+        height: 40px;
+        border: 2px solid #b30000;
+      }
+
+      .hero-cover {
+        min-height: 100vh;
+      }
+
+      .hero-content {
+        padding: 20px 15px;
+      }
+
       .hero-title {
         font-size: 36px;
+        letter-spacing: 2px;
       }
 
       .hero-subtitle {
         font-size: 18px;
+        margin-bottom: 30px;
       }
 
       .hero-logo {
         width: 120px;
         height: 120px;
+        margin-bottom: 25px;
       }
 
       .hero-buttons {
         flex-direction: column;
         width: 100%;
+        gap: 15px;
       }
 
       .btn-hero {
-        width: 90%;
-        padding: 12px 30px;
+        width: 100%;
+        padding: 14px 30px;
         font-size: 16px;
       }
 
       .section-title h2 {
         font-size: 32px;
+      }
+
+      .section-title p {
+        font-size: 16px;
+      }
+
+      .officials-section {
+        padding: 60px 0;
+        gap: 50px;
       }
 
       .officials-grid {
@@ -452,14 +555,33 @@ $postal_address = "Barangay Hulo, Mandaluyong City";
         padding: 0 15px;
       }
 
+      .officials-gap {
+        gap: 30px;
+      }
+
       .official-image-wrapper {
         height: 400px;
       }
+
+      .footer-custom {
+        padding: 15px;
+        font-size: 12px;
+      }
     }
 
+    /* Small Mobile Styles (max-width: 480px) */
     @media (max-width: 480px) {
+      .custom-navbar .brand-text {
+        font-size: 16px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 38px;
+        height: 38px;
+      }
+
       .hero-cover {
-        min-height: 500px;
+        min-height: 100vh;
       }
 
       .hero-title {
@@ -469,6 +591,149 @@ $postal_address = "Barangay Hulo, Mandaluyong City";
 
       .hero-subtitle {
         font-size: 16px;
+        margin-bottom: 25px;
+      }
+
+      .hero-logo {
+        width: 100px;
+        height: 100px;
+        border: 4px solid white;
+      }
+
+      .btn-hero {
+        padding: 12px 24px;
+        font-size: 15px;
+      }
+
+      .section-title h2 {
+        font-size: 28px;
+      }
+
+      .section-title p {
+        font-size: 15px;
+      }
+
+      .officials-section {
+        padding: 50px 0;
+      }
+
+      .official-card {
+        border-radius: 16px;
+      }
+
+      .official-image-wrapper {
+        height: 350px;
+      }
+
+      .official-info {
+        padding: 20px;
+      }
+
+      .official-position {
+        font-size: 13px;
+      }
+
+      .official-name {
+        font-size: 18px;
+      }
+
+      .footer-custom {
+        padding: 12px 10px;
+        font-size: 11px;
+        line-height: 1.6;
+      }
+    }
+
+    /* Extra Small Mobile (max-width: 360px) */
+    @media (max-width: 360px) {
+      .custom-navbar .brand-text {
+        font-size: 14px;
+      }
+
+      .custom-navbar .brand-image {
+        width: 35px;
+        height: 35px;
+      }
+
+      .hero-title {
+        font-size: 24px;
+      }
+
+      .hero-subtitle {
+        font-size: 14px;
+      }
+
+      .hero-logo {
+        width: 90px;
+        height: 90px;
+        border: 3px solid white;
+      }
+
+      .btn-hero {
+        padding: 11px 20px;
+        font-size: 14px;
+      }
+
+      .section-title h2 {
+        font-size: 24px;
+      }
+
+      .official-image-wrapper {
+        height: 300px;
+      }
+    }
+
+    /* Landscape Mobile Orientation */
+    @media (max-height: 600px) and (orientation: landscape) {
+      .hero-cover {
+        min-height: 100vh;
+      }
+
+      .hero-logo {
+        width: 80px;
+        height: 80px;
+      }
+
+      .hero-title {
+        font-size: 24px;
+      }
+
+      .hero-subtitle {
+        font-size: 14px;
+        margin-bottom: 20px;
+      }
+
+      .hero-buttons {
+        gap: 10px;
+      }
+
+      .btn-hero {
+        padding: 10px 24px;
+        font-size: 14px;
+      }
+
+      @keyframes float {
+
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+    }
+
+    /* Ensure proper touch targets on mobile */
+    @media (hover: none) and (pointer: coarse) {
+
+      .nav-link,
+      .btn-hero {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     }
   </style>
