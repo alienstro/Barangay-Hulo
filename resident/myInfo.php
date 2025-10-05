@@ -1,4 +1,3 @@
-
 <?php 
 
 include_once '../connection.php';
@@ -1334,6 +1333,10 @@ try{
             required: true,
             minlength: 11
           },
+          edit_guardian_contact:{
+            required: true,
+            minlength: 11
+          },
           edit_email_address:{
             email: true,
           },
@@ -1356,6 +1359,10 @@ try{
           },
           edit_contact_number: {
             required: "<span class='text-danger text-bold'>Contact Number is Required</span>",
+            minlength: "<span class='text-danger'>Input Exact Contact Number</span>"
+          },
+          edit_guardian_contact: {
+            required: "<span class='text-danger text-bold'>Guardian Contact is Required</span>",
             minlength: "<span class='text-danger'>Input Exact Contact Number</span>"
           },
           edit_email_address:{

@@ -1,0 +1,37 @@
+# Barangay Hulo - Git Ignore File
+
+# Email Configuration (IMPORTANT: Never commit this file!)
+includes/email_config.php
+
+# Composer dependencies
+vendor/
+composer.lock
+
+# Test files (delete after testing)
+test_email.php
+
+# Database backups
+backup/*.sql
+
+# Uploaded files
+assets/dist/img/*.jpg
+assets/dist/img/*.jpeg
+assets/dist/img/*.png
+assets/dist/img/*.gif
+!assets/dist/img/blank_image.png
+
+# System files
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*~

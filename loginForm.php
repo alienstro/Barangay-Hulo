@@ -10,7 +10,7 @@ $password = $con->real_escape_string(($_POST['password']));
 
 
 
-$sql = "SELECT `id`,`username`, `password`, `user_type`, `first_name`, `middle_name`, `last_name` FROM `users` WHERE (username = ? OR id = ?)  ";
+$sql = "SELECT `id`,`username`, `password`, `user_type`, `first_name`, `middle_name`, `last_name`, `is_verified`, `email` FROM `users` WHERE (username = ? OR id = ?)  ";
 $stmt = $con->prepare($sql) or die ($con->error);
 $stmt->bind_param('ss',$username,$username);
 $stmt->execute();
@@ -26,8 +26,18 @@ if($count > 0){
   $mname = $row['middle_name'];
   $lname = $row['last_name'];
   $user_type = $row['user_type'];
+  $is_verified = $row['is_verified'];
+  $user_email = $row['email'];
 
     if($password == $checkPassword){
+
+      // Check if email verification is required (only for residents with email)
+      if($user_type == 'resident' && !empty($user_email) && $is_verified == 0){
+        // User needs to verify email first
+        $_SESSION['pending_verification_user_id'] = $user_id;
+        $_SESSION['pending_verification_email'] = $user_email;
+        exit('unverified');
+      }
 
       $_SESSION['user_id'] = $user_id;
       $_SESSION['username'] = $checkUsername;

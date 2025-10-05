@@ -273,6 +273,25 @@ INSERT INTO `certificate_request` (`a_i`, `id`, `residence_id`, `certificate_typ
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `otp_verification`
+--
+
+CREATE TABLE `otp_verification` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `otp_code` varchar(6) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `expires_at` datetime NOT NULL,
+  `is_verified` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `house_holds`
 --
 
@@ -619,6 +638,8 @@ CREATE TABLE `users` (
   `user_type` varchar(255) NOT NULL DEFAULT 'none',
   `contact_number` varchar(255) NOT NULL DEFAULT 'none',
   `email` varchar(255) NOT NULL DEFAULT 'none',
+  `is_verified` tinyint(1) DEFAULT 0,
+  `verification_token` varchar(255) DEFAULT NULL,
   `image` varchar(255) NOT NULL DEFAULT 'none',
   `image_path` varchar(255) NOT NULL DEFAULT 'none'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -817,7 +838,8 @@ ALTER TABLE `residence_status`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD UNIQUE KEY `a_i` (`a_i`);
+  ADD UNIQUE KEY `a_i` (`a_i`),
+  ADD KEY `idx_verification` (`is_verified`);
 
 --
 -- Indexes for table `vaccine`
@@ -870,6 +892,12 @@ ALTER TABLE `certificate_request`
 --
 ALTER TABLE `house_holds`
   MODIFY `a_i` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+
+--
+-- AUTO_INCREMENT for table `otp_verification`
+--
+ALTER TABLE `otp_verification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT for table `official_information`

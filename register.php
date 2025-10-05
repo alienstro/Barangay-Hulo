@@ -395,6 +395,55 @@ while ($row = $result->fetch_assoc()) {
       margin-right: 8px;
     }
 
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .loading-content {
+      text-align: center;
+      color: white;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-top: 5px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .loading-subtext {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 5px;
+    }
+
     .toggle-password {
       position: absolute;
       top: 42px;
@@ -443,6 +492,15 @@ while ($row = $result->fetch_assoc()) {
 
 
   <div class="wrapper">
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Creating Your Account...</div>
+        <div class="loading-subtext">Please wait while we process your registration</div>
+      </div>
+    </div>
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-md custom-navbar">
@@ -690,12 +748,6 @@ while ($row = $result->fetch_assoc()) {
                           <input type="text" maxlength="11" class="form-control" id="add_contact_number" name="add_contact_number">
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label>Email Address</label>
-                          <input type="email" class="form-control" id="add_email_address" name="add_email_address">
-                        </div>
-                      </div>
                     </div>
                   </div>
 
@@ -838,6 +890,9 @@ while ($row = $result->fetch_assoc()) {
               return; // Prevent submission if no image
             }
 
+            // Show loading overlay
+            $('#loadingOverlay').addClass('active');
+
             $.ajax({
               url: 'signup/newResidence.php',
               type: 'POST',
@@ -846,6 +901,9 @@ while ($row = $result->fetch_assoc()) {
               contentType: false,
               cache: false,
               success: function(data) {
+                
+                // Hide loading overlay
+                $('#loadingOverlay').removeClass('active');
 
                 if (data == 'errorPassword') {
                   Swal.fire({
@@ -862,9 +920,39 @@ while ($row = $result->fetch_assoc()) {
                     type: 'error',
                     html: '<b>Username is Already Taken<b>',
                     width: '400px',
-                    confirmButtonColor: '#6610f2',
+                    confirmButtonColor: '#b30000',
                   })
 
+                } else if (data == 'success_otp_sent') {
+                  
+                  Swal.fire({
+                    title: '<strong class="text-success">SUCCESS</strong>',
+                    icon: 'success',
+                    html: '<b>Registration Successful!<br>Redirecting to OTP verification...</b>',
+                    width: '400px',
+                    confirmButtonColor: '#b30000',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    timer: 2000,
+                  }).then(() => {
+                    window.location.href = 'signup/verify_otp.php';
+                  })
+                  
+                } else if (data == 'success_no_email') {
+
+                  Swal.fire({
+                    title: '<strong class="text-success">SUCCESS</strong>',
+                    type: 'success',
+                    html: '<b>Registered Residence has Successfully<b>',
+                    width: '400px',
+                    confirmButtonColor: '#b30000',
+                    allowOutsideClick: false,
+                    showConfirmButton: false,
+                    timer: 2000,
+                  }).then(() => {
+                    window.location.href = 'login.php';
+                  })
+                  
                 } else {
 
                   Swal.fire({
@@ -872,25 +960,29 @@ while ($row = $result->fetch_assoc()) {
                     type: 'success',
                     html: '<b>Registered Residence has Successfully<b>',
                     width: '400px',
-                    confirmButtonColor: '#6610f2',
+                    confirmButtonColor: '#b30000',
                     allowOutsideClick: false,
                     showConfirmButton: false,
                     timer: 2000,
                   }).then(() => {
-                    window.location.reload();
+                    window.location.href = 'login.php';
                   })
                 }
 
 
+              },
+              error: function() {
+                // Hide loading overlay on error
+                $('#loadingOverlay').removeClass('active');
+                
+                Swal.fire({
+                  title: '<strong class="text-danger">Ooppss..</strong>',
+                  type: 'error',
+                  html: '<b>Something went wrong with ajax !<b>',
+                  width: '400px',
+                  confirmButtonColor: '#b30000',
+                })
               }
-            }).fail(function() {
-              Swal.fire({
-                title: '<strong class="text-danger">Ooppss..</strong>',
-                type: 'error',
-                html: '<b>Something went wrong with ajax !<b>',
-                width: '400px',
-                confirmButtonColor: '#6610f2',
-              })
             })
 
 
@@ -977,11 +1069,6 @@ while ($row = $result->fetch_assoc()) {
               digits: true,
               minlength: 11
             },
-            add_email_address: {
-              required: false,
-              email: true
-            },
-
 
             email: {
               required: false,
@@ -1069,9 +1156,6 @@ while ($row = $result->fetch_assoc()) {
               required: "This field is required",
               digits: "Only numbers allowed",
               minlength: "Enter exact contact number (e.g 09xxxxxxxxx)"
-            },
-            add_email_address: {
-              email: "Enter a valid email address"
             },
             add_guardian_contact: {
               digits: "Only numbers allowed",
@@ -1190,12 +1274,9 @@ while ($row = $result->fetch_assoc()) {
         $("#keyup_last_name").text(last_name);
       });
 
-      // Sync profile email display from either email input
-      $("#add_account_email, #add_email_address").on('input change', function() {
-        var accountEmail = $("#add_account_email").val();
-        var contactEmail = $("#add_email_address").val();
-        var display = accountEmail || contactEmail || '';
-        $("#keyup_email").text(display);
+      // Update profile email display from account email input
+      $("#add_account_email").on('input change', function() {
+        $("#keyup_email").text($(this).val());
       });
 
 

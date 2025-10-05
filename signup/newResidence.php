@@ -40,7 +40,7 @@ $add_civil_status = $con->real_escape_string($_POST['add_civil_status']);
 $add_religion = $con->real_escape_string($_POST['add_religion']);
 $add_nationality = $con->real_escape_string($_POST['add_nationality']);
 $add_contact_number = $con->real_escape_string($_POST['add_contact_number']);
-$add_email_address = $con->real_escape_string($_POST['add_email_address']);
+$add_email_address = $con->real_escape_string($_POST['email']); // Email from Account tab
 $add_address = $con->real_escape_string($_POST['add_address']);
 $add_birth_date = $con->real_escape_string($_POST['add_birth_date']);
 $add_birth_place = $con->real_escape_string($_POST['add_birth_place']);
@@ -202,6 +202,24 @@ $date_activity = $now = date("j-n-Y g:i A");
   $stmt_activity_log->bind_param('sss',$admin,$date_activity,$status_activity_log);
   $stmt_activity_log->execute();
   $stmt_activity_log->close();
+
+  // Send OTP email for verification
+  if(!empty($add_email_address)){
+    require_once '../includes/send_otp.php';
+    $otp_result = sendOTPEmail($number, $add_email_address, $add_first_name, $add_last_name);
+    
+    if($otp_result['success']){
+      // Store user_id in session for OTP verification page
+      session_start();
+      $_SESSION['pending_verification_user_id'] = $number;
+      $_SESSION['pending_verification_email'] = $add_email_address;
+      echo 'success_otp_sent';
+    } else {
+      echo 'success_no_email';
+    }
+  } else {
+    echo 'success_no_email';
+  }
 
 }catch(Exception $e){
   echo $e->getMessage();

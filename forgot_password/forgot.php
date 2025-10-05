@@ -1,11 +1,10 @@
+
 <?php
-include_once 'connection.php';
+include_once '../connection.php';
 session_start();
 
 try {
-
   if (isset($_SESSION['user_id']) && $_SESSION['user_type']) {
-
     $user_id = $_SESSION['user_id'];
     $sql = "SELECT * FROM users WHERE id = '$user_id'";
     $query = $con->query($sql) or die($con->error);
@@ -44,16 +43,16 @@ try {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Barangay Hulo - Login</title>
+  <title>Barangay Hulo - Forgot Password</title>
 
   <!-- Preload cover image -->
-  <link rel="preload" href="assets/logo/cover.JPG" as="image" fetchpriority="high">
+  <link rel="preload" href="../assets/logo/cover.JPG" as="image" fetchpriority="high">
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
-  <link rel="stylesheet" href="assets/plugins/sweetalert2/css/sweetalert2.min.css">
+  <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../assets/plugins/sweetalert2/css/sweetalert2.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -120,14 +119,9 @@ try {
       transform: translateY(-2px);
     }
 
-    .nav-link.active {
-      background: #b30000 !important;
-      color: white !important;
-    }
-
     .content-wrapper {
       background-color: rgba(0, 0, 0, 0.40);
-      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('assets/logo/cover.JPG');
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -139,7 +133,7 @@ try {
       justify-content: center;
     }
 
-    .login-card {
+    .forgot-card {
       max-width: 480px;
       margin: 0 auto;
       border-radius: 24px;
@@ -161,22 +155,12 @@ try {
       }
     }
 
-    .login-header {
+    .forgot-header {
       background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
       padding: 32px 24px;
       text-align: center;
       position: relative;
       overflow: hidden;
-    }
-
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
     }
 
     .logo-container {
@@ -186,8 +170,8 @@ try {
     }
 
     .logo-main {
-      width: 140px;
-      height: 140px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       border: 5px solid white;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
@@ -207,9 +191,9 @@ try {
       }
     }
 
-    .login-title {
+    .forgot-title {
       color: white;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 700;
       position: relative;
       z-index: 1;
@@ -219,7 +203,13 @@ try {
       margin: 0;
     }
 
-    .login-body {
+    .forgot-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .forgot-body {
       background: white;
       padding: 36px 32px;
     }
@@ -262,12 +252,7 @@ try {
       box-shadow: none;
     }
 
-    .form-control::placeholder {
-      color: #999;
-      font-weight: 400;
-    }
-
-    .btn-login {
+    .btn-forgot {
       background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
       border: none;
       border-radius: 12px;
@@ -282,27 +267,58 @@ try {
       box-shadow: 0 4px 12px rgba(179, 0, 0, 0.3);
     }
 
-    .btn-login:hover {
+    .btn-forgot:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(179, 0, 0, 0.4);
       background: linear-gradient(135deg, #8b0000 0%, #b30000 100%);
     }
 
-    .btn-login:active {
-      transform: translateY(0);
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
     }
 
-    .forgot-link {
-      color: #b30000;
-      font-weight: 500;
-      font-size: 14px;
-      text-decoration: none;
-      transition: all 0.3s ease;
+    .loading-overlay.active {
+      display: flex;
     }
 
-    .forgot-link:hover {
-      color: #8b0000;
-      text-decoration: underline;
+    .loading-content {
+      text-align: center;
+      color: white;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-top: 5px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 10px;
     }
 
     .footer-custom {
@@ -321,47 +337,39 @@ try {
     }
 
     @media (max-width: 768px) {
-      .login-card {
+      .forgot-card {
         max-width: 100%;
         margin: 20px;
       }
 
-      .login-body {
+      .forgot-body {
         padding: 28px 24px;
       }
 
       .logo-main {
-        width: 110px;
-        height: 110px;
-      }
-
-      .login-title {
-        font-size: 22px;
-      }
-
-      .content-wrapper {
-        background-color: rgba(0, 0, 0, 0.40);
-        background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-blend-mode: overlay;
-        min-height: calc(100vh - 120px);
-        padding: 40px 0;
+        width: 100px;
+        height: 100px;
       }
     }
   </style>
-
 </head>
 
 <body class="hold-transition layout-top-nav">
   <div class="wrapper">
 
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Sending OTP...</div>
+      </div>
+    </div>
+
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand-md custom-navbar">
       <div class="container">
-        <a href="index.php" class="navbar-brand">
-          <img src="assets/logo/LogoHulo.PNG" alt="Barangay Logo" class="brand-image">
+        <a href="../index.php" class="navbar-brand">
+          <img src="../assets/logo/LogoHulo.PNG" alt="Barangay Logo" class="brand-image">
           <span class="brand-text">Barangay Hulo</span>
         </a>
 
@@ -372,7 +380,7 @@ try {
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a href="index.php" class="nav-link">
+              <a href="../index.php" class="nav-link">
                 <i class="fas fa-home"></i> Home
               </a>
             </li>
@@ -382,7 +390,7 @@ try {
               </a>
             </li>
             <li class="nav-item">
-              <a href="login.php" class="nav-link active">
+              <a href="../login.php" class="nav-link">
                 <i class="fas fa-sign-in-alt"></i> Login
               </a>
             </li>
@@ -390,22 +398,22 @@ try {
         </div>
       </div>
     </nav>
-    <!-- /.navbar -->
 
     <!-- Content Wrapper -->
-    <div class="content-wrapper" style="background-color:rgba(0,0,0,0.40); background-image: url('assets/logo/cover.JPG'); background-size:cover; background-position:center; background-repeat:no-repeat; background-blend-mode:overlay;">
+    <div class="content-wrapper">
       <div class="content">
         <div class="container">
-          <div class="login-card">
-            <div class="login-header">
+          <div class="forgot-card">
+            <div class="forgot-header">
               <div class="logo-container">
-                <img src="assets/logo/LogoHulo.JPG" alt="Barangay Logo" class="logo-main">
+                <i class="fas fa-key" style="font-size: 80px; color: white;"></i>
               </div>
-              <h1 class="login-title">Barangay Portal</h1>
+              <h1 class="forgot-title">Forgot Password</h1>
+              <p class="forgot-subtitle">Enter your username to receive an OTP</p>
             </div>
 
-            <div class="login-body">
-              <form id="loginForm" method="post">
+            <div class="forgot-body">
+              <form id="forgotForm" method="post">
                 <div class="form-group">
                   <div class="input-group">
                     <div class="input-group-prepend">
@@ -415,29 +423,13 @@ try {
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <div class="input-group" id="show_hide_password">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="fas fa-key"></i></span>
-                    </div>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                    <div class="input-group-append">
-                      <span class="input-group-text" style="cursor: pointer; border-left: none;">
-                        <a href="#" style="text-decoration:none; color: #b30000;"><i class="fas fa-eye-slash" aria-hidden="true"></i></a>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-right mb-3">
-                  <a href="forgot_password/forgot.php" class="forgot-link">Forgot Password?</a>
-                </div>
-
-                <button type="submit" class="btn btn-login">Sign In</button>
+                <button type="submit" class="btn btn-forgot">
+                  <i class="fas fa-paper-plane"></i> Send OTP
+                </button>
 
                 <div class="text-center mt-3">
-                  <span style="color: #666; font-size: 14px;">Don't have an account? </span>
-                  <a href="register.php" class="forgot-link">Register here</a>
+                  <span style="color: #666; font-size: 14px;">Remember your password? </span>
+                  <a href="../login.php" style="color: #b30000; font-weight: 500; text-decoration: none;">Login here</a>
                 </div>
               </form>
             </div>
@@ -452,103 +444,78 @@ try {
   </div>
 
   <!-- jQuery -->
-  <script src="assets/plugins/jquery/jquery.min.js"></script>
+  <script src="../assets/plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap -->
-  <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
-  <script src="assets/dist/js/adminlte.js"></script>
-  <script src="assets/plugins/sweetalert2/js/sweetalert2.all.min.js"></script>
+  <script src="../assets/dist/js/adminlte.js"></script>
+  <script src="../assets/plugins/sweetalert2/js/sweetalert2.all.min.js"></script>
 
   <script>
     $(document).ready(function() {
-
-      $("#loginForm").submit(function(e) {
+      $("#forgotForm").submit(function(e) {
         e.preventDefault();
         var username = $("#username").val();
-        var password = $("#password").val();
-        if (username == '' || password == '') {
-          Swal.fire({
-            title: '<strong class="text-danger">WARNING</strong>',
-            icon: 'warning',
-            html: '<b>Username and Password is Required<b>',
-            width: '400px',
-          })
-        } else {
-          $.ajax({
-            url: 'loginForm.php',
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function(data) {
-              if (data == 'errorUsername' || data == 'errorPassword') {
-                Swal.fire({
-                  title: '<strong class="text-danger">ERROR</strong>',
-                  icon: 'error',
-                  html: '<b>Incorrect Username or Password<b>',
-                  width: '400px',
-                })
-              } else if (data == 'unverified') {
-                Swal.fire({
-                  title: '<strong class="text-warning">Email Not Verified</strong>',
-                  icon: 'warning',
-                  html: '<b>Please verify your email address first.<br>Check your email for the OTP code.</b>',
-                  width: '400px',
-                  confirmButtonColor: '#b30000',
-                  confirmButtonText: 'Verify Now',
-                  allowOutsideClick: false
-                }).then(() => {
-                  window.location.href = 'signup/verify_otp.php';
-                })
-              } else if (data == 'admin') {
-                Swal.fire({
-                  title: '<strong class="text-success">SUCCESS</strong>',
-                  icon: 'success',
-                  html: '<b>Login Successfully<b>',
-                  width: '400px',
-                  showConfirmButton: false,
-                  allowOutsideClick: false,
-                  timer: 2000
-                }).then(() => {
-                  window.location.href = 'admin/dashboard.php';
-                })
-              } else if (data == 'secretary') {
-                Swal.fire({
-                  title: '<strong class="text-success">SUCCESS</strong>',
-                  icon: 'success',
-                  html: '<b>Login Successfully<b>',
-                  width: '400px',
-                  showConfirmButton: false,
-                  allowOutsideClick: false,
-                  timer: 2000
-                }).then(() => {
-                  window.location.href = 'secretary/dashboard.php';
-                })
-              } else if (data == 'resident') {
-                Swal.fire({
-                  title: '<strong class="text-success">SUCCESS</strong>',
-                  icon: 'success',
-                  html: '<b>Login Successfully<b>',
-                  width: '400px',
-                  showConfirmButton: false,
-                  allowOutsideClick: false,
-                  timer: 2000
-                }).then(() => {
-                  window.location.href = 'resident/dashboard.php';
-                })
-              }
-            }
-          })
-        }
-      });
 
-      $("#show_hide_password a").on('click', function(event) {
-        event.preventDefault();
-        if ($('#show_hide_password input').attr("type") == "text") {
-          $('#show_hide_password input').attr('type', 'password');
-          $('#show_hide_password i').addClass("fa-eye-slash").removeClass("fa-eye");
-        } else {
-          $('#show_hide_password input').attr('type', 'text');
-          $('#show_hide_password i').removeClass("fa-eye-slash").addClass("fa-eye");
+        if (username == '') {
+          Swal.fire({
+            title: '<strong class="text-warning">Required</strong>',
+            icon: 'warning',
+            html: '<b>Please enter your username</b>',
+            width: '400px',
+            confirmButtonColor: '#b30000',
+          });
+          return;
         }
+
+        // Show loading overlay
+        $('#loadingOverlay').addClass('active');
+
+        $.ajax({
+          url: 'forgot_password_send_otp.php',
+          type: 'POST',
+          data: {
+            username: username
+          },
+          dataType: 'json',
+          success: function(data) {
+            $('#loadingOverlay').removeClass('active');
+
+            if (data.success) {
+              Swal.fire({
+                title: '<strong class="text-success">OTP Sent!</strong>',
+                icon: 'success',
+                html: '<b>An OTP has been sent to your email.<br>Redirecting to verification...</b>',
+                width: '400px',
+                confirmButtonColor: '#b30000',
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                timer: 2000
+              }).then(() => {
+                window.location.href = 'forgot_password_verify.php';
+              });
+            } else {
+              Swal.fire({
+                title: '<strong class="text-danger">Error</strong>',
+                icon: 'error',
+                html: '<b>' + data.message + '</b>',
+                width: '400px',
+                confirmButtonColor: '#b30000',
+              });
+            }
+          },
+          error: function(xhr, status, error) {
+            $('#loadingOverlay').removeClass('active');
+            console.error('Error:', error);
+            Swal.fire({
+              title: '<strong class="text-danger">Error</strong>',
+              icon: 'error',
+              html: '<b>Something went wrong. Please try again.</b>',
+              width: '400px',
+              confirmButtonColor: '#b30000',
+            });
+          }
+        });
       });
     });
   </script>
