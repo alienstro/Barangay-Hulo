@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 include_once '../connection.php';
 session_start();
 
 
-try{
-  if(isset($_SESSION['user_id']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'resident'){
+try {
+  if (isset($_SESSION['user_id']) && isset($_SESSION['user_type']) && $_SESSION['user_type'] == 'resident') {
 
     $user_id = $_SESSION['user_id'];
     $sql_user = "SELECT * FROM `users` WHERE `id` = ? ";
-    $stmt_user = $con->prepare($sql_user) or die ($con->error);
-    $stmt_user->bind_param('s',$user_id);
+    $stmt_user = $con->prepare($sql_user) or die($con->error);
+    $stmt_user->bind_param('s', $user_id);
     $stmt_user->execute();
     $result_user = $stmt_user->get_result();
     $row_user = $result_user->fetch_assoc();
@@ -23,40 +23,37 @@ try{
 
 
     $sql_resident = "SELECT * FROM residence_information WHERE residence_id = '$user_id'";
-    $query_resident = $con->query($sql_resident) or die ($con->error);
+    $query_resident = $con->query($sql_resident) or die($con->error);
     $row_resident = $query_resident->fetch_assoc();
 
 
-    if($row_resident['image'] != ''){
+    if ($row_resident['image'] != '') {
       $iamge_resident = $row_resident['image_path'];
-    }else{
+    } else {
       $iamge_resident = '../assets/dist/img/blank_image.png';
     }
 
 
 
     $sql = "SELECT * FROM `barangay_information`";
-    $query = $con->prepare($sql) or die ($con->error);
+    $query = $con->prepare($sql) or die($con->error);
     $query->execute();
     $result = $query->get_result();
-    while($row = $result->fetch_assoc()){
-        $barangay = $row['barangay'];
-        $zone = $row['zone'];
-        $district = $row['district'];
-        $image = $row['image'];
-        $image_path = $row['image_path'];
-        $id = $row['id'];
-        $postal_address = $row['postal_address'];
+    while ($row = $result->fetch_assoc()) {
+      $barangay = $row['barangay'];
+      $zone = $row['zone'];
+      $district = $row['district'];
+      $image = $row['image'];
+      $image_path = $row['image_path'];
+      $id = $row['id'];
+      $postal_address = $row['postal_address'];
     }
-
-
-  }else{
-   echo '<script>
+  } else {
+    echo '<script>
           window.location.href = "../login.php";
         </script>';
   }
-
-}catch(Exception $e){
+} catch (Exception $e) {
   echo $e->getMessage();
 }
 
@@ -64,12 +61,13 @@ try{
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Profile - Barangay Hulo</title>
 
-  <link rel="preload" href="../assets/logo/cover.JPG" as="image"> 
+  <link rel="preload" href="../assets/logo/cover.JPG" as="image">
   <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="../assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
@@ -160,8 +158,8 @@ try{
     }
 
     .content-wrapper {
-      background-color: rgba(0,0,0,0.40);
-      background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('../assets/logo/cover.JPG');
+      background-color: rgba(0, 0, 0, 0.40);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -173,12 +171,12 @@ try{
 
     .profile-container {
       max-width: 800px;
-      margin: 30px auto; 
+      margin: 30px auto;
     }
 
     .profile-card {
       width: calc(100% - 48px);
-      max-width: 760px; 
+      max-width: 760px;
       margin: 0 auto;
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(12px);
@@ -194,6 +192,7 @@ try{
         opacity: 0;
         transform: translateY(30px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -202,7 +201,8 @@ try{
 
     .profile-header {
       background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
-      padding: 24px 20px; /* reduced vertical padding */
+      padding: 24px 20px;
+      /* reduced vertical padding */
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -215,18 +215,24 @@ try{
       right: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
       animation: rotate 20s linear infinite;
     }
 
     @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .profile-image-container {
       position: relative;
-      width: 120px; /* smaller image to reduce header height */
+      width: 120px;
+      /* smaller image to reduce header height */
       height: 120px;
       margin: 0 auto 14px;
       z-index: 1;
@@ -243,13 +249,21 @@ try{
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
     }
 
     .resident-number {
       color: white;
-      font-size: 16px; /* slightly smaller */
+      font-size: 16px;
+      /* slightly smaller */
       font-weight: 600;
       position: relative;
       z-index: 1;
@@ -257,11 +271,13 @@ try{
     }
 
     .profile-body {
-      padding: 28px 22px; /* reduced padding for compact card */
+      padding: 28px 22px;
+      /* reduced padding for compact card */
     }
 
     .section-title {
-      font-size: 18px; /* slightly smaller */
+      font-size: 18px;
+      /* slightly smaller */
       font-weight: 600;
       color: #333;
       margin-bottom: 20px;
@@ -371,21 +387,142 @@ try{
       transform: translateY(-1px);
     }
 
-    footer.main-footer {
-      background: rgba(255, 255, 255, 0.95);
+    /* Footer */
+    .footer-custom {
+      background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(10px);
       color: #333;
-      text-align: center;
-      padding: 20px;
+      padding: 35px 30px;
       font-weight: 500;
-      border-top: 3px solid #b30000;
-      font-size: 14px;
+      border-top: 4px solid #b30000;
+      font-size: 16px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
     }
 
-    footer .fas {
+    .footer-custom .fas,
+    .footer-custom .fab {
       color: #b30000;
-      margin-right: 8px;
+      margin-right: 10px;
+      font-size: 20px;
     }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      margin-bottom: 0;
+    }
+
+    .footer-section h5 {
+      color: #b30000;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-section p {
+      margin: 8px 0;
+      line-height: 1.6;
+      font-size: 15px;
+      color: #444;
+    }
+
+    .footer-section p strong {
+      font-weight: 600;
+      color: #222;
+    }
+
+    .google-maps-container {
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .footer-link {
+      color: #b30000;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      width: 100%;
+      max-width: 350px;
+      border: 3px solid #b30000;
+      border-radius: 12px;
+      background: white;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(179, 0, 0, 0.2);
+    }
+
+    .footer-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(179, 0, 0, 0.35);
+      border-color: #8b0000;
+    }
+
+    .map-thumbnail {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 3px solid #b30000;
+    }
+
+    .map-link-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: white;
+      color: #b30000;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-link:hover .map-link-text {
+      background: #b30000;
+      color: white;
+    }
+
+    .hotline-grid {
+      display: block;
+      background: rgba(179, 0, 0, 0.05);
+      border-left: 4px solid #b30000;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    .hotline-grid p {
+      margin: 4px 0;
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-size: 16px;
+    }
+
+    .office-hours {
+      margin-top: 12px;
+    }
+
+    .office-hours p {
+      background: rgba(179, 0, 0, 0.05);
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin: 8px 0;
+      border-left: 3px solid #b30000;
+    }
+
 
     .invalid-feedback {
       color: #dc3545;
@@ -444,6 +581,48 @@ try{
 
     /* Mobile Styles (481px - 767px) */
     @media (max-width: 767px) {
+      .footer-custom {
+        padding: 30px 20px;
+        font-size: 14px;
+      }
+
+      .footer-section {
+        margin-bottom: 25px;
+      }
+
+      .footer-section h5 {
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+
+      .footer-section p {
+        font-size: 14px;
+      }
+
+      .footer-custom .fas,
+      .footer-custom .fab {
+        font-size: 18px;
+      }
+
+      .hotline-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .footer-link {
+        font-size: 15px;
+        max-width: 100%;
+      }
+
+      .map-thumbnail {
+        height: 140px;
+      }
+
+      .map-link-text {
+        font-size: 14px;
+        padding: 10px 16px;
+      }
+
       .navbar-toggler {
         border: 2px solid #b30000;
         margin-right: 10px !important;
@@ -718,9 +897,12 @@ try{
       }
 
       @keyframes float {
-        0%, 100% {
+
+        0%,
+        100% {
           transform: translateY(0);
         }
+
         50% {
           transform: translateY(-5px);
         }
@@ -729,6 +911,7 @@ try{
 
     /* Ensure proper touch targets on mobile */
     @media (hover: none) and (pointer: coarse) {
+
       .nav-link,
       .btn-submit,
       .input-group-append .input-group-text {
@@ -740,343 +923,383 @@ try{
     }
   </style>
 </head>
+
 <body class="hold-transition layout-top-nav">
 
-<div class="wrapper">
+  <div class="wrapper">
 
-  <nav class="main-header navbar navbar-expand-md custom-navbar">
-    <div class="container">
-      <a href="dashboard.php" class="navbar-brand">
-        <img src="../assets/logo/LogoHulo.PNG" alt="Barangay Logo" class="brand-image">
-        <span class="brand-text">Barangay Hulo</span>
-      </a>
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a href="dashboard.php" class="nav-link">
-              <i class="fas fa-home"></i> Dashboard
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="profile.php" class="nav-link active">
-              <i class="fas fa-user-alt"></i> <?= $last_name_user ?>-<?= $user_id ?>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="../logout.php" class="nav-link">
-              <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <div class="content-wrapper">
-    <div class="content">
+    <nav class="main-header navbar navbar-expand-md custom-navbar">
       <div class="container">
-        <div class="profile-container">
-          <div class="profile-card">
-            <div class="profile-header">
-              <div class="profile-image-container">
-                <img src="<?= $iamge_resident ?>" alt="Resident Image" class="profile-image">
+        <a href="dashboard.php" class="navbar-brand">
+          <img src="../assets/logo/LogoHulo.PNG" alt="Barangay Logo" class="brand-image">
+          <span class="brand-text">Barangay Hulo</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="dashboard.php" class="nav-link">
+                <i class="fas fa-home"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="profile.php" class="nav-link active">
+                <i class="fas fa-user-alt"></i> <?= $last_name_user ?>-<?= $user_id ?>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="../logout.php" class="nav-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="container">
+          <div class="profile-container">
+            <div class="profile-card">
+              <div class="profile-header">
+                <div class="profile-image-container">
+                  <img src="<?= $iamge_resident ?>" alt="Resident Image" class="profile-image">
+                </div>
+                <div class="resident-number">
+                  <i class="fas fa-id-card"></i> Resident ID: <?= $user_id ?>
+                </div>
               </div>
-              <div class="resident-number">
-                <i class="fas fa-id-card"></i> Resident ID: <?= $user_id ?>
+
+              <div class="profile-body">
+                <form id="changeProfile" method="post">
+                  <div class="section-title">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Account Settings</span>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-user"></i>
+                        </span>
+                      </div>
+                      <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="<?= $username ?>">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group" id="show_hide_password_old">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-lock"></i>
+                        </span>
+                      </div>
+                      <input type="password" id="old_password" name="old_password" class="form-control" placeholder="Current Password">
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <a href="#"><i class="fas fa-eye-slash"></i></a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group" id="show_hide_password">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-key"></i>
+                        </span>
+                      </div>
+                      <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <a href="#"><i class="fas fa-eye-slash"></i></a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group" id="show_hide_password_confirm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-check-circle"></i>
+                        </span>
+                      </div>
+                      <input type="password" id="edit_confirm_password" name="edit_confirm_password" class="form-control" placeholder="Confirm New Password">
+                      <div class="input-group-append">
+                        <span class="input-group-text">
+                          <a href="#"><i class="fas fa-eye-slash"></i></a>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group mb-0">
+                    <button type="submit" class="btn btn-submit btn-block">
+                      <i class="fas fa-save"></i> Update Profile
+                    </button>
+                  </div>
+                </form>
               </div>
-            </div>
-
-            <div class="profile-body">
-              <form id="changeProfile" method="post">
-                <div class="section-title">
-                  <i class="fas fa-user-edit"></i>
-                  <span>Account Settings</span>
-                </div>
-
-                <div class="form-group">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fas fa-user"></i>
-                      </span>
-                    </div>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" value="<?= $username ?>">
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="input-group" id="show_hide_password_old">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fas fa-lock"></i>
-                      </span>
-                    </div>
-                    <input type="password" id="old_password" name="old_password" class="form-control" placeholder="Current Password">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <a href="#"><i class="fas fa-eye-slash"></i></a>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="input-group" id="show_hide_password">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fas fa-key"></i>
-                      </span>
-                    </div>
-                    <input type="password" id="new_password" name="new_password" class="form-control" placeholder="New Password">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <a href="#"><i class="fas fa-eye-slash"></i></a>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <div class="input-group" id="show_hide_password_confirm">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">
-                        <i class="fas fa-check-circle"></i>
-                      </span>
-                    </div>
-                    <input type="password" id="edit_confirm_password" name="edit_confirm_password" class="form-control" placeholder="Confirm New Password">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <a href="#"><i class="fas fa-eye-slash"></i></a>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group mb-0">
-                  <button type="submit" class="btn btn-submit btn-block">
-                    <i class="fas fa-save"></i> Update Profile
-                  </button>
-                </div>
-              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="main-footer footer-custom">
+      <div class="footer-content">
+        <div class="row">
+          <div class="col-md-4 footer-section">
+            <h5><i class="fas fa-phone-alt"></i> Emergency Hotlines</h5>
+            <div class="hotline-grid">
+              <p><strong>ONE HULO:</strong> 77982024</p>
+              <p><strong>PNP:</strong> 0998-5987882</p>
+              <p><strong>PRC:</strong> 143</p>
+              <p><strong>DOH:</strong> (632) 8651-7800</p>
+              <p><strong>MERALCO:</strong> 16211</p>
+              <p><strong>BFP:</strong> (02) 8426-0246(02) / 8426-0219</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 footer-section">
+            <h5><i class="fas fa-clock"></i> Office Hours</h5>
+            <div class="office-hours">
+              <p><strong>Monday to Friday:</strong><br>7:00 AM - 4:00 PM</p>
+              <p><strong>Saturday:</strong><br>7:00 AM - 12:00 NN</p>
+              <p><strong>Sunday & Holidays:</strong><br>CLOSED</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 footer-section">
+            <h5><i class="fas fa-map-marker-alt"></i> Location</h5>
+            <p>91 Coronado, Barangay Hulo<br>Mandaluyong, Philippines</p>
+            <div class="google-maps-container">
+              <a href="https://www.google.com/maps/place/Hulo+Barangay+Hall/@14.5729668,121.0284491,17.5z/data=!4m10!1m2!2m1!1sbarangay+hulo!3m6!1s0x3397c9ad79b7b58d:0xb2c89599c906a93d!8m2!3d14.5700982!4d121.0318749!15sCg1iYXJhbmdheSBodWxvkgERZ292ZXJubWVudF9vZmZpY2WqAUQQASoMIghiYXJhbmdheSggMh8QASIbMmJxRmB9YiOoG5evNO2MKTmRkZ25wJZHGr_ZMhEQAiINYmFyYW5nYXkgaHVsb-ABAA!16s%2Fg%2F11bzx3jt0t?hl=en&entry=ttu&g_ep=EgoyMDI1MTAwMS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                class="footer-link">
+                <img src="../assets/logo/google_maps.png" alt="Barangay Hulo Map" class="map-thumbnail">
+                <div class="map-link-text">
+                  <span>View on Google Maps</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 
-  <footer class="main-footer">
-    <i class="fas fa-map-marker-alt"></i> 91 Coronado, Barangay Hulo, Mandaluyong, Philippines
-  </footer>
-</div>
+  <script src="../assets/plugins/jquery/jquery.min.js"></script>
+  <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <script src="../assets/dist/js/adminlte.js"></script>
+  <script src="../assets/plugins/jquery-validation/jquery.validate.min.js"></script>
+  <script src="../assets/plugins/jquery-validation/additional-methods.min.js"></script>
+  <script src="../assets/plugins/sweetalert2/js/sweetalert2.all.min.js"></script>
 
-<script src="../assets/plugins/jquery/jquery.min.js"></script>
-<script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<script src="../assets/dist/js/adminlte.js"></script>
-<script src="../assets/plugins/jquery-validation/jquery.validate.min.js"></script>
-<script src="../assets/plugins/jquery-validation/additional-methods.min.js"></script>
-<script src="../assets/plugins/sweetalert2/js/sweetalert2.all.min.js"></script>
+  <script>
+    $(document).ready(function() {
 
-<script>
 
-  $(document).ready(function(){
-
-    
- $(function () {
+      $(function() {
         $.validator.setDefaults({
-          submitHandler: function (form) {
+          submitHandler: function(form) {
 
-              var newPassword = $("#new_password").val();
-              var edit_confirm_password = $("#edit_confirm_password").val();
+            var newPassword = $("#new_password").val();
+            var edit_confirm_password = $("#edit_confirm_password").val();
 
-              if(newPassword != edit_confirm_password){
-
-
-                  
-                        Swal.fire({
-                            title: '<strong class="text-danger">ERROR</strong>',
-                            icon: 'error',
-                            html: '<b>New password and confirm password do not match<b>',
-                            width: '400px',
-                            confirmButtonColor: '#b30000',
-                          })
+            if (newPassword != edit_confirm_password) {
 
 
 
-              }else{
+              Swal.fire({
+                title: '<strong class="text-danger">ERROR</strong>',
+                icon: 'error',
+                html: '<b>New password and confirm password do not match<b>',
+                width: '400px',
+                confirmButtonColor: '#b30000',
+              })
 
 
-                $.ajax({
-                    url: 'changeProfile.php',
-                    type: 'POST',
-                    data: new FormData(form),
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    success:function(data){
 
-                      if(data == 'error1'){
-                          Swal.fire({
-                            title: '<strong class="text-danger">ERROR</strong>',
-                            icon: 'error',
-                            html: '<b>Username already exists<b>',
-                            width: '400px',
-                            confirmButtonColor: '#b30000',
-                          })
-                      }else if(data == 'error2'){
+            } else {
 
-                        Swal.fire({
-                            title: '<strong class="text-danger">ERROR</strong>',
-                            icon: 'error',
-                            html: '<b>Current password is incorrect<b>',
-                            width: '400px',
-                            confirmButtonColor: '#b30000',
-                          })
 
-                      }else{
-                        
-                        Swal.fire({
-                          title: '<strong class="text-success">SUCCESS</strong>',
-                          icon: 'success',
-                          html: '<b>Profile updated successfully<b>',
-                          width: '400px',
-                          confirmButtonColor: '#b30000',
-                          allowOutsideClick: false,
-                          showConfirmButton: false,
-                          timer: 2000,
-                        }).then(()=>{
-                          $("#old_password").val('');
-                          $("#new_password").val('');
-                          $("#edit_confirm_password").val('');
-                          
-                       
+              $.ajax({
+                url: 'changeProfile.php',
+                type: 'POST',
+                data: new FormData(form),
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function(data) {
 
-                        })
-                        
-
-                      
-                      }
-                      
-                    }
-                }).fail(function(){
+                  if (data == 'error1') {
                     Swal.fire({
-                      title: '<strong class="text-danger">Oops...</strong>',
+                      title: '<strong class="text-danger">ERROR</strong>',
                       icon: 'error',
-                      html: '<b>Something went wrong!<b>',
+                      html: '<b>Username already exists<b>',
                       width: '400px',
                       confirmButtonColor: '#b30000',
                     })
+                  } else if (data == 'error2') {
+
+                    Swal.fire({
+                      title: '<strong class="text-danger">ERROR</strong>',
+                      icon: 'error',
+                      html: '<b>Current password is incorrect<b>',
+                      width: '400px',
+                      confirmButtonColor: '#b30000',
+                    })
+
+                  } else {
+
+                    Swal.fire({
+                      title: '<strong class="text-success">SUCCESS</strong>',
+                      icon: 'success',
+                      html: '<b>Profile updated successfully<b>',
+                      width: '400px',
+                      confirmButtonColor: '#b30000',
+                      allowOutsideClick: false,
+                      showConfirmButton: false,
+                      timer: 2000,
+                    }).then(() => {
+                      $("#old_password").val('');
+                      $("#new_password").val('');
+                      $("#edit_confirm_password").val('');
+
+
+
+                    })
+
+
+
+                  }
+
+                }
+              }).fail(function() {
+                Swal.fire({
+                  title: '<strong class="text-danger">Oops...</strong>',
+                  icon: 'error',
+                  html: '<b>Something went wrong!<b>',
+                  width: '400px',
+                  confirmButtonColor: '#b30000',
                 })
+              })
 
-              }
+            }
 
-               
 
-           
+
+
           }
         });
-      $('#changeProfile').validate({
-  
-        rules: {
-          username: {
-            required: true,
-            minlength: 6
+        $('#changeProfile').validate({
+
+          rules: {
+            username: {
+              required: true,
+              minlength: 6
+            },
+            old_password: {
+              required: true,
+
+            },
+            new_password: {
+              minlength: 6
+
+            },
+
+
+
           },
-          old_password: {
-            required: true,
-         
+          messages: {
+            username: {
+              required: "This field is required",
+              minlength: "Username must be at least 6 characters"
+            },
+            old_password: {
+              required: "This field is required",
+
+            },
+            new_password: {
+              minlength: "Password must be at least 6 characters",
+
+            },
+
+
+
+
           },
-          new_password: {
-            minlength: 6
-         
+
+
+          errorElement: 'span',
+          errorPlacement: function(error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+
           },
-         
-        
-        
-        },
-        messages: {
-          username: {
-            required: "This field is required",
-            minlength: "Username must be at least 6 characters"
+          highlight: function(element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
           },
-          old_password: {
-            required: "This field is required",
-        
+          unhighlight: function(element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
           },
-          new_password: {
-            minlength: "Password must be at least 6 characters",
-        
-          },
-        
-         
-          
-            
-        },
-   
-     
-        errorElement: 'span',
-        errorPlacement: function (error, element) {
-          error.addClass('invalid-feedback');
-          element.closest('.form-group').append(error);
-        
-        },
-        highlight: function (element, errorClass, validClass) {
-          $(element).addClass('is-invalid');
-        },
-        unhighlight: function (element, errorClass, validClass) {
-          $(element).removeClass('is-invalid');
-        },
-      
+
+        });
+
+      })
+
+
+      $("#show_hide_password a").on('click', function(event) {
+        event.preventDefault();
+        if ($('#show_hide_password input').attr("type") == "text") {
+          $('#show_hide_password input').attr('type', 'password');
+          $('#show_hide_password i').addClass("fa-eye-slash");
+          $('#show_hide_password i').removeClass("fa-eye");
+        } else if ($('#show_hide_password input').attr("type") == "password") {
+          $('#show_hide_password input').attr('type', 'text');
+          $('#show_hide_password i').removeClass("fa-eye-slash");
+          $('#show_hide_password i').addClass("fa-eye");
+        }
       });
-      
+      $("#show_hide_password_confirm a").on('click', function(event) {
+        event.preventDefault();
+        if ($('#show_hide_password_confirm input').attr("type") == "text") {
+          $('#show_hide_password_confirm input').attr('type', 'password');
+          $('#show_hide_password_confirm i').addClass("fa-eye-slash");
+          $('#show_hide_password_confirm i').removeClass("fa-eye");
+        } else if ($('#show_hide_password_confirm input').attr("type") == "password") {
+          $('#show_hide_password_confirm input').attr('type', 'text');
+          $('#show_hide_password_confirm i').removeClass("fa-eye-slash");
+          $('#show_hide_password_confirm i').addClass("fa-eye");
+        }
+      });
+      $("#show_hide_password_old a").on('click', function(event) {
+        event.preventDefault();
+        if ($('#show_hide_password_old input').attr("type") == "text") {
+          $('#show_hide_password_old input').attr('type', 'password');
+          $('#show_hide_password_old i').addClass("fa-eye-slash");
+          $('#show_hide_password_old i').removeClass("fa-eye");
+        } else if ($('#show_hide_password_old input').attr("type") == "password") {
+          $('#show_hide_password_old input').attr('type', 'text');
+          $('#show_hide_password_old i').removeClass("fa-eye-slash");
+          $('#show_hide_password_old i').addClass("fa-eye");
+        }
+      });
     })
-    
-   
-$("#show_hide_password a").on('click', function(event) {
-        event.preventDefault();
-        if($('#show_hide_password input').attr("type") == "text"){
-            $('#show_hide_password input').attr('type', 'password');
-            $('#show_hide_password i').addClass( "fa-eye-slash" );
-            $('#show_hide_password i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password input').attr("type") == "password"){
-            $('#show_hide_password input').attr('type', 'text');
-            $('#show_hide_password i').removeClass( "fa-eye-slash" );
-            $('#show_hide_password i').addClass( "fa-eye" );
-        }
-    });
-    $("#show_hide_password_confirm a").on('click', function(event) {
-        event.preventDefault();
-        if($('#show_hide_password_confirm input').attr("type") == "text"){
-            $('#show_hide_password_confirm input').attr('type', 'password');
-            $('#show_hide_password_confirm i').addClass( "fa-eye-slash" );
-            $('#show_hide_password_confirm i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password_confirm input').attr("type") == "password"){
-            $('#show_hide_password_confirm input').attr('type', 'text');
-            $('#show_hide_password_confirm i').removeClass( "fa-eye-slash" );
-            $('#show_hide_password_confirm i').addClass( "fa-eye" );
-        }
-    });
-    $("#show_hide_password_old a").on('click', function(event) {
-        event.preventDefault();
-        if($('#show_hide_password_old input').attr("type") == "text"){
-            $('#show_hide_password_old input').attr('type', 'password');
-            $('#show_hide_password_old i').addClass( "fa-eye-slash" );
-            $('#show_hide_password_old i').removeClass( "fa-eye" );
-        }else if($('#show_hide_password_old input').attr("type") == "password"){
-            $('#show_hide_password_old input').attr('type', 'text');
-            $('#show_hide_password_old i').removeClass( "fa-eye-slash" );
-            $('#show_hide_password_old i').addClass( "fa-eye" );
-        }
-    });
-  })
-</script>
+  </script>
 
 
 </body>
+
 </html>

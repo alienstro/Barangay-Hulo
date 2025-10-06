@@ -75,6 +75,9 @@ try {
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
       padding: 12px 0;
       border-bottom: 3px solid #b30000;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
     }
 
     .custom-navbar .navbar-brand {
@@ -127,16 +130,37 @@ try {
       margin-right: 8px;
     }
 
-    .nav-link i {
-      margin-right: 8px;
-    }
-
-
     .nav-link:hover {
       background: #b30000 !important;
       color: white !important;
       transform: translateY(-2px);
     }
+
+    .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
+    }
+
+    .footer-link {
+      color: #b30000;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 17px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      padding: 8px 18px;
+      border: 2px solid #b30000;
+      border-radius: 8px;
+      background: white;
+    }
+
+    .footer-link:hover {
+      color: white;
+      background: #b30000;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(179, 0, 0, 0.3);
+    }
+
 
     .nav-link.active {
       background: #b30000 !important;
@@ -152,7 +176,7 @@ try {
       background-blend-mode: overlay;
       background-attachment: fixed;
       min-height: calc(100vh - 120px);
-      padding: 60px 20px;
+      padding: 120px 20px 60px 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -316,19 +340,138 @@ try {
     }
 
     .footer-custom {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(10px);
       color: #333;
-      text-align: center;
-      padding: 20px;
+      padding: 35px 30px;
       font-weight: 500;
-      border-top: 3px solid #b30000;
-      font-size: 14px;
+      border-top: 4px solid #b30000;
+      font-size: 16px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
     }
 
-    .footer-custom .fas {
+    .footer-custom .fas,
+    .footer-custom .fab {
       color: #b30000;
-      margin-right: 8px;
+      margin-right: 10px;
+      font-size: 20px;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section {
+      margin-bottom: 0;
+    }
+
+    .footer-section h5 {
+      color: #b30000;
+      font-weight: 700;
+      font-size: 20px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-section p {
+      margin: 8px 0;
+      line-height: 1.6;
+      font-size: 15px;
+      color: #444;
+    }
+
+    .footer-section p strong {
+      font-weight: 600;
+      color: #222;
+    }
+
+    .google-maps-container {
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .footer-link {
+      color: #b30000;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      display: inline-block;
+      width: 100%;
+      max-width: 350px;
+      border: 3px solid #b30000;
+      border-radius: 12px;
+      background: white;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(179, 0, 0, 0.2);
+    }
+
+    .footer-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(179, 0, 0, 0.35);
+      border-color: #8b0000;
+    }
+
+    .map-thumbnail {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      border-bottom: 3px solid #b30000;
+    }
+
+    .map-link-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      background: white;
+      color: #b30000;
+      font-weight: 700;
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-link:hover .map-link-text {
+      background: #b30000;
+      color: white;
+    }
+
+    .hotline-grid {
+      display: block;
+      background: rgba(179, 0, 0, 0.05);
+      border-left: 4px solid #b30000;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+
+    .hotline-grid p {
+      margin: 4px 0;
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-size: 16px;
+    }
+
+    .office-hours {
+      margin-top: 12px;
+    }
+
+    .office-hours p {
+      background: rgba(179, 0, 0, 0.05);
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin: 8px 0;
+      border-left: 3px solid #b30000;
     }
 
     /* Tablet Styles (768px - 991px) */
@@ -448,8 +591,45 @@ try {
       }
 
       .footer-custom {
-        padding: 15px;
-        font-size: 12px;
+        padding: 30px 20px;
+        font-size: 14px;
+      }
+
+      .footer-section {
+        margin-bottom: 25px;
+      }
+
+      .footer-section h5 {
+        font-size: 18px;
+        margin-bottom: 12px;
+      }
+
+      .footer-section p {
+        font-size: 14px;
+      }
+
+      .footer-custom .fas,
+      .footer-custom .fab {
+        font-size: 18px;
+      }
+
+      .hotline-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .footer-link {
+        font-size: 15px;
+        max-width: 100%;
+      }
+
+      .map-thumbnail {
+        height: 140px;
+      }
+
+      .map-link-text {
+        font-size: 14px;
+        padding: 10px 16px;
       }
     }
 
@@ -522,9 +702,57 @@ try {
       }
 
       .footer-custom {
-        padding: 12px 10px;
-        font-size: 11px;
+        padding: 25px 15px;
+        font-size: 13px;
         line-height: 1.6;
+      }
+
+      .footer-section {
+        margin-bottom: 20px;
+      }
+
+      .footer-section h5 {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .footer-section p {
+        font-size: 13px;
+        margin: 6px 0;
+      }
+
+      .footer-custom .fas,
+      .footer-custom .fab {
+        font-size: 16px;
+      }
+
+      .hotline-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .hotline-grid p {
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+
+      .office-hours p {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+
+      .footer-link {
+        font-size: 14px;
+        max-width: 100%;
+      }
+
+      .map-thumbnail {
+        height: 120px;
+      }
+
+      .map-link-text {
+        font-size: 13px;
+        padding: 10px 14px;
       }
     }
 
@@ -720,7 +948,45 @@ try {
     </div>
 
     <footer class="main-footer footer-custom">
-      <i class="fas fa-map-marker-alt"></i> 91 Coronado, Barangay Hulo, Mandaluyong, Philippines
+      <div class="footer-content">
+        <div class="row">
+          <div class="col-md-4 footer-section">
+            <h5><i class="fas fa-phone-alt"></i> Emergency Hotlines</h5>
+            <div class="hotline-grid">
+              <p><strong>ONE HULO:</strong> 77982024</p>
+              <p><strong>PNP:</strong> 0998-5987882</p>
+              <p><strong>PRC:</strong> 143</p>
+              <p><strong>DOH:</strong> (632) 8651-7800</p>
+              <p><strong>MERALCO:</strong> 16211</p>
+              <p><strong>BFP:</strong> (02) 8426-0246(02) / 8426-0219</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 footer-section">
+            <h5><i class="fas fa-clock"></i> Office Hours</h5>
+            <div class="office-hours">
+              <p><strong>Monday to Friday:</strong><br>7:00 AM - 4:00 PM</p>
+              <p><strong>Saturday:</strong><br>7:00 AM - 12:00 NN</p>
+              <p><strong>Sunday & Holidays:</strong><br>CLOSED</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 footer-section">
+            <h5><i class="fas fa-map-marker-alt"></i> Location</h5>
+            <p>91 Coronado, Barangay Hulo<br>Mandaluyong, Philippines</p>
+            <div class="google-maps-container">
+              <a href="https://www.google.com/maps/place/Hulo+Barangay+Hall/@14.5729668,121.0284491,17.5z/data=!4m10!1m2!2m1!1sbarangay+hulo!3m6!1s0x3397c9ad79b7b58d:0xb2c89599c906a93d!8m2!3d14.5700982!4d121.0318749!15sCg1iYXJhbmdheSBodWxvkgERZ292ZXJubWVudF9vZmZpY2WqAUQQASoMIghiYXJhbmdheSggMh8QASIbMmJxRmB9YiOoG5evNO2MKTmRkZ25wJZHGr_ZMhEQAiINYmFyYW5nYXkgaHVsb-ABAA!16s%2Fg%2F11bzx3jt0t?hl=en&entry=ttu&g_ep=EgoyMDI1MTAwMS4wIKXMDSoASAFQAw%3D%3D"
+                target="_blank"
+                class="footer-link">
+                <img src="./assets/logo/google_maps.png" alt="Barangay Hulo Map" class="map-thumbnail">
+                <div class="map-link-text">
+                  <span>View on Google Maps</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </footer>
   </div>
 
