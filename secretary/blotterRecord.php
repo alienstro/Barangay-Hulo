@@ -217,6 +217,124 @@ try {
       background: #8b0000;
     }
 
+    .modal-header {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      color: white;
+      border-bottom: 3px solid #8b0000;
+    }
+
+    .modal-header h4,
+    .modal-header .modal-title {
+      color: white !important;
+      font-weight: 600;
+    }
+
+    .modal-header .close {
+      color: white;
+      opacity: 1;
+      text-shadow: none;
+    }
+
+    .modal-header .close:hover {
+      color: #f0f0f0;
+    }
+
+    fieldset {
+      border: 3px solid #b30000 !important;
+      padding: 0 1.4em 1.4em 1.4em !important;
+      margin: 0 0 1.5em 0 !important;
+      -webkit-box-shadow: 0px 0px 0px 0px #000;
+      box-shadow: 0px 0px 0px 0px #000;
+      border-radius: 12px;
+      background: rgba(179, 0, 0, 0.02);
+    }
+
+    legend {
+      font-size: 1.2em !important;
+      font-weight: bold !important;
+      color: #b30000 !important;
+      text-align: left !important;
+      width: auto;
+      padding: 0 10px;
+      border-bottom: none;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .form-control {
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 10px 15px;
+      transition: all 0.3s ease;
+      color: #333 !important;
+      background-color: white !important;
+    }
+
+    .form-control:focus {
+      border-color: #b30000;
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+      outline: none;
+    }
+
+    /* Ensure Select2 has black text */
+    .select2-container--bootstrap4 .select2-selection__rendered {
+      color: #333 !important;
+    }
+
+    .select2-container--bootstrap4 .select2-results__option {
+      color: #333 !important;
+    }
+
+    .select2-container--bootstrap4 .select2-search__field {
+      color: #333 !important;
+    }
+
+    /* Ensure select elements have black text */
+    select.form-control {
+      color: #333 !important;
+    }
+
+    select.form-control option {
+      color: #333 !important;
+      background-color: white !important;
+    }
+
+    /* Ensure input placeholders are visible */
+    .form-control::placeholder {
+      color: #999 !important;
+      opacity: 1;
+    }
+
+    textarea.form-control {
+      min-height: 100px;
+      resize: vertical;
+      color: #333 !important;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      border: none;
+      padding: 10px 24px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #8b0000 0%, #6a0000 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(179, 0, 0, 0.3);
+    }
+
+    .modal-footer {
+      border-top: 2px solid #e9ecef;
+      padding: 15px 20px;
+    }
+
     .dataTables_wrapper .dataTables_filter input {
       border: 1px solid #ddd;
       border-radius: 12px;
@@ -290,6 +408,42 @@ try {
     .table {
       table-layout: auto;
       width: 100% !important;
+    }
+
+    /* Select2 Styling */
+    .select2-container--bootstrap4 .select2-selection {
+      border: 2px solid #ddd !important;
+      border-radius: 8px !important;
+      min-height: 38px !important;
+    }
+
+    .select2-container--bootstrap4 .select2-selection:focus,
+    .select2-container--bootstrap4.select2-container--focus .select2-selection {
+      border-color: #b30000 !important;
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15) !important;
+      outline: none !important;
+    }
+
+    .select2-container--bootstrap4 .select2-selection--multiple {
+      padding: 4px 8px !important;
+    }
+
+    .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice {
+      background-color: #b30000 !important;
+      border: 1px solid #8b0000 !important;
+      color: white !important;
+      border-radius: 6px !important;
+      padding: 4px 8px !important;
+      margin: 2px !important;
+    }
+
+    .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice__remove {
+      color: white !important;
+      margin-right: 5px !important;
+    }
+
+    .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__choice__remove:hover {
+      color: #ffcccc !important;
     }
 
     /* Responsive Design */
@@ -424,22 +578,22 @@ try {
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <h5><a class="nav-link text-white" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></h5>
+          <h5><a class="nav-link text-black" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block" style="font-variant: small-caps;">
-          <h5 class="nav-link text-white"><?= $barangay ?></h5>
+          <h5 class="nav-link text-black"><?= $barangay ?></h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white">-</h5>
+          <h5 class="nav-link text-black">-</h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white"><?= $zone ?></h5>
+          <h5 class="nav-link text-black"><?= $zone ?></h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white">-</h5>
+          <h5 class="nav-link text-black">-</h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white"><?= $district ?></h5>
+          <h5 class="nav-link text-black"><?= $district ?></h5>
         </li>
       </ul>
 
@@ -776,13 +930,13 @@ try {
                 <div class="col-sm-12 ">
                   <div class="form-group form-group-sm">
                     <label>Complainant Not Resident</label>
-                    <textarea name="complainant_not_residence" id="complainant_not_residence" cols="57" class="bg-transparent text-white form-control"></textarea>
+                    <textarea name="complainant_not_residence" id="complainant_not_residence" cols="57" class="bg-transparent text-black form-control"></textarea>
                   </div>
                 </div>
                 <div class="col-sm-12 ">
                   <div class="form-group form-group-sm">
                     <label>Complainant Statement</label>
-                    <textarea name="complainant_statement" id="complainant_statement" cols="57" rows="3" class="bg-transparent text-white form-control"></textarea>
+                    <textarea name="complainant_statement" id="complainant_statement" cols="57" rows="3" class="bg-transparent text-black form-control"></textarea>
                   </div>
                 </div>
                 <div class="col-sm-12 ">
@@ -837,13 +991,13 @@ try {
                 <div class="col-sm-12 ">
                   <div class="form-group form-group-sm">
                     <label>Person Involved Not Resident</label>
-                    <textarea name="person_involevd_not_resident" id="person_involevd_not_resident" cols="57" class="bg-transparent text-white form-control"></textarea>
+                    <textarea name="person_involevd_not_resident" id="person_involevd_not_resident" cols="57" class="bg-transparent text-black form-control"></textarea>
                   </div>
                 </div>
                 <div class="col-sm-12 ">
                   <div class="form-group form-group-sm">
                     <label>Person Involved Statement</label>
-                    <textarea name="person_statement" id="person_statement" cols="57" rows="3" class="bg-transparent text-white form-control"></textarea>
+                    <textarea name="person_statement" id="person_statement" cols="57" rows="3" class="bg-transparent text-black form-control"></textarea>
                   </div>
                 </div>
                 <div class="col-sm-6">
@@ -1068,6 +1222,16 @@ try {
                 html: '<b>Complainant is Required<b>',
                 width: '400px',
                 confirmButtonColor: '#6610f2',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                timer: 2000,
+              }).then(() => {
+                $("#addNewRecordForm")[0].reset();
+                $("#blotterRecordTable").DataTable().ajax.reload();
+                $("#blotterRecordModal").modal('hide');
+                $("#complainant_residence").val([]).trigger("change")
+                $("#person_involed").val([]).trigger("change")
+
               })
               return false;
             }
@@ -1079,6 +1243,16 @@ try {
                 html: '<b>Complainant is Statement Required<b>',
                 width: '400px',
                 confirmButtonColor: '#6610f2',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                timer: 2000,
+              }).then(() => {
+                $("#addNewRecordForm")[0].reset();
+                $("#blotterRecordTable").DataTable().ajax.reload();
+                $("#blotterRecordModal").modal('hide');
+                $("#complainant_residence").val([]).trigger("change")
+                $("#person_involed").val([]).trigger("change")
+
               })
               return false;
             }
@@ -1090,6 +1264,16 @@ try {
                 html: '<b>Person Involved is Required<b>',
                 width: '400px',
                 confirmButtonColor: '#6610f2',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                timer: 2000,
+              }).then(() => {
+                $("#addNewRecordForm")[0].reset();
+                $("#blotterRecordTable").DataTable().ajax.reload();
+                $("#blotterRecordModal").modal('hide');
+                $("#complainant_residence").val([]).trigger("change")
+                $("#person_involed").val([]).trigger("change")
+
               })
               return false;
             }
@@ -1101,6 +1285,16 @@ try {
                 html: '<b>Person Involved Statement is Required<b>',
                 width: '400px',
                 confirmButtonColor: '#6610f2',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                timer: 2000,
+              }).then(() => {
+                $("#addNewRecordForm")[0].reset();
+                $("#blotterRecordTable").DataTable().ajax.reload();
+                $("#blotterRecordModal").modal('hide');
+                $("#complainant_residence").val([]).trigger("change")
+                $("#person_involed").val([]).trigger("change")
+
               })
               return false;
             }
