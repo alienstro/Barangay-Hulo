@@ -67,10 +67,367 @@ try {
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="../assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="../assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-  <link rel="stylesheet" href="../assets/plugins/phone code/intlTelInput.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif !important;
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      min-height: 100vh;
+    }
+
+    .content-wrapper {
+      background-color: rgba(0, 0, 0, 0.40);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay;
+      background-attachment: fixed;
+      min-height: calc(100vh - 120px);
+      padding: 40px 20px;
+    }
+
+    .card {
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: none;
+      animation: fadeInUp 0.6s ease;
+      background: white;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card-indigo {
+      background: #b30000 !important;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+      color: white;
+      border-bottom: none;
+      padding: 20px;
+    }
+
+    .card-body {
+      background: white;
+      padding: 30px;
+    }
+
+    .card-footer {
+      background: white;
+      border-top: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 20px 30px;
+    }
+
+    .profile-user-img {
+      height: 120px;
+      width: 120px;
+      border: 5px solid #b30000;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(179, 0, 0, 0.3);
+    }
+
+    .profile-user-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(179, 0, 0, 0.4);
+    }
+
+    .profile-username {
+      font-size: 21px;
+      font-weight: 600;
+      color: #b30000;
+      margin-top: 15px;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .form-control,
+    .form-control:focus {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 10px 15px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #b30000;
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+    }
+
+    select.form-control {
+      cursor: pointer;
+    }
+
+    .nav-tabs {
+      border-bottom: 2px solid #b30000;
+    }
+
+    .nav-tabs .nav-link {
+      color: #666;
+      font-weight: 500;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 12px 20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-tabs .nav-link:hover {
+      border-bottom-color: rgba(179, 0, 0, 0.3);
+      color: #b30000;
+    }
+
+    .nav-tabs .nav-link.active {
+      border-bottom-color: #b30000;
+      color: #b30000;
+    }
+
+    .tab-content {
+      padding: 25px 0;
+    }
+
+    .lead {
+      font-size: 18px;
+      font-weight: 600;
+      color: #b30000;
+      margin-bottom: 20px;
+      border-bottom: 2px solid rgba(179, 0, 0, 0.2);
+      padding-bottom: 10px;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      border: none;
+      color: white;
+      padding: 12px 32px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(179, 0, 0, 0.3);
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, #8b0000 0%, #6d0000 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(179, 0, 0, 0.4);
+      color: white;
+    }
+
+    .main-header {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid #b30000;
+    }
+
+    .main-header .navbar-nav .nav-link {
+      color: #b30000 !important;
+      font-weight: 500;
+    }
+
+    .main-sidebar {
+      background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-dark-primary .nav-link {
+      color: #c2c7d0 !important;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 4px 8px;
+    }
+
+    .sidebar-dark-primary .nav-link:hover {
+      background: rgba(179, 0, 0, 0.2) !important;
+      color: white !important;
+    }
+
+    .sidebar-dark-primary .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
+    }
+
+    .bg-indigo {
+      background: #b30000 !important;
+    }
+
+    .text-red {
+      color: #b30000 !important;
+    }
+
+    .elevation-5 {
+      box-shadow: 0 10px 30px rgba(179, 0, 0, 0.3) !important;
+    }
+
+    .brand-link {
+      border-bottom: 2px solid #b30000;
+      padding: 20px;
+    }
+
+    .img-bordered-sm {
+      border: 4px solid #b30000 !important;
+    }
+
+    .preloader {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+    }
+
+    .is-invalid {
+      border-color: #dc3545 !important;
+    }
+
+    .invalid-feedback {
+      color: #dc3545;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    /* Loading Overlay */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .loading-content {
+      text-align: center;
+      color: white;
+    }
+
+    .loading-spinner {
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-top: 5px solid #b30000;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .loading-subtext {
+      font-size: 14px;
+      margin-top: 10px;
+      opacity: 0.9;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 991px) {
+      .content-wrapper {
+        padding: 30px 15px;
+      }
+
+      .card-body {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .content-wrapper {
+        padding: 20px 10px;
+        background-attachment: scroll;
+      }
+
+      .card {
+        border-radius: 20px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .profile-user-img {
+        height: 100px;
+        width: 100px;
+      }
+
+      .profile-username {
+        font-size: 18px;
+      }
+
+      .btn-success {
+        padding: 10px 24px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        border-radius: 16px;
+      }
+
+      .card-body {
+        padding: 16px;
+      }
+
+      .form-control {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+
+      .btn-success {
+        width: 100%;
+        padding: 12px;
+      }
+    }
+
     #image_residence {
       height: 120px;
       width: auto;
@@ -87,7 +444,7 @@ try {
   </style>
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini layout-footer-fixed">
+<body class="hold-transition sidebar-mini sidebar-collapse layout-footer-fixed">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -96,7 +453,7 @@ try {
     </div>
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
+    <nav class="main-header navbar navbar-expand navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -324,7 +681,7 @@ try {
           <form id="newResidenceForm" method="POST" enctype="multipart/form-data" autocomplete="off">
             <div class="row mb-3">
               <div class="col-sm-4">
-                <div class="card card-indigo card-outline h-100">
+                <div class="card card-red card-outline h-100">
                   <div class="card-body box-profile">
                     <div class="text-center">
                       <img class="profile-user-img img-fluid img-thumbnail" src="../assets/dist/img/blank_image.png" alt="User profile picture" style="cursor: pointer;" id="image_residence">

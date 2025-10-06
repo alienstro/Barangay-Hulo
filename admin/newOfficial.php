@@ -54,7 +54,7 @@ try {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>Barangay Hulo - New Official</title>
 
 
   <!-- Font Awesome Icons -->
@@ -71,13 +71,385 @@ try {
   <link rel="stylesheet" href="../assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Poppins', sans-serif !important;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .content-wrapper {
+      background-color: rgba(0, 0, 0, 0.40);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay;
+      background-attachment: fixed;
+      min-height: calc(100vh - 120px);
+      padding: 40px 20px;
+    }
+
+    .card {
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: none;
+      animation: fadeInUp 0.6s ease;
+      background: white;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card-indigo {
+      border-top: 5px solid #b30000 !important;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      color: white;
+      padding: 20px 24px;
+      border-bottom: none;
+    }
+
+    .card-body {
+      background: white;
+      padding: 30px;
+    }
+
+    .card-footer {
+      background: white;
+      padding: 20px 30px;
+      border-top: 2px solid #f0f0f0;
+    }
+
+    .profile-user-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 5px solid #b30000;
+      box-shadow: 0 8px 24px rgba(179, 0, 0, 0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      object-fit: cover;
+    }
+
+    .profile-user-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 32px rgba(179, 0, 0, 0.4);
+    }
+
+    .profile-username {
+      font-size: 20px;
+      font-weight: 600;
+      color: #b30000;
+      text-align: center;
+      margin: 16px 0 24px 0;
+      min-height: 30px;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .form-control,
+    .form-control:focus {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-control:focus {
+      border-color: #b30000;
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+    }
+
+    select.form-control {
+      cursor: pointer;
+    }
+
+    .nav-tabs .nav-link {
+      color: white !important;
+      font-weight: 500;
+      border: none;
+      border-radius: 0;
+      padding: 12px 24px;
+      transition: all 0.3s ease;
+      background: transparent !important;
+    }
+
+    .nav-tabs .nav-link:hover {
+      color: #b30000 !important;
+      background: rgba(179, 0, 0, 0.05) !important;
+    }
+
+    .nav-tabs .nav-link.active {
+      color: black !important;
+      background: white !important;
+      border-bottom: 2px solid #b30000;
+    }
+
+    .tab-content {
+      padding-top: 24px;
+    }
+
+    .lead {
+      font-size: 20px;
+      font-weight: 600;
+      color: #b30000;
+      margin-bottom: 24px;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+      border: none !important;
+      border-radius: 12px;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 14px 32px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 12px rgba(179, 0, 0, 0.3);
+    }
+
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(179, 0, 0, 0.4);
+      background: linear-gradient(135deg, #8b0000 0%, #b30000 100%) !important;
+      color: white;
+    }
+
+    .main-header {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid #b30000;
+    }
+
+    .main-header .navbar-nav .nav-link {
+      color: #b30000 !important;
+      font-weight: 500;
+    }
+
+    .main-sidebar {
+      background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-dark-primary .nav-link {
+      color: #c2c7d0 !important;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 4px 8px;
+    }
+
+    .sidebar-dark-primary .nav-link:hover {
+      background: rgba(179, 0, 0, 0.2) !important;
+      color: white !important;
+    }
+
+    .sidebar-dark-primary .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
+    }
+
+    .bg-indigo {
+      background: #b30000 !important;
+    }
+
+    .text-red {
+      color: #b30000 !important;
+    }
+
+    .elevation-5 {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .brand-link {
+      border-bottom: 2px solid #b30000;
+      padding: 20px;
+    }
+
+    .img-bordered-sm {
+      border: 4px solid #b30000 !important;
+    }
+
+    .preloader {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+    }
+
+    .is-invalid {
+      border-color: #dc3545 !important;
+    }
+
+    .invalid-feedback {
+      color: #dc3545;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    /* Loading Overlay */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .loading-content {
+      text-align: center;
+      color: white;
+    }
+
+    .loading-spinner {
+      width: 60px;
+      height: 60px;
+      border: 5px solid rgba(255, 255, 255, 0.3);
+      border-top: 5px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-text {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .loading-subtext {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-top: 5px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 991px) {
+      .content-wrapper {
+        padding: 30px 15px;
+      }
+
+      .card-body {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .content-wrapper {
+        padding: 20px 10px;
+        background-attachment: scroll;
+      }
+
+      .card {
+        border-radius: 20px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .profile-user-img {
+        width: 120px;
+        height: 120px;
+      }
+
+      .btn-success {
+        font-size: 14px;
+        padding: 12px 24px;
+      }
+
+      .nav-tabs .nav-link {
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        border-radius: 16px;
+      }
+
+      .card-body {
+        padding: 16px;
+      }
+
+      .profile-user-img {
+        width: 100px;
+        height: 100px;
+      }
+
+      .btn-success {
+        font-size: 13px;
+        padding: 11px 20px;
+      }
+
+      .nav-tabs .nav-link {
+        padding: 8px 12px;
+        font-size: 13px;
+      }
+    }
+  </style>
 
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini   ">
+<body class="hold-transition sidebar-mini sidebar-collapse">
   <div class="wrapper">
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Adding New Official...</div>
+        <div class="loading-subtext">Please wait while we process your request</div>
+      </div>
+    </div>
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
@@ -85,26 +457,26 @@ try {
     </div>
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
+    <nav class="main-header navbar navbar-expand navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <h5><a class="nav-link text-white" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></h5>
+          <h5><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block" style="font-variant: small-caps;">
-          <h5 class="nav-link text-white"><?= $barangay ?></h5>
+          <h5 class="nav-link"><?= $barangay ?></h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white">-</h5>
+          <h5 class="nav-link">-</h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white"><?= $zone ?></h5>
+          <h5 class="nav-link"><?= $zone ?></h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white">-</h5>
+          <h5 class="nav-link">-</h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white"><?= $district ?></h5>
+          <h5 class="nav-link"><?= $district ?></h5>
         </li>
       </ul>
 
@@ -628,7 +1000,9 @@ try {
                     </div>
                   </div>
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-success px-3  elevation-5 btn-flat"> <i class="fas fa-plus"></i> ADD NEW OFFICIAL</button>
+                    <button type="submit" class="btn btn-success px-3 elevation-5 btn-flat" style="border-radius: 10px;">
+                      <i class="fas fa-plus"></i> ADD NEW OFFICIAL
+                    </button>
                   </div>
                   <!-- /.card -->
                 </div>
@@ -708,6 +1082,9 @@ try {
       $(function() {
         $.validator.setDefaults({
           submitHandler: function(form) {
+            // Show loading overlay
+            $('#loadingOverlay').addClass('active');
+
             $.ajax({
               url: 'addNewOfficial.php',
               type: 'POST',
@@ -715,6 +1092,9 @@ try {
               processData: false,
               contentType: false,
               success: function(data) {
+                // Hide loading overlay
+                $('#loadingOverlay').removeClass('active');
+
                 if (data == 'error') {
 
                   Swal.fire({
@@ -722,7 +1102,7 @@ try {
                     type: 'error',
                     html: '<b>Position Limited<b>',
                     width: '400px',
-                    confirmButtonColor: '#6610f2',
+                    confirmButtonColor: '#b30000',
                     allowOutsideClick: false,
                   });
 
@@ -732,7 +1112,7 @@ try {
                     type: 'success',
                     html: '<b>Added Official has Successfully<b>',
                     width: '400px',
-                    confirmButtonColor: '#6610f2',
+                    confirmButtonColor: '#b30000',
                     allowOutsideClick: false,
                     showConfirmButton: false,
                     timer: 2000,
@@ -744,12 +1124,15 @@ try {
 
               }
             }).fail(function() {
+              // Hide loading overlay
+              $('#loadingOverlay').removeClass('active');
+
               Swal.fire({
                 title: '<strong class="text-danger">Ooppss..</strong>',
                 type: 'error',
                 html: '<b>Something went wrong with ajax !<b>',
                 width: '400px',
-                confirmButtonColor: '#6610f2',
+                confirmButtonColor: '#b30000',
               })
             })
           }
@@ -891,7 +1274,7 @@ try {
                 type: 'error',
                 html: '<b>Invalid Image File<b>',
                 width: '400px',
-                confirmButtonColor: '#6610f2',
+                confirmButtonColor: '#b30000',
               })
               $("#add_image").val('');
               $("#image_official").attr('src', '../assets/dist/img/blank_image.png');

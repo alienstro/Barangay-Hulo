@@ -68,8 +68,112 @@ try {
   <!-- Tempusdominus Bbootstrap 4 -->
   <link rel="stylesheet" href="../assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="../assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif !important;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .content-wrapper {
+      background-color: rgba(0, 0, 0, 0.40);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay;
+      background-attachment: fixed;
+      min-height: calc(100vh - 120px);
+      padding: 40px 20px;
+    }
+
+    .card {
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: none;
+      animation: fadeInUp 0.6s ease;
+      background: white;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card-body {
+      background: white;
+      padding: 30px;
+    }
+
+    .main-header {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid #b30000;
+    }
+
+    .main-header .navbar-nav .nav-link {
+      color: #b30000 !important;
+      font-weight: 500;
+    }
+
+    .main-sidebar {
+      background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-dark-primary .nav-link {
+      color: #c2c7d0 !important;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 4px 8px;
+    }
+
+    .sidebar-dark-primary .nav-link:hover {
+      background: rgba(179, 0, 0, 0.2) !important;
+      color: white !important;
+    }
+
+    .sidebar-dark-primary .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
+    }
+
+    .bg-indigo {
+      background: #b30000 !important;
+    }
+
+    .text-red {
+      color: #b30000 !important;
+    }
+
+    .brand-link {
+      border-bottom: 2px solid #b30000;
+      padding: 20px;
+    }
+
+    .img-bordered-sm {
+      border: 4px solid #b30000 !important;
+    }
+
+    .preloader {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+    }
+
     .customWidth {
       width: 150px;
     }
@@ -78,129 +182,144 @@ try {
       width: 20px;
     }
 
-    .dataTables_wrapper .dataTables_paginate .page-link {
+    .table-responsive {
+      border-radius: 12px;
+      overflow: hidden;
+    }
 
+    .table thead {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+    }
+
+    .table thead th {
+      color: white !important;
+      font-weight: 600;
+      border: none;
+      padding: 15px;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(179, 0, 0, 0.05);
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: rgba(179, 0, 0, 0.1);
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .dataTables_wrapper .dataTables_filter input:focus {
+      border-color: #b30000;
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+    }
+
+    .dataTables_wrapper .dataTables_filter label {
+      color: #b30000;
+      font-weight: 600;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .page-link {
       border: none;
     }
 
     .dataTables_wrapper .dataTables_paginate .page-item .page-link {
-      color: #fff;
+      color: #b30000;
       border-color: transparent;
-
-
+      background: white;
+      border-radius: 8px;
+      margin: 0 4px;
+      transition: all 0.3s ease;
     }
 
     .dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
       color: #fff;
       border: transparent;
-      background: none;
+      background: #b30000 !important;
       font-weight: bold;
-      background-color: #000;
+      box-shadow: 0 2px 8px rgba(179, 0, 0, 0.3);
     }
 
     .page-link:focus {
-      border-color: #CCC;
+      border-color: #b30000;
       outline: 0;
-      -webkit-box-shadow: none;
-      box-shadow: none;
+      -webkit-box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
     }
 
-
-    .last:after {
-      display: none;
-      width: 70px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
+    .dataTables_length select {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #333;
+      padding: 4px 8px;
+      background: white;
     }
 
-    .last:hover:after {
-      display: block;
+    .dataTables_length span {
+      color: #b30000;
+      font-weight: 600;
     }
 
-    .last:after {
-      content: "Last Page";
+    .dataTables_info {
+      font-size: 13px;
+      margin-top: 8px;
+      font-weight: 500;
+      color: #b30000;
     }
 
-    .first:after {
-      display: none;
-      width: 70px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
+    .dataTables_scrollHeadInner,
+    .table {
+      table-layout: auto;
+      width: 100% !important;
     }
 
-    .first:hover:after {
-      display: block;
+    /* Responsive Design */
+    @media (max-width: 991px) {
+      .content-wrapper {
+        padding: 30px 15px;
+      }
+
+      .card-body {
+        padding: 24px;
+      }
     }
 
-    .first:after {
-      content: "First Page";
+    @media (max-width: 767px) {
+      .content-wrapper {
+        padding: 20px 10px;
+        background-attachment: scroll;
+      }
+
+      .card {
+        border-radius: 20px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
     }
 
-    .last:after {
-      content: "Last Page";
-    }
+    @media (max-width: 480px) {
+      .card {
+        border-radius: 16px;
+      }
 
-    .next:after {
-      display: none;
-      width: 70px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
-    }
-
-    .next:hover:after {
-      display: block;
-    }
-
-    .next:after {
-      content: "Next Page";
-    }
-
-    .previous:after {
-      display: none;
-      width: 80px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 5px;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
-    }
-
-    .previous:hover:after {
-      display: block;
-    }
-
-    .previous:after {
-      content: "Previous Page";
+      .card-body {
+        padding: 16px;
+      }
     }
   </style>
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini   layout-footer-fixed">
+<body class="hold-transition sidebar-mini sidebar-collapse   layout-footer-fixed">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -209,7 +328,7 @@ try {
     </div>
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
+    <nav class="main-header navbar navbar-expand navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">

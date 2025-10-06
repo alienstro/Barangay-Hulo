@@ -51,7 +51,7 @@ try {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
+  <title>Barangay Hulo - All Officials</title>
 
 
   <!-- Font Awesome Icons -->
@@ -68,182 +68,345 @@ try {
   <link rel="stylesheet" href="../assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    .dataTables_wrapper .dataTables_paginate .page-link {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: 'Poppins', sans-serif !important;
+      background: white;
+      min-height: 100vh;
+    }
+
+    .content-wrapper {
+      background-color: rgba(0, 0, 0, 0.40);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay;
+      background-attachment: fixed;
+      min-height: calc(100vh - 120px);
+      padding: 40px 20px;
+    }
+
+    .card {
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
       border: none;
+      animation: fadeInUp 0.6s ease;
+      background: white;
     }
 
-    .dataTables_wrapper .dataTables_paginate .page-item .page-link {
-      color: #fff;
-      border-color: transparent;
-
-
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
-      color: #fff;
-      border: transparent;
-      background: none;
-      font-weight: bold;
-      background-color: #000;
+    .card-body {
+      background: white;
+      padding: 30px;
     }
 
-    .page-link:focus {
-      border-color: #CCC;
-      outline: 0;
-      -webkit-box-shadow: none;
-      box-shadow: none;
+    .main-header {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid #b30000;
     }
 
-    .dataTables_length select {
-      border: 1px solid #fff;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      cursor: pointer;
-      color: #fff;
-
-    }
-
-    .dataTables_length span {
-      color: #fff;
+    .main-header .navbar-nav .nav-link {
+      color: #b30000 !important;
       font-weight: 500;
     }
 
-    .last:after {
-      display: none;
-      width: 70px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
+    .main-sidebar {
+      background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
     }
 
-    .last:hover:after {
-      display: block;
+    .sidebar-dark-primary .nav-link {
+      color: #c2c7d0 !important;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 4px 8px;
     }
 
-    .last:after {
-      content: "Last Page";
+    .sidebar-dark-primary .nav-link:hover {
+      background: rgba(179, 0, 0, 0.2) !important;
+      color: white !important;
     }
 
-    .first:after {
-      display: none;
-      width: 70px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
+    .sidebar-dark-primary .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
     }
 
-    .first:hover:after {
-      display: block;
+    .bg-indigo {
+      background: #b30000 !important;
     }
 
-    .first:after {
-      content: "First Page";
+    .text-red {
+      color: #b30000 !important;
     }
 
-    .last:after {
-      content: "Last Page";
+    .brand-link {
+      border-bottom: 2px solid #b30000;
+      padding: 20px;
     }
 
-    .next:after {
-      display: none;
-      width: 70px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
+    .img-bordered-sm {
+      border: 4px solid #b30000 !important;
     }
 
-    .next:hover:after {
-      display: block;
-    }
-
-    .next:after {
-      content: "Next Page";
-    }
-
-    .previous:after {
-      display: none;
-      width: 80px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 5px;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
-    }
-
-    .previous:hover:after {
-      display: block;
-    }
-
-    .previous:after {
-      content: "Previous Page";
-    }
-
-    .dataTables_info {
-      font-size: 13px;
-      margin-top: 8px;
-      font-weight: 500;
-      color: #fff;
-    }
-
-    .dataTables_scrollHeadInner,
-    .table {
-      table-layout: auto;
-      width: 100% !important;
+    .preloader {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
     }
 
     fieldset {
-      border: 3px solid black !important;
+      border: 3px solid #b30000 !important;
       padding: 0 1.4em 1.4em 1.4em !important;
       margin: 0 0 1.5em 0 !important;
       -webkit-box-shadow: 0px 0px 0px 0px #000;
       box-shadow: 0px 0px 0px 0px #000;
+      border-radius: 12px;
     }
 
     legend {
       font-size: 1.2em !important;
       font-weight: bold !important;
-      color: #fff;
+      color: #b30000;
       text-align: left !important;
       width: auto;
       padding: 0 10px;
       border-bottom: none;
     }
 
-    .select2-container--default .select2-selection--single {
-      background-color: transparent;
-      height: 38px;
-
-
+    .table-responsive {
+      border-radius: 12px;
+      overflow: hidden;
     }
 
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-      color: #fff;
+    .table thead {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+    }
 
+    .table thead th {
+      color: white !important;
+      font-weight: 600;
+      border: none;
+      padding: 15px;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(179, 0, 0, 0.05);
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: rgba(179, 0, 0, 0.1);
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .dataTables_wrapper .dataTables_filter input:focus {
+      border-color: #b30000;
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+    }
+
+    .dataTables_wrapper .dataTables_filter label {
+      color: #b30000;
+      font-weight: 600;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 991px) {
+      .content-wrapper {
+        padding: 30px 15px;
+      }
+
+      .card-body {
+        padding: 24px;
+      }
+
+      .table thead th {
+        padding: 12px 8px;
+        font-size: 14px;
+      }
+
+      .table tbody td {
+        padding: 10px 8px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .content-wrapper {
+        padding: 20px 10px;
+        background-attachment: scroll;
+      }
+
+      .card {
+        border-radius: 20px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .table-responsive {
+        font-size: 12px;
+      }
+
+      .table thead th,
+      .table tbody td {
+        padding: 8px 6px;
+        font-size: 12px;
+      }
+
+      .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .dataTables_wrapper .dataTables_filter input {
+        width: 100%;
+        max-width: 200px;
+      }
+
+      .dataTables_length,
+      .dataTables_info {
+        font-size: 12px;
+      }
+
+      .switch {
+        width: 60px;
+        height: 24px;
+      }
+
+      .slider:before {
+        height: 16px;
+        width: 16px;
+      }
+
+      input:checked+.slider:before {
+        -webkit-transform: translateX(36px);
+        -ms-transform: translateX(36px);
+        transform: translateX(36px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        border-radius: 16px;
+      }
+
+      .card-body {
+        padding: 16px;
+      }
+
+      .card-header h3 {
+        font-size: 18px;
+      }
+
+      .table thead th,
+      .table tbody td {
+        padding: 6px 4px;
+        font-size: 11px;
+      }
+
+      .btn {
+        padding: 5px 10px;
+        font-size: 11px;
+      }
+
+      .dataTables_wrapper .dataTables_filter input {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      fieldset {
+        padding: 0 1em 1em 1em !important;
+      }
+
+      legend {
+        font-size: 1em !important;
+      }
+    }
+
+    /* DataTables Pagination Styling */
+    .dataTables_wrapper .dataTables_paginate .page-link {
+
+      border: none;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .page-item .page-link {
+      color: #b30000;
+      border-color: transparent;
+      background: white;
+      border-radius: 8px;
+      margin: 0 4px;
+      transition: all 0.3s ease;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
+      color: #fff;
+      border: transparent;
+      background: #b30000 !important;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(179, 0, 0, 0.3);
+    }
+
+    .page-link:focus {
+      border-color: #b30000;
+      outline: 0;
+      -webkit-box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+    }
+
+    .dataTables_length select {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #333;
+      padding: 4px 8px;
+      background: white;
+    }
+
+    .dataTables_length span {
+      color: #b30000;
+      font-weight: 600;
+    }
+
+    .dataTables_info {
+      font-size: 13px;
+      margin-top: 8px;
+      font-weight: 500;
+      color: #b30000;
+    }
+
+    .dataTables_scrollHeadInner,
+    .table {
+      table-layout: auto;
+      width: 100% !important;
     }
 
     .switch {
@@ -267,7 +430,6 @@ try {
       background-color: #ca2222;
       -webkit-transition: .4s;
       transition: .4s;
-
     }
 
     .slider:before {
@@ -277,10 +439,9 @@ try {
       width: 20px;
       left: 4px;
       bottom: 4px;
-      background-color: #000;
+      background-color: white;
       -webkit-transition: .4s;
       transition: .4s;
-
     }
 
     input:checked+.slider {
@@ -297,10 +458,8 @@ try {
       transform: translateX(46px);
     }
 
-    /*------ ADDED CSS ---------*/
     .on {
       display: none;
-
     }
 
     .off {
@@ -314,7 +473,6 @@ try {
     }
 
     .on {
-
       color: white;
       position: absolute;
       transform: translate(-50%, -50%);
@@ -329,7 +487,6 @@ try {
     }
 
     input:checked+.slider .off {
-
       display: none;
     }
 
@@ -360,7 +517,7 @@ try {
 
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini   ">
+<body class="hold-transition sidebar-mini sidebar-collapse">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -369,26 +526,26 @@ try {
     </div>
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
+    <nav class="main-header navbar navbar-expand navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
-          <h5><a class="nav-link text-white" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></h5>
+          <h5><a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a></h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block" style="font-variant: small-caps;">
-          <h5 class="nav-link text-white"><?= $barangay ?></h5>
+          <h5 class="nav-link"><?= $barangay ?></h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white">-</h5>
+          <h5 class="nav-link">-</h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white"><?= $zone ?></h5>
+          <h5 class="nav-link"><?= $zone ?></h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white">-</h5>
+          <h5 class="nav-link">-</h5>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h5 class="nav-link text-white"><?= $district ?></h5>
+          <h5 class="nav-link"><?= $district ?></h5>
         </li>
       </ul>
 
@@ -906,7 +1063,7 @@ try {
             html: "You want delete this Official?",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#b30000',
             cancelButtonColor: '#d33',
             allowOutsideClick: false,
             confirmButtonText: 'Yes, delete it!',
@@ -939,7 +1096,7 @@ try {
                   type: 'error',
                   html: '<b>Something went wrong with ajax !<b>',
                   width: '400px',
-                  confirmButtonColor: '#6610f2',
+                  confirmButtonColor: '#b30000',
                 })
               })
             }
@@ -1037,10 +1194,10 @@ try {
           pagingType: "full_numbers",
           language: {
             paginate: {
-              next: '<i class="fas fa-angle-right text-white"></i>',
-              previous: '<i class="fas fa-angle-left text-white"></i>',
-              first: '<i class="fa fa-angle-double-left text-white"></i>',
-              last: '<i class="fa fa-angle-double-right text-white"  ></i>'
+              next: '<i class="fas fa-angle-right"></i>',
+              previous: '<i class="fas fa-angle-left"></i>',
+              first: '<i class="fa fa-angle-double-left"></i>',
+              last: '<i class="fa fa-angle-double-right"></i>'
             },
             lengthMenu: '<div class="mt-3 pr-2"> <span class="text-sm mb-3 pr-2">Rows per page:</span> <select>' +
               '<option value="10">10</option>' +

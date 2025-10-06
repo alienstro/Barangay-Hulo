@@ -87,7 +87,7 @@ try {
 
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini   ">
+<body class="hold-transition sidebar-mini sidebar-collapse   ">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -96,7 +96,7 @@ try {
     </div>
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
+    <nav class="main-header navbar navbar-expand navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">

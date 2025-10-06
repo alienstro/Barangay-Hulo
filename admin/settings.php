@@ -69,18 +69,205 @@ try {
   <link rel="stylesheet" href="../assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif !important;
+      background: white;
+      min-height: 100vh;
+    }
+
+    .content-wrapper {
+      background-color: rgba(0, 0, 0, 0.40);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay;
+      background-attachment: fixed;
+      min-height: calc(100vh - 120px);
+      padding: 40px 20px;
+    }
+
+    .card {
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: none;
+      animation: fadeInUp 0.6s ease;
+      background: white;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card-body {
+      background: white;
+      padding: 30px;
+    }
+
+    .main-header {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid #b30000;
+    }
+
+    .main-header .navbar-nav .nav-link {
+      color: #b30000 !important;
+      font-weight: 500;
+    }
+
+    .main-sidebar {
+      background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-dark-primary .nav-link {
+      color: #c2c7d0 !important;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 4px 8px;
+    }
+
+    .sidebar-dark-primary .nav-link:hover {
+      background: rgba(179, 0, 0, 0.2) !important;
+      color: white !important;
+    }
+
+    .sidebar-dark-primary .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
+    }
+
+    .bg-indigo {
+      background: #b30000 !important;
+    }
+
+    .text-red {
+      color: #b30000 !important;
+    }
+
+    .brand-link {
+      border-bottom: 2px solid #b30000;
+      padding: 20px;
+    }
+
+    .img-bordered-sm {
+      border: 4px solid #b30000 !important;
+    }
+
+    .preloader {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+    }
+
     #display_image {
       height: 200px;
       width: auto;
       max-width: 500px;
+      border: 3px solid #b30000;
+      border-radius: 12px;
+    }
+
+    /* Form Styles */
+    .form-control:focus {
+      border-color: #b30000;
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #8b0000 0%, #6a0000 100%);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 991px) {
+      .content-wrapper {
+        padding: 30px 15px;
+      }
+
+      .card-body {
+        padding: 24px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .content-wrapper {
+        padding: 20px 10px;
+        background-attachment: scroll;
+      }
+
+      .card {
+        border-radius: 20px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .form-group label {
+        font-size: 14px;
+      }
+
+      .btn {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        border-radius: 16px;
+      }
+
+      .card-body {
+        padding: 16px;
+      }
+
+      #display_image {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .card-header h3 {
+        font-size: 18px;
+      }
+
+      .form-control {
+        font-size: 14px;
+      }
+
+      .btn {
+        padding: 6px 12px;
+        font-size: 13px;
+        width: 100%;
+        margin-top: 10px;
+      }
     }
   </style>
 
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini ">
+<body class="hold-transition sidebar-mini sidebar-collapse ">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -89,7 +276,7 @@ try {
     </div>
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
+    <nav class="main-header navbar navbar-expand navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -342,7 +529,7 @@ try {
       <div class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
-            <div class="col-sm-6" style="font-variant: small-caps;">
+            <div class="col-sm-6" style="color: white; font-variant: small-caps;">
               <h3>Settings</h3>
             </div><!-- /.col -->
             <div class="col-sm-6">
@@ -485,7 +672,7 @@ try {
             type: 'warning',
             html: '<b>Please Fill-up The Blank<b>',
             width: '400px',
-            confirmButtonColor: '#6610f2',
+            confirmButtonColor: '#b30000',
           })
         } else {
           $.ajax({
@@ -500,7 +687,7 @@ try {
                 type: 'success',
                 html: '<b>Updated has Successfully<b>',
                 width: '400px',
-                confirmButtonColor: '#6610f2',
+                confirmButtonColor: '#b30000',
                 allowOutsideClick: false,
                 showConfirmButton: false,
                 timer: 2000,
@@ -514,7 +701,7 @@ try {
               type: 'error',
               html: '<b>Something went wrong with ajax !<b>',
               width: '400px',
-              confirmButtonColor: '#6610f2',
+              confirmButtonColor: '#b30000',
             })
           })
         }
@@ -538,7 +725,7 @@ try {
                 type: 'error',
                 html: '<b>Invalid Image File<b>',
                 width: '400px',
-                confirmButtonColor: '#6610f2',
+                confirmButtonColor: '#b30000',
               })
               $("#add_image").val('');
               return false;

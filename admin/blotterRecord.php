@@ -70,10 +70,134 @@ try {
   <link rel="stylesheet" href="../assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="../assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    .dark-mode .select2-selection {
-      background-color: #343a40;
-      border-color: #6c757d;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif !important;
+      background: white;
+      min-height: 100vh;
+    }
+
+    .content-wrapper {
+      background-color: rgba(0, 0, 0, 0.40);
+      background-image: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('../assets/logo/cover.JPG');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-blend-mode: overlay;
+      background-attachment: fixed;
+      min-height: calc(100vh - 120px);
+      padding: 40px 20px;
+    }
+
+    .card {
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+      border: none;
+      animation: fadeInUp 0.6s ease;
+      background: white;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card-body {
+      background: white;
+      padding: 30px;
+    }
+
+    .main-header {
+      background: rgba(255, 255, 255, 0.95) !important;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+      border-bottom: 3px solid #b30000;
+    }
+
+    .main-header .navbar-nav .nav-link {
+      color: #b30000 !important;
+      font-weight: 500;
+    }
+
+    .main-sidebar {
+      background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%) !important;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidebar-dark-primary .nav-link {
+      color: #c2c7d0 !important;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+      margin: 4px 8px;
+    }
+
+    .sidebar-dark-primary .nav-link:hover {
+      background: rgba(179, 0, 0, 0.2) !important;
+      color: white !important;
+    }
+
+    .sidebar-dark-primary .nav-link.active {
+      background: #b30000 !important;
+      color: white !important;
+    }
+
+    .bg-indigo {
+      background: #b30000 !important;
+    }
+
+    .text-red {
+      color: #b30000 !important;
+    }
+
+    .brand-link {
+      border-bottom: 2px solid #b30000;
+      padding: 20px;
+    }
+
+    .img-bordered-sm {
+      border: 4px solid #b30000 !important;
+    }
+
+    .preloader {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+    }
+
+    .table-responsive {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .table thead {
+      background: linear-gradient(135deg, #b30000 0%, #8b0000 100%) !important;
+    }
+
+    .table thead th {
+      color: white !important;
+      font-weight: 600;
+      border: none;
+      padding: 15px;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+      background-color: rgba(179, 0, 0, 0.05);
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: rgba(179, 0, 0, 0.1);
     }
 
     .modal-body {
@@ -86,147 +210,81 @@ try {
     }
 
     .modal-body::-webkit-scrollbar-thumb {
-      background: #6c757d;
-      --webkit-box-shadow: inset 0 0 6px #6c757d;
+      background: #b30000;
+      --webkit-box-shadow: inset 0 0 6px #b30000;
     }
 
     .modal-body::-webkit-scrollbar-thumb:window-inactive {
-      background: #6c757d;
+      background: #8b0000;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .dataTables_wrapper .dataTables_filter input:focus {
+      border-color: #b30000;
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+    }
+
+    .dataTables_wrapper .dataTables_filter label {
+      color: #b30000;
+      font-weight: 600;
     }
 
     .dataTables_wrapper .dataTables_paginate .page-link {
-
       border: none;
     }
 
     .dataTables_wrapper .dataTables_paginate .page-item .page-link {
-      color: #fff;
+      color: #b30000;
       border-color: transparent;
-
-
+      background: white;
+      border-radius: 8px;
+      margin: 0 4px;
+      transition: all 0.3s ease;
     }
 
     .dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
       color: #fff;
       border: transparent;
-      background: none;
+      background: #b30000 !important;
       font-weight: bold;
-      background-color: #000;
+      box-shadow: 0 2px 8px rgba(179, 0, 0, 0.3);
     }
 
     .page-link:focus {
-
+      border-color: #b30000;
       outline: 0;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-
+      -webkit-box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
+      box-shadow: 0 0 0 0.2rem rgba(179, 0, 0, 0.15);
     }
 
-
-
+    .dataTables_length select {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #333;
+      padding: 4px 8px;
+      background: white;
+    }
 
     .dataTables_length span {
-      color: #fff;
-      font-weight: 500;
-    }
-
-    .last:after {
-      display: none;
-      width: 70px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
-    }
-
-    .last:hover:after {
-      display: block;
-    }
-
-    .last:after {
-      content: "Last Page";
-    }
-
-    .first:after {
-      display: none;
-      width: 70px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
-    }
-
-    .first:hover:after {
-      display: block;
-    }
-
-    .first:after {
-      content: "First Page";
-    }
-
-    .last:after {
-      content: "Last Page";
-    }
-
-    .next:after {
-      display: none;
-      width: 70px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 0;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
-    }
-
-    .next:hover:after {
-      display: block;
-    }
-
-    .next:after {
-      content: "Next Page";
-    }
-
-    .previous:after {
-      display: none;
-      width: 80px;
-      background-color: black;
-      color: #fff;
-      text-align: center;
-      border-radius: 6px;
-      padding: 5px 5px;
-      position: absolute;
-      font-size: 10px;
-      z-index: 1;
-      margin-left: -20px;
-    }
-
-    .previous:hover:after {
-      display: block;
-    }
-
-    .previous:after {
-      content: "Previous Page";
+      color: #b30000;
+      font-weight: 600;
     }
 
     .dataTables_info {
       font-size: 13px;
       margin-top: 8px;
       font-weight: 500;
-      color: #fff;
+      color: #b30000;
     }
 
     .dataTables_scrollHeadInner,
@@ -234,11 +292,127 @@ try {
       table-layout: auto;
       width: 100% !important;
     }
+
+    /* Responsive Design */
+    @media (max-width: 991px) {
+      .content-wrapper {
+        padding: 30px 15px;
+      }
+
+      .card-body {
+        padding: 24px;
+      }
+
+      .table thead th {
+        padding: 12px 8px;
+        font-size: 14px;
+      }
+
+      .table tbody td {
+        padding: 10px 8px;
+        font-size: 13px;
+      }
+
+      .modal-body {
+        height: 70vh;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .content-wrapper {
+        padding: 20px 10px;
+        background-attachment: scroll;
+      }
+
+      .card {
+        border-radius: 20px;
+      }
+
+      .card-body {
+        padding: 20px;
+      }
+
+      .table-responsive {
+        font-size: 12px;
+      }
+
+      .table thead th,
+      .table tbody td {
+        padding: 8px 6px;
+        font-size: 12px;
+      }
+
+      .btn {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .dataTables_wrapper .dataTables_filter input {
+        width: 100%;
+        max-width: 200px;
+      }
+
+      .dataTables_length,
+      .dataTables_info {
+        font-size: 12px;
+      }
+
+      .modal-dialog {
+        margin: 10px;
+      }
+
+      .modal-body {
+        height: 60vh;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        border-radius: 16px;
+      }
+
+      .card-body {
+        padding: 16px;
+      }
+
+      .card-header h3 {
+        font-size: 18px;
+      }
+
+      .table thead th,
+      .table tbody td {
+        padding: 6px 4px;
+        font-size: 11px;
+      }
+
+      .btn {
+        padding: 5px 10px;
+        font-size: 11px;
+      }
+
+      .dataTables_wrapper .dataTables_filter input {
+        padding: 6px 12px;
+        font-size: 12px;
+      }
+
+      .form-control {
+        font-size: 14px;
+      }
+
+      .modal-body {
+        height: 50vh;
+        padding: 15px;
+      }
+
+      .modal-header h4 {
+        font-size: 16px;
+      }
+    }
   </style>
 
 </head>
 
-<body class="hold-transition dark-mode sidebar-mini   layout-footer-fixed">
+<body class="hold-transition sidebar-mini sidebar-collapse   layout-footer-fixed">
   <div class="wrapper">
 
     <!-- Preloader -->
@@ -247,7 +421,7 @@ try {
     </div>
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-dark">
+    <nav class="main-header navbar navbar-expand navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -520,7 +694,7 @@ try {
 
           <div class="card">
             <div class="card-header border-transparent">
-              <h3 class="card-title">Lis of Records</h3>
+              <h3 class="card-title">List of Records</h3>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool bg-black btn-flat" id="addRecord" data-toggle="modal" data-target="#blotterRecordModal">
                   <i class="fas fa-plus"></i> New Record
@@ -838,7 +1012,7 @@ try {
             type: 'error',
             html: '<b>Something went wrong with ajax !<b>',
             width: '400px',
-            confirmButtonColor: '#6610f2',
+            confirmButtonColor: '#b30000',
           })
         })
       })
@@ -896,7 +1070,7 @@ try {
               type: 'error',
               html: '<b>Something went wrong with ajax !<b>',
               width: '400px',
-              confirmButtonColor: '#6610f2',
+              confirmButtonColor: '#b30000',
             })
           })
 
@@ -925,7 +1099,7 @@ try {
                 type: 'error',
                 html: '<b>Complainant is Required<b>',
                 width: '400px',
-                confirmButtonColor: '#6610f2',
+                confirmButtonColor: '#b30000',
               })
               return false;
             }
@@ -936,7 +1110,7 @@ try {
                 type: 'error',
                 html: '<b>Complainant is Statement Required<b>',
                 width: '400px',
-                confirmButtonColor: '#6610f2',
+                confirmButtonColor: '#b30000',
               })
               return false;
             }
@@ -947,7 +1121,7 @@ try {
                 type: 'error',
                 html: '<b>Person Involved is Required<b>',
                 width: '400px',
-                confirmButtonColor: '#6610f2',
+                confirmButtonColor: '#b30000',
               })
               return false;
             }
@@ -958,7 +1132,7 @@ try {
                 type: 'error',
                 html: '<b>Person Involved Statement is Required<b>',
                 width: '400px',
-                confirmButtonColor: '#6610f2',
+                confirmButtonColor: '#b30000',
               })
               return false;
             }
@@ -975,7 +1149,7 @@ try {
                   type: 'success',
                   html: '<b>Added Record Blotter has Successfully<b>',
                   width: '400px',
-                  confirmButtonColor: '#6610f2',
+                  confirmButtonColor: '#b30000',
                   allowOutsideClick: false,
                   showConfirmButton: false,
                   timer: 2000,
@@ -995,7 +1169,7 @@ try {
                 type: 'error',
                 html: '<b>Something went wrong with ajax !<b>',
                 width: '400px',
-                confirmButtonColor: '#6610f2',
+                confirmButtonColor: '#b30000',
               })
             })
 
@@ -1153,7 +1327,7 @@ try {
             type: 'error',
             html: '<b>Something went wrong with ajax !<b>',
             width: '400px',
-            confirmButtonColor: '#6610f2',
+            confirmButtonColor: '#b30000',
           })
         })
 
@@ -1182,7 +1356,7 @@ try {
             html: '<b>Please Select Record to Delete!<b>',
             type: "info",
             showConfirmButton: false,
-            confirmButtonColor: '#6610f2',
+            confirmButtonColor: '#b30000',
             width: '400px',
             showConfirmButton: true,
             allowOutsideClick: false,
@@ -1194,7 +1368,7 @@ try {
             html: "<b>You want delete selected Record?</b>",
             type: 'info',
             showCancelButton: true,
-            confirmButtonColor: '#6610f2',
+            confirmButtonColor: '#b30000',
             width: '400px',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!',
@@ -1231,7 +1405,7 @@ try {
                   title: 'Ooppss...',
                   text: 'Something went wrong with ajax !',
                   type: 'error',
-                  confirmButtonColor: '#6610f2',
+                  confirmButtonColor: '#b30000',
                   allowOutsideClick: false,
                   width: '400px',
                 })
