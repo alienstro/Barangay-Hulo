@@ -25,21 +25,31 @@ try{
 
 
   
-  $sql = "SELECT  official_status.position, official_status.voters, official_status.status, official_status.pwd_info, official_status.single_parent,  official_information.official_id, official_information.first_name, official_information.middle_name, official_information.last_name, official_information.first_name,
-  image, official_information.image_path, position.color,   position.position as official_position FROM official_status
+  // Base select SQL
+  $baseSql = "FROM official_status
   INNER JOIN official_information ON official_status.official_id = official_information.official_id
-  INNER JOIN position ON official_status.position = position.position_id" .$where;
-  if($_REQUEST['search']['value']){
-    $sql .= " AND (first_name LIKE '%" . $_REQUEST['search']['value']. "%' ";
-    $sql .= " OR last_name LIKE '%" . $_REQUEST['search']['value']. "%' ";
-    $sql .= " OR status LIKE '%" . $_REQUEST['search']['value']. "%' )";
-   
+  INNER JOIN position ON official_status.position = position.position_id";
+
+  // Build where/search clauses
+  $search = '';
+  if(!empty($_REQUEST['search']['value'])){
+    $val = $con->real_escape_string($_REQUEST['search']['value']);
+    $search = " AND (official_information.first_name LIKE '%$val%' OR official_information.last_name LIKE '%$val%' OR official_information.official_id LIKE '%$val%' OR official_status.status LIKE '%$val%')";
   }
 
-  $stmt = $con->prepare($sql) or die ($con->error);
-  $stmt->execute();
-  $stmt->get_result();
-  $totalData = $stmt->num_rows;
+  // Full where including position filter
+  $fullWhere = $where . $search;
+
+  // Get total records (without LIMIT)
+  $countSql = "SELECT COUNT(*) as cnt " . $baseSql . $fullWhere;
+  $countStmt = $con->prepare($countSql) or die($con->error);
+  $countStmt->execute();
+  $countResult = $countStmt->get_result();
+  $countRow = $countResult->fetch_assoc();
+  $totalData = intval($countRow['cnt']);
+
+  // Main select (add fields)
+  $sql = "SELECT official_status.position, official_status.voters, official_status.status, official_status.pwd_info, official_status.single_parent, official_information.official_id, official_information.first_name, official_information.middle_name, official_information.last_name, official_information.first_name, image, official_information.image_path, position.color, position.position as official_position " . $baseSql . $fullWhere;
 
 
 

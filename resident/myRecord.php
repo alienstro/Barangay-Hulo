@@ -252,7 +252,7 @@ try{
       border-bottom: 1px solid #f0f0f0 !important;
       border-left: none !important;
       border-right: none !important;
-      color: white !important;
+      color: #000 !important;
       font-weight: 500;
     }
 
@@ -875,7 +875,7 @@ var blotterPersonTable = $("#myRecordTable").DataTable({
   },
         fnRowCallback: function( nRow, aData, iDisplayIndex, iDisplayIndexFull ) {
           if ( aData[0] == "1" )  {
-          $('td', nRow).css('background-color', '#20c997');
+          $('td', nRow).css('background-color', '##2596be');
         
         }else {
           $('td', nRow).css('background-color', '#000');

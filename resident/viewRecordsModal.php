@@ -153,13 +153,13 @@ try{
                   <div class="col-sm-12 ">
                     <div class="form-group form-group-sm">
                       <label>Complainant Not Resident</label>
-                      <textarea name="edit_complainant_not_residence" disabled id="edit_complainant_not_residence" cols="57"  class="bg-transparent text-white form-control"><?= $row_record_blotter['complainant_not_residence'] ?></textarea>
+                      <textarea name="edit_complainant_not_residence" disabled id="edit_complainant_not_residence" cols="57"  class="form-control text-dark"><?= $row_record_blotter['complainant_not_residence'] ?></textarea>
                     </div>
                   </div>
                   <div class="col-sm-12 ">
                     <div class="form-group form-group-sm">
                       <label>Complainant Statement</label>
-                      <textarea name="edit_complainant_statement" disabled id="edit_complainant_statement" cols="57" rows="3" class="bg-transparent text-white form-control"><?= $row_record_blotter['statement'] ?></textarea>
+                      <textarea name="edit_complainant_statement" disabled id="edit_complainant_statement" cols="57" rows="3" class="form-control text-dark"><?= $row_record_blotter['statement'] ?></textarea>
                     </div>
                   </div>
                   <div class="col-sm-12 ">
@@ -234,13 +234,13 @@ try{
                   <div class="col-sm-12 ">
                     <div class="form-group form-group-sm">
                       <label>Person Involved Not Resident</label>
-                      <textarea name="edit_person_involevd_not_resident" disabled  id="edit_person_involevd_not_resident" cols="57"  class="bg-transparent text-white form-control"><?= $row_record_blotter['involved_not_resident'] ?></textarea>
+                      <textarea name="edit_person_involevd_not_resident" disabled  id="edit_person_involevd_not_resident" cols="57"  class="form-control text-dark"><?= $row_record_blotter['involved_not_resident'] ?></textarea>
                     </div>
                   </div> 
                   <div class="col-sm-12 ">
                     <div class="form-group form-group-sm">
                       <label>Person Involved Statement</label>
-                      <textarea name="edit_person_statement" disabled id="edit_person_statement" cols="57" rows="3" class="bg-transparent text-white form-control"><?= $row_record_blotter['statement_person'] ?></textarea>
+                      <textarea name="edit_person_statement" disabled id="edit_person_statement" cols="57" rows="3" class="form-control text-dark"><?= $row_record_blotter['statement_person'] ?></textarea>
                     </div>
                   </div>
                   <div class="col-sm-6">

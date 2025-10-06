@@ -32,12 +32,13 @@ if($count > 0){
     if($password == $checkPassword){
 
       // Check if email verification is required (only for residents with email)
-      if($user_type == 'resident' && !empty($user_email) && $is_verified == 0){
-        // User needs to verify email first
-        $_SESSION['pending_verification_user_id'] = $user_id;
-        $_SESSION['pending_verification_email'] = $user_email;
-        exit('unverified');
-      }
+      // If the account has an email and is not yet verified, require verification before allowing login
+      if(!empty($user_email) && $is_verified == 0){
+          // User needs to verify email first
+          $_SESSION['pending_verification_user_id'] = $user_id;
+          $_SESSION['pending_verification_email'] = $user_email;
+          exit('unverified');
+        }
 
       $_SESSION['user_id'] = $user_id;
       $_SESSION['username'] = $checkUsername;

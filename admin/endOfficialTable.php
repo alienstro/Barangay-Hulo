@@ -8,61 +8,83 @@ try{
 
   $position = $con->real_escape_string($_REQUEST['position']);
 
-  $whereClause = [];
+  // We'll return all officials by combining active (official_status) and ended (official_end_status)
+  // Each SELECT must return the same columns so they can be UNIONed together.
+  $selects = [];
 
-  if(!empty($position))
-    $whereClause[] = "official_end_status.position='".$position."'";
+  $selects[] = "SELECT s.position, s.voters, s.status, info.official_id, info.first_name, info.middle_name, info.last_name, info.image, info.image_path, s.single_parent, s.pwd_info, position.color, position.position as official_position, s.term_to FROM official_status s INNER JOIN official_information info ON s.official_id = info.official_id INNER JOIN position ON s.position = position.position_id";
 
-    $where = '';
+  $selects[] = "SELECT es.position, es.voters, es.status, einfo.official_id, einfo.first_name, einfo.middle_name, einfo.last_name, einfo.image, einfo.image_path, es.single_parent, es.pwd_info, position.color, position.position as official_position, es.term_to FROM official_end_status es INNER JOIN official_end_information einfo ON es.official_id = einfo.official_id INNER JOIN position ON es.position = position.position_id";
 
-    if(count($whereClause) > 0)
-    $where .= ' WHERE ' .implode(' AND ', $whereClause);
-
-
-
-
-  
-    $sql = "SELECT  official_end_status.position, official_end_status.voters, official_end_status.status, official_end_information.official_id, official_end_information.first_name, official_end_information.middle_name, official_end_information.last_name, official_end_information.first_name,
-    image, official_end_information.image_path, official_end_status.single_parent, official_end_status.pwd_info, position.color,   position.position as official_position FROM official_end_status
-    INNER JOIN official_end_information ON official_end_status.official_id = official_end_information.official_id
-    INNER JOIN position ON official_end_status.position = position.position_id" .$where;
-  if($_REQUEST['search']['value']){
-    $sql .= " AND (first_name LIKE '%" . $_REQUEST['search']['value']. "%' ";
-    $sql .= " OR last_name LIKE '%" . $_REQUEST['search']['value']. "%' ";
-    $sql .= " OR official_end_information.official_id LIKE '%" . $_REQUEST['search']['value']. "%' ";
-    $sql .= " OR status LIKE '%" . $_REQUEST['search']['value']. "%' )";
-   
+  // If position filter is provided, add it to each select
+  if(!empty($position)){
+    for($i=0;$i<count($selects);$i++){
+      if(strpos($selects[$i], 'FROM official_status s') !== false){
+        $selects[$i] .= " WHERE s.position='".$position."'";
+      }else{
+        $selects[$i] .= " WHERE es.position='".$position."'";
+      }
+    }
   }
 
-  $stmt = $con->prepare($sql) or die ($con->error);
+  // Combine
+  $baseSql = implode(' UNION ALL ', $selects);
+
+  // Get total records (without filtering)
+  $countSql = "SELECT COUNT(*) as cnt FROM (".$baseSql.") as t";
+  $stmt = $con->prepare($countSql) or die ($con->error);
   $stmt->execute();
-  $stmt->get_result();
-  $totalData = $stmt->num_rows;
+  $resCount = $stmt->get_result()->fetch_assoc();
+  $totalData = intval($resCount['cnt']);
 
+  // Apply search filter if present
+  $whereSearch = '';
+  if(isset($_REQUEST['search']['value']) && $_REQUEST['search']['value'] != ''){
+    $search = $con->real_escape_string($_REQUEST['search']['value']);
+    $whereSearch = " WHERE (t.first_name LIKE '%".$search."%' OR t.last_name LIKE '%".$search."%' OR t.official_id LIKE '%".$search."%' OR t.status LIKE '%".$search."%') ";
+  }
 
+  // Count after filtering
+  $countFilteredSql = "SELECT COUNT(*) as cnt FROM (".$baseSql.") as t ". $whereSearch;
+  $stmt = $con->prepare($countFilteredSql) or die ($con->error);
+  $stmt->execute();
+  $resFiltered = $stmt->get_result()->fetch_assoc();
+  $totalFiltered = intval($resFiltered['cnt']);
 
+  // Build final data query with optional ordering and limit
+  $dataSql = "SELECT * FROM (".$baseSql.") as t ". $whereSearch;
+
+  // Map DataTable column index to actual column names in derived table 't'
+  $columns = [
+    0 => 'image',
+    1 => 'official_position',
+    2 => 'official_id',
+    3 => 'last_name',
+    4 => 'pwd_info',
+    5 => 'single_parent',
+    6 => 'voters',
+    7 => 'term_to',
+    8 => 'status',
+    9 => 'official_id'
+  ];
 
   if(isset($_REQUEST['order'])){
-    $sql .= ' ORDER BY '.
-    $_REQUEST['order']['0']['column'].
-    ' '.
-    $_REQUEST['order']['0']['dir'].
-    ' ';
-  }else{
-    $sql .= ' ORDER BY position DESC ';
+    $colIndex = intval($_REQUEST['order']['0']['column']);
+    $colDir = $_REQUEST['order']['0']['dir'] === 'asc' ? 'ASC' : 'DESC';
+    $orderBy = isset($columns[$colIndex]) ? $columns[$colIndex] : 'position';
+    $dataSql .= ' ORDER BY t.'.$orderBy.' '.$colDir.' ';
+  } else {
+    $dataSql .= ' ORDER BY t.position DESC ';
   }
 
   if($_REQUEST['length'] != -1){
-    $sql .= ' LIMIT '.
-    $_REQUEST['start'].
-    ' ,'.
-    $_REQUEST['length'].
-    ' ';
+    $start = intval($_REQUEST['start']);
+    $length = intval($_REQUEST['length']);
+    $dataSql .= ' LIMIT '.$start.' , '.$length.' ';
   }
 
-  $stmt = $con->prepare($sql) or die ($con->error);
+  $stmt = $con->prepare($dataSql) or die ($con->error);
   $stmt->execute();
-  
   $result = $stmt->get_result();
   $data = [];
 
@@ -121,6 +143,8 @@ try{
   $subdata[] = $row['pwd_info'];
   $subdata[] = $single_parent;
   $subdata[] = $voters;
+  // Term To column (display raw term_to as stored)
+  $subdata[] = $row['term_to'];
   $subdata[] = $status;
   $subdata[] = '<a href="viewEndOfficial.php?request='.$row['official_id'].'" style="cursor: pointer;  color: yellow;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" class="fa fa-user-edit text-lg px-3 "></a>
   <i style="cursor: pointer;  color: red;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" class="fa fa-times text-lg px-2 deleteOfficial" id="'.$row['official_id'].'"></i>';
@@ -131,7 +155,7 @@ try{
   $json_data = [
     'draw' => intval($_REQUEST['draw']),
     'recordsTotal' => intval($totalData),
-    'recordsFiltered' => intval($totalData),
+    'recordsFiltered' => intval($totalFiltered),
     'data' => $data,
     'total' => number_format($totalData),
   ];

@@ -784,7 +784,7 @@ $postal_address = "Barangay Hulo, Mandaluyong City";
         <div class="hero-content">
           <img src="assets/logo/LogoHulo.PNG" alt="Barangay Logo" class="hero-logo">
           <h1 class="hero-title">Barangay Hulo</h1>
-          <p class="hero-subtitle">Mandaluyong City • Zone 4 • Serving Our Community</p>
+          <p class="hero-subtitle">Mandaluyong City • Serving Our Community</p>
           <div class="hero-buttons">
             <a href="register.php" class="btn-hero btn-primary-hero">
               <i class="fas fa-user-plus"></i> Register Now

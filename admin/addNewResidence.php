@@ -50,6 +50,21 @@ $add_image = $con->real_escape_string($_FILES['add_image']['name']);
 $add_status = 'ACTIVE';
 $user_type = 'resident';
 $password = $date->format("mdYHisv");
+
+// Allow admin to optionally specify an initial password (plain text, per request)
+if (isset($_POST['add_password']) && trim($_POST['add_password']) !== '') {
+  $posted_password = $con->real_escape_string($_POST['add_password']);
+} else {
+  $posted_password = '';
+}
+
+// Username submitted from form (required)
+if(isset($_POST['add_username']) && trim($_POST['add_username']) !== ''){
+  $add_username = $con->real_escape_string($_POST['add_username']);
+}else{
+  echo json_encode(array('status' => 'error', 'message' => 'Username is required'));
+  exit;
+}
 if(isset($add_image)){
   if($add_image != '' || $add_image != null || !empty($add_image)){
     $type = explode('.', $add_image);
@@ -77,6 +92,40 @@ if($add_age_date == '0'){
   $age_add = '';
 }else{
   $age_add = $add_age_date;
+}
+
+// Server-side email validation and duplicate check (before any inserts)
+if (!empty($add_email_address)) {
+  // validate format
+  if (!filter_var($add_email_address, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode(array('status' => 'error', 'message' => 'Invalid email address'));
+    exit;
+  }
+
+  // check users table for duplicate email
+  $checkEmailSql = "SELECT `id` FROM `users` WHERE `email` = ? LIMIT 1";
+  $checkEmailStmt = $con->prepare($checkEmailSql) or die($con->error);
+  $checkEmailStmt->bind_param('s', $add_email_address);
+  $checkEmailStmt->execute();
+  $checkEmailStmt->store_result();
+  if ($checkEmailStmt->num_rows > 0) {
+    echo json_encode(array('status' => 'error', 'message' => 'Email already in use'));
+    exit;
+  }
+  $checkEmailStmt->close();
+
+  // check residence_information for duplicate email
+  $checkResSql = "SELECT `residence_id` FROM `residence_information` WHERE `email_address` = ? LIMIT 1";
+  $checkResStmt = $con->prepare($checkResSql) or die($con->error);
+  $checkResStmt->bind_param('s', $add_email_address);
+  $checkResStmt->execute();
+  $checkResStmt->store_result();
+  if ($checkResStmt->num_rows > 0) {
+    echo json_encode(array('status' => 'error', 'message' => 'Email already in use'));
+    exit;
+  }
+  $checkResStmt->close();
+
 }
 
 
@@ -120,15 +169,30 @@ $stmt_residence_status->bind_param('sssssssss',$number,$add_status,$add_voters,$
 $stmt_residence_status->execute();
 $stmt_residence_status->close();
 
-
-// Server-side email validation: allow empty, but if provided must be valid
 if(!empty($add_email_address) && !filter_var($add_email_address, FILTER_VALIDATE_EMAIL)){
-  exit('errorEmail');
+  echo json_encode(array('status' => 'error', 'message' => 'Invalid email address'));
+  exit;
 }
 
 $sql_add_user = "INSERT INTO `users`(`id`, `first_name`, `middle_name`, `last_name`, `username`, `password`, `user_type`, `contact_number`, `email`, `image`,`image_path`) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+
+$username_to_use = $add_username;
+
+// Check username uniqueness
+$checkSql = "SELECT `id` FROM `users` WHERE `username` = ? LIMIT 1";
+$checkStmt = $con->prepare($checkSql) or die($con->error);
+$checkStmt->bind_param('s', $username_to_use);
+$checkStmt->execute();
+$checkResult = $checkStmt->get_result();
+if($checkResult && $checkResult->num_rows > 0){
+  echo json_encode(array('status' => 'error', 'message' => 'Username already exists'));
+  exit;
+}
+$checkStmt->close();
+
 $stmt_user = $con->prepare($sql_add_user) or die ($con->error);
-$stmt_user->bind_param('sssssssssss',$number,$add_first_name,$add_middle_name,$add_last_name,$number,$password,$user_type,$add_contact_number,$add_email_address,$new_image_name,$new_image_path);
+$password_to_store = $posted_password !== '' ? $posted_password : $password;
+$stmt_user->bind_param('sssssssssss',$number,$add_first_name,$add_middle_name,$add_last_name,$username_to_use,$password_to_store,$user_type,$add_contact_number,$add_email_address,$new_image_name,$new_image_path);
 $stmt_user->execute();
 $stmt_user->close();
 
@@ -144,13 +208,20 @@ $date_activity = $now = date("j-n-Y g:i A");
   $stmt_activity_log->bind_param('sss',$admin,$date_activity,$status_activity_log);
   $stmt_activity_log->execute();
   $stmt_activity_log->close();
+
+  $resp = array(
+    'status' => 'ok',
+    'username' => $username_to_use,
+    'password' => $password_to_store
+  );
+  echo json_encode($resp);
   
 
 
 
 
 }catch(Exception $e){
-  echo $e->getMessage();
+  echo json_encode(array('status' => 'error', 'message' => $e->getMessage()));
 }
 
 

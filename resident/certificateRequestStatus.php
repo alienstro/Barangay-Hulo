@@ -93,21 +93,10 @@ try{
   }
 
   .profile-header-modern {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+     background: linear-gradient(135deg, rgba(179, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.7) 100%);
     padding: 40px 30px;
     text-align: center;
     position: relative;
-  }
-
-  .profile-header-modern::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-    animation: rotate 20s linear infinite;
   }
 
   @keyframes rotate {

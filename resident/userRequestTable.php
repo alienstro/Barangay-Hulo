@@ -84,8 +84,8 @@ try{
       if($row_request['date_expired'] <= $date_today){
         $tools = '  <i  style="cursor: pointer;  color: red;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" class="fas fa-times-circle text-lg px-2 acceptStatus" id="'.$row_request['residence_id'].'" data-id="'.$row_request['id'].'" data-toggle="tooltip" data-placement="left" title="Expired"></i>';
       }else{
-        $tools = '<a href="printRequest.php?request='.$row_request['residence_id'].'&purpose='.$row_request['id'].'" target="_blank"  style="cursor: pointer;  color: pink;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" class="fas fa-print text-lg px-2 printRequest"  data-toggle="tooltip" data-placement="left" title="Print"> </a>
-        <i  style="cursor: pointer;  color: lime;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" class="fas fa-check text-lg px-2 acceptStatus" id="'.$row_request['residence_id'].'" data-id="'.$row_request['id'].'" data-toggle="tooltip" data-placement="left" title="View Record"></i>';
+  // Removed print link; keep only the record/view action
+  $tools = '<i  style="cursor: pointer;  color: lime;  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;" class="fas fa-check text-lg px-2 acceptStatus" id="'.$row_request['residence_id'].'" data-id="'.$row_request['id'].'" data-toggle="tooltip" data-placement="left" title="View Record"></i>';
       }
 
      

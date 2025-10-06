@@ -154,7 +154,13 @@ try {
     <aside class="main-sidebar sidebar-dark-primary elevation-4 sidebar-no-expand">
       <!-- Brand Logo -->
       <div class="brand-link text-center">
-        <img src="../assets/logo/LogoHulo.JPG" id="logo_image" class="img-circle elevation-5 img-bordered-sm" alt="Barangay Hulo Logo" style="width: 150px; height: 150px;">
+        <?php
+        if ($image != '' || $image != null || !empty($image)) {
+          echo '<img src="' . $image_path . '" id="logo_image" class="img-circle elevation-5 img-bordered-sm" alt="Barangay Logo" style="width: 150px; height: 150px;">';
+        } else {
+          echo '<img src="../assets/logo/blank.png" id="logo_image" class="img-circle elevation-5 img-bordered-sm" alt="Barangay Logo" style="width: 150px; height: 150px;">';
+        }
+        ?>
         <span class="brand-text font-weight-light"></span>
       </div>
 
